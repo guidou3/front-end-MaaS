@@ -1,15 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import App from './modules/App'
 import Login from './modules/Login'
 import SignIn from './modules/SignIn'
 import Home from './modules/Home'
 import Provider from './modules/Provider'
-import counter from './modules/reducers/SignIn'
+import rootReducer from './modules/reducers/RootReducer'
+import createLogger from 'redux-logger'
 
-const store = createStore(counter)
+const logger = createLogger()
+const store = createStore(
+	rootReducer,
+	applyMiddleware(logger)
+)
 const rootEl = document.getElementById('app')
 
 function render() {

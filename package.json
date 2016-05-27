@@ -1,18 +1,16 @@
 {
-  "name": "tutorial",
-  "version": "1.0.0",
-  "description": "Perhaps the most used component in your app is `Link`. Its almost identical to the `<a/>` tag you're used to except that its aware of the `Router` it was rendered in.",
+  "name": "client_maas",
+  "version": "0.0.1",
+  "description": "Client dell'applicazione MaaS",
   "main": "index.js",
-  "scripts": {
-    "start": "webpack-dev-server --inline --content-base . --history-api-fallback"
-  },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-	"redux": "^3.5.2",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-router": "^2.0.0"
+    "react-router": "^2.0.0",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
+    "redux-promise-middleware": "^3.0.0",
+    "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",
@@ -22,5 +20,18 @@
     "http-server": "^0.8.5",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1"
-  }
+  },
+  "scripts": {
+    "start": "webpack-dev-server --inline --content-base . --history-api-fallback"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guidou3/front-end-MaaS.git"
+  },
+  "author": "matrioska.io",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guidou3/front-end-MaaS/issues"
+  },
+  "homepage": "https://github.com/guidou3/front-end-MaaS#readme"
 }
