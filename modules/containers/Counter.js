@@ -18,8 +18,6 @@ class Counter extends Component {
   }
 
   render() {
-    const { store } = this.context
-    const state = store.getState()
     const { value, onIncrement, onDecrement } = this.props
     return (
       <p>
@@ -43,10 +41,6 @@ class Counter extends Component {
       </p>
     )
   }
-}
-
-Counter.contextTypes = {
-  store : React.PropTypes.object
 }
 
 Counter.propTypes = {

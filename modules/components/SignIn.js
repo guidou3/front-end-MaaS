@@ -7,9 +7,9 @@ class SignIn extends Component {
     const { store } = this.context
     return (
   	  <div>
-        <h2>Login</h2>
+        <h2>SignIn</h2>
   		  <Counter
-          value={store.getState()}
+          value={store.getState().basicReducer}
           onIncrement={() => store.dispatch( actions.incrementCounter() )}
           onDecrement={() => store.dispatch( actions.decrementCounter() )}
         />
