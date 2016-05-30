@@ -1,6 +1,6 @@
-
 import React, { Component, PropTypes } from 'react'
 import Counter from '../containers/Counter'
+import * as actions from '../actions/RootAction'
 
 class SignIn extends Component {
   render() {
@@ -10,8 +10,8 @@ class SignIn extends Component {
         <h2>Login</h2>
   		  <Counter
           value={store.getState()}
-          onIncrement={() => store.dispatch({ type: 'INCREMENT' })}
-          onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
+          onIncrement={() => store.dispatch( actions.incrementCounter() )}
+          onDecrement={() => store.dispatch( actions.decrementCounter() )}
         />
       </div>
   	)
