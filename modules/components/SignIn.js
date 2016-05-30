@@ -1,6 +1,6 @@
 
 import React, { Component, PropTypes } from 'react'
-import Counter from './Counter'
+import Counter from './containers/Counter'
 
 class SignIn extends Component {
   render() {
