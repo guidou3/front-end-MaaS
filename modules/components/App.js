@@ -6,18 +6,20 @@ import Home from './Home'
 class App extends Component {
   render() {
     return (
-      <div>
-		  <h1> MaaS: MongoDB as an admin Service </h1>
-		  <div id="mainmenu">
+      <div id="header">
+		<div id="headerText">
+			<h1>MaaS: MongoDB as an admin Service</h1>
+        </div>
+		<div id="mainmenu">
 			<ul role="nav" id="menu">
 				<li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>
 				<li><NavLink to="/signIn">Sign in</NavLink ></li>
 				<li><NavLink to="/login">Login</NavLink ></li>
 			</ul>
-		   </div>
-		   <div id="content">
+		</div>
+		<div id="content">
 			{this.props.children || <Home/>}
-		  </div>
+		</div>
       </div>
     )
   }
