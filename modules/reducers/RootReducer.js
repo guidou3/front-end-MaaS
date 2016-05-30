@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
-export default combineReducers({
+export default function rootReducer(state = 0, action) {
+	combineReducers({
 		basicReducer,
 		routing: routerReducer
 	})
 	
+}
 
 export default function basicReducer(state = 0, action) {
   switch (action.type) {

@@ -9,14 +9,14 @@ import Login from './modules/components/Login'
 import SignIn from './modules/components/SignIn'
 import Home from './modules/components/Home'
 import Provider from './modules/components/Provider'
-import reducer from './modules/reducers/RootReducer'
+import rootReducer from './modules/reducers/RootReducer'
 
 import createLogger from 'redux-logger'
 
 const goto = routerMiddleware(browserHistory)
 const logger = createLogger()
 const store = createStore(
-	reducer,
+	rootReducer,
 	applyMiddleware(goto, logger)
 )
 
