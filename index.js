@@ -7,20 +7,18 @@ import { syncHistoryWithStore, routerReducer, routerMiddleware, push } from 'rea
 import App from './modules/components/App'
 import Login from './modules/components/Login'
 import SignIn from './modules/components/SignIn'
+import Companies from './modules/components/Companies'
 import Home from './modules/components/Home'
 import Provider from './modules/components/Provider'
-import basicReducer from './modules/reducers/RootReducer'
+import rootReducer from './modules/reducers/RootReducer'
 
 import createLogger from 'redux-logger'
 
 const goto = routerMiddleware(browserHistory)
 const logger = createLogger()
 const store = createStore(
-	combineReducers({
-		basicReducer,
-		routing: routerReducer
-	}),
-	applyMiddleware(goto, logger)
+		rootReducer,
+		applyMiddleware(goto, logger)
 )
 
 // Create an enhanced history that syncs navigation events with the store
@@ -36,6 +34,7 @@ function render() {
 					<IndexRoute component={Home}/>
 					<Route path="/signIn" component={SignIn}/>
 					<Route path="/login" component={Login}/>
+					<Route path="/companies" component={Companies}/>
 				</Route>
 			</Router>
 		</Provider>,

@@ -15,6 +15,7 @@ class App extends Component {
 				<li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>
 				<li><NavLink to="/signIn">Sign in</NavLink ></li>
 				<li><NavLink to="/login">Login</NavLink ></li>
+				<li><NavLink to="/companies">Companies</NavLink ></li>
 			</ul>
 		</div>
 		<div id="content">
