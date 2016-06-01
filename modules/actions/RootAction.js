@@ -9,16 +9,18 @@ export function decrementCounter(){
 }
 
 export function updateCompanies(json){
-  return { type: 'UPDATE_COMPANIES',
+  return { type: 'RECEIVED_COMPANIES',
            companies : json
   }
 }
 
-export function getCompanies(){
+export function getCompanies(store){
+  //return updateCompanies(fetch('http://www.zinoo.it:3000/api/aziende').then(response => response.json()))
   const promise = fetch('http://www.zinoo.it:3000/api/aziende').then(response => response.json())
-  promise.resolve("Success").then(function(value) {
-    console.log(value); // "Success"
-  }, function(value) {
-  // not called
-});
+  let result = 0
+  Promise.resolve(promise).then(function(value) {
+    store.dispatch(updateCompanies(value))
+  }
+)
+  return { type: 'REQUESTED_COMPANIES' }
 }

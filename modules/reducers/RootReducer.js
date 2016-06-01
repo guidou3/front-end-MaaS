@@ -21,7 +21,7 @@ export default function counterReducer(state = 0, action) {
 
 export default function companiesReducer(state = 0, action) {
 	switch (action.type) {
-    case 'UPDATE_COMPANIES':
+    case 'RECEIVED_COMPANIES':
       return action.companies
     default:
       return state

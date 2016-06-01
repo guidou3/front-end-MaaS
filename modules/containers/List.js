@@ -9,14 +9,14 @@ class List extends Component {
   render() {
     const { store } = this.context
     const state = store.getState().companies
-    const update = () => store.dispatch( actions.getCompanies() )
+    const update = () => store.dispatch( actions.getCompanies(store) )
     return (
       <p>
         Companies
         <button onClick={update}>
           Update
         </button>
-          {state}
+          {JSON.stringify(state)}
       </p>
     )
   }
