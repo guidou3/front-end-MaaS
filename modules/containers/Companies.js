@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import List from '../containers/List'
+import List from '../components/List'
 
 class Companies extends Component {
   render() {

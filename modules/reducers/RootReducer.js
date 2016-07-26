@@ -4,6 +4,8 @@ import { routerReducer } from 'react-router-redux'
 export default combineReducers({
 		count: counterReducer,
 		companies : companiesReducer,
+		auth : authReducer,
+		sys : systemReducer,
 		routing: routerReducer
 	})
 
@@ -25,5 +27,24 @@ export default function companiesReducer(state = 0, action) {
       return action.companies
     default:
       return state
+  }
+}
+
+
+export default function authReducer(state = 0, action) {
+	switch (action.type) {
+    case 'AT':
+      return state
+    default:
+      return state
+  }
+}
+
+export default function systemReducer(state = '', action) {
+	switch (action.type) {
+    case 'ERR':
+      return action.err
+    default:
+      return ''
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import Counter from '../containers/Counter'
+import Counter from '../components/Counter'
 import * as actions from '../actions/RootAction'
 import { routerMiddleware, push } from 'react-router-redux'
 

@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import request from 'superagent'
 
 export function incrementCounter(){
   return { type: 'INCREMENT' }
@@ -14,13 +14,32 @@ export function updateCompanies(json){
   }
 }
 
-export function getCompanies(store){
-  //return updateCompanies(fetch('http://www.zinoo.it:3000/api/aziende').then(response => response.json()))
-  const promise = fetch('http://www.zinoo.it:3000/api/aziende').then(response => response.json())
-  let result = 0
-  Promise.resolve(promise).then(function(value) {
-    store.dispatch(updateCompanies(value))
+export function displayError(error){
+  return { type: 'ERR',
+           err : error
   }
-)
+}
+
+export function getCompanies(store){
+  var promise = request
+  .post('http://www.zinoo.it:3000/api/aziende')
+  .send({
+    nome: "ciaaoo",
+    partitaIva: "asd",
+    proprietario: "asd",
+    id: "asd"
+  })
+  .then(function(err){
+    store.dispatch(updateCompanies(err.text));
+  },
+  function(){
+    store.dispatch(displayError("ERRORE API NON RISPONDE"));
+  })
+
   return { type: 'REQUESTED_COMPANIES' }
+}
+
+export function attemptLogin(store, credentials){
+  console.log(credentials)
+  return { type: 'AT' }
 }
