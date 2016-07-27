@@ -7,7 +7,7 @@ class Counter extends Component {
 
   render() {
     const { store } = this.context
-    const value = store.getState().count;
+    const value = store.getState().count
     const { onIncrement, onDecrement } = this.props
     return (
       <p>

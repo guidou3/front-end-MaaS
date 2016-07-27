@@ -20,6 +20,10 @@ export function displayError(error){
   }
 }
 
+export function refresh(){
+  return { type: '-'}
+}
+
 export function getCompanies(store){
   var promise = request
   .post('http://www.zinoo.it:3000/api/aziende')

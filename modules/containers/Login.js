@@ -1,12 +1,12 @@
 import React from 'react'
-import Form from '../components/Form'
+import MTextBox from '../components/MTextBox'
 
 export default React.createClass({
   render() {
     return (
 	  <div>
       <h2>Login</h2>
-      <Form/>
+      <MTextBox/>
   		<div>
   		    <label htmlFor="pass">Form:</label>
   		    <input type="password" id="pass" />
