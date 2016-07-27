@@ -24,15 +24,41 @@ export function refresh(){
   return { type: '-'}
 }
 
-export function getCompanies(store){
+export function signCompany(store, company, owner){
+  var promise = request
+  .head('http://www.zinoo.it:3000/api/aziende/'+company)
+  .then(function(err){
+    store.dispatch(displayError("ERRORE AZIENDA GIA REGISTRATA"));
+  },
+  function(){
+    store.dispatch(postCompany(store, company, owner));
+  })
+
+  return { type: 'REQUESTED_COMPANY_EXISTANCE' }
+}
+
+export function postCompany(store, company, owner){
   var promise = request
   .post('http://www.zinoo.it:3000/api/aziende')
   .send({
-    nome: "ciaaoo",
-    partitaIva: "asd",
-    proprietario: "asd",
-    id: "asd"
+    nome: company,
+    partitaIva: "0000",
+    proprietario: owner,
+    id: company
   })
+  .then(function(err){
+    store.dispatch(updateCompanies(err.text));
+  },
+  function(){
+    store.dispatch(displayError("ERRORE API NON RISPONDE"));
+  })
+
+  return { type: 'REQUESTED_SIGNIN' }
+}
+
+export function getCompanies(store){
+  var promise = request
+  .get('http://www.zinoo.it:3000/api/aziende')
   .then(function(err){
     store.dispatch(updateCompanies(err.text));
   },

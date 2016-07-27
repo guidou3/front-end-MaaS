@@ -9,31 +9,31 @@ class SignIn extends Component {
     super(props)
     this.warn = ""
   }
-  
+
   render() {
     const { store } = this.context
     return (
   	  <div>
         <h2>SignIn</h2>
-  		  <Counter
-          onIncrement={() => store.dispatch( actions.incrementCounter() )}
-          onDecrement={() => store.dispatch( actions.decrementCounter() )}
-        />
-        <MTextBox
+        NOME AZIENDA <MTextBox
           onWrite={(event) => {
-            this.value = event.target.value
-            let w
-            if(this.value.length > 3)
-              w = "Too Long Didn't Read"
-            else
-              w = ""
-            if(w != this.warn){
-              this.warn = w;
-              store.dispatch(actions.refresh())
-            }
+            this.name = event.target.value
+          }}
+        />
+        PROPRIETARIO <MTextBox
+          onWrite={(event) => {
+            this.owner = event.target.value
           }}
         />
         {this.warn}
+
+        <button
+          type = "button"
+          onClick = {() => {
+            store.dispatch(actions.signCompany(store, this.name, this.owner))
+          }}>
+          SIGN IN
+        </button>
       </div>
   	)
   }
