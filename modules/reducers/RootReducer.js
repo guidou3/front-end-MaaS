@@ -34,7 +34,7 @@ export default function companiesReducer(state = 0, action) {
 export default function authReducer(state = 0, action) {
 	switch (action.type) {
     case 'AT':
-      return state
+      return 1
     default:
       return state
   }

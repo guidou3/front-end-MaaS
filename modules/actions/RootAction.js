@@ -30,7 +30,7 @@ export function signCompany(store, company, owner){
   .then(function(err){
     store.dispatch(displayError("ERRORE AZIENDA GIA REGISTRATA"));
   },
-  function(){
+  function(err){
     store.dispatch(postCompany(store, company, owner));
   })
 
@@ -49,8 +49,8 @@ export function postCompany(store, company, owner){
   .then(function(err){
     store.dispatch(updateCompanies(err.text));
   },
-  function(){
-    store.dispatch(displayError("ERRORE API NON RISPONDE"));
+  function(err){
+    store.dispatch(displayError(err.toString()));
   })
 
   return { type: 'REQUESTED_SIGNIN' }
@@ -62,14 +62,13 @@ export function getCompanies(store){
   .then(function(err){
     store.dispatch(updateCompanies(err.text));
   },
-  function(){
-    store.dispatch(displayError("ERRORE API NON RISPONDE"));
+  function(err){
+    store.dispatch(displayError(err.toString()));
   })
 
   return { type: 'REQUESTED_COMPANIES' }
 }
 
-export function attemptLogin(store, credentials){
-  console.log(credentials)
+export function attemptLogin(store, user, pwd){
   return { type: 'AT' }
 }

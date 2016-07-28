@@ -6,19 +6,36 @@ import Home from './Home'
 
 class Header extends Component {
   render() {
+    const {store} = this.context
+    let list
+    console.log(store.getState().auth)
+    if(store.getState().auth == 1){
+      list =
+      <div id="mainmenu">
+        <ul role="nav" id="menu">
+				    <li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>
+            <li><NavLink to="/list">List</NavLink ></li>
+			  </ul>
+		  </div>
+    }
+    else{
+      list =
+      <div id="mainmenu">
+        <ul role="nav" id="menu">
+				    <li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>
+            <li><NavLink to="/signIn">Sign in</NavLink ></li>
+            <li><NavLink to="/login">Login</NavLink ></li>
+            <li><NavLink to="/list">List</NavLink ></li>
+			  </ul>
+		  </div>
+    }
+
     return (
       <div id="header">
 		<div id="headerText">
 			<h1>MaaS: MongoDB as an admin Service</h1>
         </div>
-		<div id="mainmenu">
-			<ul role="nav" id="menu">
-				<li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>
-				<li><NavLink to="/signIn">Sign in</NavLink ></li>
-				<li><NavLink to="/login">Login</NavLink ></li>
-				<li><NavLink to="/list">List</NavLink ></li>
-			</ul>
-		</div>
+		{list}
     <div id="errors">
       <ErrDisplay/>
     </div>

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import Counter from '../components/Counter'
 import MTextBox from '../components/MTextBox'
 import * as actions from '../actions/RootAction'
 import { routerMiddleware, push } from 'react-router-redux'
@@ -16,11 +15,13 @@ class SignIn extends Component {
   	  <div>
         <h2>SignIn</h2>
         NOME AZIENDA <MTextBox
+          boxType="text"
           onWrite={(event) => {
             this.name = event.target.value
           }}
         />
         PROPRIETARIO <MTextBox
+          boxType="text"
           onWrite={(event) => {
             this.owner = event.target.value
           }}

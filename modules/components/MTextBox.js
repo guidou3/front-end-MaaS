@@ -5,11 +5,10 @@ class Form extends Component {
   render() {
     return (
       <div>
-          <input type='text' onChange={this.props.onWrite}/>
+          <input type={this.props.boxType} onChange={this.props.onWrite}/>
       </div>
     )
   }
-  
 }
 
 Form.contextTypes = {
