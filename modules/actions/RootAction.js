@@ -1,4 +1,5 @@
 import request from 'superagent'
+import { routerMiddleware, push } from 'react-router-redux'
 
 export function incrementCounter(){
   return { type: 'INCREMENT' }
@@ -70,5 +71,10 @@ export function getCompanies(store){
 }
 
 export function attemptLogin(store, user, pwd){
+  store.dispatch(push('/'))
   return { type: 'AT' }
+}
+
+export function logout(store, user, pwd){
+  return { type: 'AL' }
 }

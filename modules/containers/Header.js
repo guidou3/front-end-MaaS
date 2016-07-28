@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { IndexLink, Link } from 'react-router'
 import ErrDisplay from '../components/ErrDisplay'
+import * as actions from '../actions/RootAction'
 import NavLink from '../components/NavLink'
 import Home from './Home'
 
@@ -14,6 +15,11 @@ class Header extends Component {
         <ul role="nav" id="menu">
 				    <li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>
             <li><NavLink to="/list">List</NavLink ></li>
+            <li><NavLink
+              onClick = {() => {
+                store.dispatch(actions.logout())
+              }}
+              to="/">LogOut</NavLink ></li>
 			  </ul>
 		  </div>
     }

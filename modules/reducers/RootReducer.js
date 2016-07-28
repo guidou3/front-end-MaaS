@@ -35,6 +35,8 @@ export default function authReducer(state = 0, action) {
 	switch (action.type) {
     case 'AT':
       return 1
+		case 'AL':
+		  return 0
     default:
       return state
   }
