@@ -8,7 +8,6 @@ class Header extends Component {
   render() {
     const {store} = this.context
     let list
-    console.log(store.getState().auth)
     if(store.getState().auth == 1){
       list =
       <div id="mainmenu">
