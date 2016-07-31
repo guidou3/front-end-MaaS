@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import MTextBox from '../components/MTextBox'
 import * as actions from '../actions/RootAction'
+import MTextBox from '../components/MTextBox'
 import NavLink from '../components/NavLink'
-import { routerMiddleware, push } from 'react-router-redux'
 
 class LogIn extends Component {
   constructor(props) {
@@ -36,7 +35,7 @@ class LogIn extends Component {
           }}>
           LOG IN
         </button>
-        <NavLink to="/login/repwd">Password Dimenticata?</NavLink >
+        <NavLink to="/login/reacc">Password Dimenticata?</NavLink >
       </div>
   	)
   }

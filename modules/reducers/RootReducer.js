@@ -1,34 +1,14 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
+import companiesReducer from './companyRegistration'
 
 export default combineReducers({
-		count: counterReducer,
 		companies : companiesReducer,
 		auth : authReducer,
 		sys : systemReducer,
-		routing: routerReducer
+		routing: routerReducer,
+		profile: infoReducer
 	})
-
-
-export default function counterReducer(state = 0, action) {
-	switch (action.type) {
-    case 'INCREMENT':
-      return state + 1
-    case 'DECREMENT':
-      return state - 1
-    default:
-      return state
-  }
-}
-
-export default function companiesReducer(state = 0, action) {
-	switch (action.type) {
-    case 'RECEIVED_COMPANIES':
-      return action.companies
-    default:
-      return state
-  }
-}
 
 
 export default function authReducer(state = 0, action) {
@@ -49,4 +29,13 @@ export default function systemReducer(state = '', action) {
     default:
       return ''
   }
+}
+
+	export default function infoReducer(state = '', action) {
+		switch (action.type) {
+	    case 'REQUESTED_PROFILE':
+	      return action.value
+	    default:
+	      return state
+	  }
 }

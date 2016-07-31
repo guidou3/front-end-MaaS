@@ -3,7 +3,7 @@ import { IndexLink, Link } from 'react-router'
 import ErrDisplay from '../components/ErrDisplay'
 import * as actions from '../actions/RootAction'
 import NavLink from '../components/NavLink'
-import Home from './Home'
+import MainPage from './MainPage'
 
 class Header extends Component {
   render() {
@@ -13,13 +13,18 @@ class Header extends Component {
       list =
       <div id="mainmenu">
         <ul role="nav" id="menu">
-				    <li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>
+				    <li><IndexLink to="/" activeClassName="active">MainPage</IndexLink></li>
             <li><NavLink to="/list">List</NavLink ></li>
+            <li><NavLink
+              onClick = {() => {
+                store.dispatch(actions.getProfile(store))
+              }}
+            to="/profile">Profile</NavLink ></li>
             <li><NavLink
               onClick = {() => {
                 store.dispatch(actions.logout())
               }}
-              to="/">LogOut</NavLink ></li>
+            to="/">LogOut</NavLink ></li>
 			  </ul>
 		  </div>
     }
@@ -27,7 +32,7 @@ class Header extends Component {
       list =
       <div id="mainmenu">
         <ul role="nav" id="menu">
-				    <li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>
+				    <li><IndexLink to="/" activeClassName="active">MainPage</IndexLink></li>
             <li><NavLink to="/signIn">Sign in</NavLink ></li>
             <li><NavLink to="/login">Login</NavLink ></li>
             <li><NavLink to="/list">List</NavLink ></li>

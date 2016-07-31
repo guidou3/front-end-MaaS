@@ -1,19 +1,5 @@
 import request from 'superagent'
-import { routerMiddleware, push } from 'react-router-redux'
-
-export function incrementCounter(){
-  return { type: 'INCREMENT' }
-}
-
-export function decrementCounter(){
-  return { type: 'DECREMENT' }
-}
-
-export function updateCompanies(json){
-  return { type: 'RECEIVED_COMPANIES',
-           companies : json
-  }
-}
+import {push} from 'react-router-redux'
 
 export function displayError(error){
   return { type: 'ERR',
@@ -24,6 +10,46 @@ export function displayError(error){
 export function refresh(){
   return { type: '-'}
 }
+
+export function redirect(url){
+  return push(url)
+}
+
+export function getProfile(store, email){
+  /*var promise = request
+  .head('http://www.zinoo.it:3000/api/users/'+email)
+  .then(function(err){
+    store.dispatch(push('/login/repwd'))
+  },
+  function(err){
+    store.dispatch(push('/login/repwd'))
+    //store.dispatch(displayError("ERRORE UTENTE NON REGISTRATO"));
+  })*/
+
+
+  return { type: 'REQUESTED_PROFILE',
+           value: {
+             email : "ciccio@pasticcio",
+             name : "Pasticcio Ciccio"
+           }
+        }
+}
+
+
+export function emailResetPassword(store, email){
+  var promise = request
+  .head('http://www.zinoo.it:3000/api/users/'+email)
+  .then(function(err){
+    store.dispatch(push('/login/repwd'))
+  },
+  function(err){
+    store.dispatch(push('/login/repwd'))
+    //store.dispatch(displayError("ERRORE UTENTE NON REGISTRATO"));
+  })
+
+  return { type: 'REQUESTED_COMPANY_EXISTANCE' }
+}
+
 
 export function signCompany(store, company, owner){
   var promise = request
@@ -68,6 +94,12 @@ export function getCompanies(store){
   })
 
   return { type: 'REQUESTED_COMPANIES' }
+}
+
+export function updateCompanies(json){
+  return { type: 'RECEIVED_COMPANIES',
+           companies : json
+  }
 }
 
 export function attemptLogin(store, user, pwd){
