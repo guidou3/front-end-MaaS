@@ -14,18 +14,15 @@ class LogIn extends Component {
     return (
   	  <div>
         <h2>LogIn</h2>
-        TUA EMAIL <MTextBox
+        EMAIL <MTextBox
           boxType="text"
           onWrite={(event) => {
             this.user = event.target.value
           }}
         />
-        PASSWORD <MTextBox
-          boxType="password"
-          onWrite={(event) => {
-            this.pwd = event.target.value
-          }}
-        />
+        <textarea rows="20" cols="20">
+
+        </textarea>
         {this.warn}
 
         <button
@@ -33,9 +30,8 @@ class LogIn extends Component {
           onClick = {() => {
             store.dispatch(actions.attemptLogin(store, this.name, this.owner))
           }}>
-          LOG IN
+          INVIA
         </button>
-        <NavLink to="/login/reacc">Password Dimenticata?</NavLink >
       </div>
   	)
   }

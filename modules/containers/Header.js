@@ -11,8 +11,7 @@ class Header extends Component {
     let list
     if(store.getState().auth == 1){
       list =
-      <div id="mainmenu">
-        <ul role="nav" id="menu">
+        <ul>
 				    <li><IndexLink to="/home" activeClassName="active">Home</IndexLink></li>
             <li><NavLink to="/list">List</NavLink ></li>
             <li><NavLink
@@ -26,33 +25,47 @@ class Header extends Component {
               }}
             to="/">LogOut</NavLink ></li>
 			  </ul>
-		  </div>
     }
     else{
       list =
-      <div id="mainmenu">
-        <ul role="nav" id="menu">
-				    <li><IndexLink to="/" activeClassName="active">MainPage</IndexLink></li>
+        <ul>
             <li><NavLink to="/signIn">Sign in</NavLink ></li>
             <li><NavLink to="/login">Login</NavLink ></li>
-            <li><NavLink to="/list">List</NavLink ></li>
 			  </ul>
-		  </div>
     }
 
     return (
-      <div id="header">
-		<div id="headerText">
-			<h1>MaaS: MongoDB as an admin Service</h1>
+        <div id="wrapper">
+          <div id="header">
+            <img src="../Immagini/MAAS_white.png" alt="logo MaaS" id="MaaSlogo"
+              onClick = {() => {
+                store.dispatch(actions.redirect('/'))
+            }}/>
+            <p>MaaS: MongoDB as an admin Service</p>
+
+            <div id="bar">
+              {list}
+            </div>
+
+            <div id="errors">
+              <ErrDisplay/>
+            </div>
+
+          </div>
+
+          <div id="bodyImage">
+            <div id="body">
+              <div id="content">
+                {this.props.children || <Home/>}
+              </div>
+            </div>
+          </div>
+
+          <div id="footer">
+            <NavLink to="/support">Contatta il supporto!</NavLink >
+            <a href="" id="superadminaccess">administrator login</a>
+          </div>
         </div>
-		{list}
-    <div id="errors">
-      <ErrDisplay/>
-    </div>
-		<div id="content">
-			{this.props.children || <Home/>}
-		</div>
-      </div>
     )
   }
 }
