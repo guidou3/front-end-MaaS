@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import MTextBox from '../components/MTextBox'
 import * as actions from '../actions/RootAction'
 
-class ReAcc extends Component {
+class Editor extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
@@ -12,29 +12,26 @@ class ReAcc extends Component {
     const { store } = this.context
     return (
   	  <div>
-        <h2>RecoverAccount</h2>
-        EMAIL <MTextBox
-          boxType="text"
-          onWrite={(event) => {
-            this.user = event.target.value
-          }}
-        />
+        <h2>Editor DSLI</h2>
+        <textarea rows="20" cols="20">
+          At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
+        </textarea>
         {this.warn}
 
         <button
           type = "button"
           onClick = {() => {
-            store.dispatch(actions.emailResetPassword(store, this.name, this.owner))
+            store.dispatch(actions.redirect('/home'))
           }}>
-          SEND EMAIL
+          CREATE
         </button>
       </div>
   	)
   }
 }
 
-ReAcc.contextTypes = {
+Editor.contextTypes = {
   store : React.PropTypes.object
 }
 
-export default ReAcc
+export default Editor

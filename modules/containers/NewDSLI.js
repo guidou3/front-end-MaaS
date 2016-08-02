@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import MTextBox from '../components/MTextBox'
 import * as actions from '../actions/RootAction'
+import { routerMiddleware, push } from 'react-router-redux'
 
-class ReAcc extends Component {
+class NewDSLI extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
@@ -12,8 +13,8 @@ class ReAcc extends Component {
     const { store } = this.context
     return (
   	  <div>
-        <h2>RecoverAccount</h2>
-        EMAIL <MTextBox
+        <h2>Create DSLI</h2>
+        NomeDSLI <MTextBox
           boxType="text"
           onWrite={(event) => {
             this.user = event.target.value
@@ -24,17 +25,17 @@ class ReAcc extends Component {
         <button
           type = "button"
           onClick = {() => {
-            store.dispatch(actions.emailResetPassword(store, this.name, this.owner))
+            store.dispatch(push('/home'))
           }}>
-          SEND EMAIL
+          CREATE
         </button>
       </div>
   	)
   }
 }
 
-ReAcc.contextTypes = {
+NewDSLI.contextTypes = {
   store : React.PropTypes.object
 }
 
-export default ReAcc
+export default NewDSLI

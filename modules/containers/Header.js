@@ -13,7 +13,7 @@ class Header extends Component {
       list =
       <div id="mainmenu">
         <ul role="nav" id="menu">
-				    <li><IndexLink to="/" activeClassName="active">MainPage</IndexLink></li>
+				    <li><IndexLink to="/home" activeClassName="active">Home</IndexLink></li>
             <li><NavLink to="/list">List</NavLink ></li>
             <li><NavLink
               onClick = {() => {

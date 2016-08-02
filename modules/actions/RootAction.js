@@ -103,7 +103,7 @@ export function updateCompanies(json){
 }
 
 export function attemptLogin(store, user, pwd){
-  store.dispatch(push('/'))
+  store.dispatch(push('/home'))
   return { type: 'AT' }
 }
 
