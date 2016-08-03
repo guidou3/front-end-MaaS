@@ -5,7 +5,7 @@ class Form extends Component {
   render() {
     return (
       <div>
-          <input type={this.props.boxType} onChange={this.props.onWrite}/>
+          <input type={this.props.boxType} onChange={this.props.onWrite} value={this.props.value}/>
       </div>
     )
   }

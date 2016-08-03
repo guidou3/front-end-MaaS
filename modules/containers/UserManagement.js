@@ -72,7 +72,7 @@ class MnUser extends Component {
         SEND INVITE
         </button>
         <Modal isOpen= {this.dialog}>
-          <h2 ref="subtitle">Hello</h2>
+          <h2>Do you really want to delete this useless person?</h2>
           <button
             type = "button"
             onClick = {() => {
@@ -80,7 +80,16 @@ class MnUser extends Component {
               store.dispatch(actions.refresh())
               //store.dispatch(actions.redirect('/home'))
           }}>
-          EXIT
+          YES
+          </button>
+          <button
+            type = "button"
+            onClick = {() => {
+              this.dialog = false
+              store.dispatch(actions.refresh())
+              //store.dispatch(actions.redirect('/home'))
+          }}>
+          NO
           </button>
         </Modal>
         {this.warn}
