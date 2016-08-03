@@ -2,11 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import MTextBox from '../components/MTextBox'
 import NavLink from '../components/NavLink'
+import Modal from 'react-modal'
 
 class MnUser extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
+    this.dialog = false
   }
 
   render() {
@@ -63,10 +65,24 @@ class MnUser extends Component {
         <button
           type = "button"
           onClick = {() => {
-            store.dispatch(actions.redirect('/home'))
+            this.dialog = true
+            store.dispatch(actions.refresh())
+            //store.dispatch(actions.redirect('/home'))
         }}>
         SEND INVITE
         </button>
+        <Modal isOpen= {this.dialog}>
+          <h2 ref="subtitle">Hello</h2>
+          <button
+            type = "button"
+            onClick = {() => {
+              this.dialog = false
+              store.dispatch(actions.refresh())
+              //store.dispatch(actions.redirect('/home'))
+          }}>
+          EXIT
+          </button>
+        </Modal>
         {this.warn}
       </div>
   	)
