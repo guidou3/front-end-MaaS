@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import companiesReducer from './companyRegistration'
 
 export default combineReducers({
 		companies : companiesReducer,
@@ -38,4 +37,13 @@ export default function systemReducer(state = '', action) {
 	    default:
 	      return state
 	  }
+}
+
+export default function companiesReducer(state = 0, action) {
+	switch (action.type) {
+    case 'RECEIVED_COMPANIES':
+      return action.companies
+    default:
+      return state
+  }
 }
