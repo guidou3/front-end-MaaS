@@ -17,6 +17,8 @@ import NewDSLI from './modules/containers/NewDSLI'
 import EditDSLI from './modules/containers/Editor'
 import MainPage from './modules/containers/MainPage'
 import HomePage from './modules/containers/HomePage'
+import MnUser from './modules/containers/UserManagement'
+import DiUser from './modules/containers/DSLIManagement'
 import Provider from './modules/containers/Provider'
 import rootReducer from './modules/reducers/RootReducer'
 
@@ -46,6 +48,8 @@ const routes =
 		<Route path="/profile" component={Profile}/>
 		<Route path="/support" component={Contact}/>
 		<Route path="/newdsli" component={NewDSLI}/>
+		<Route path="/manageuser" component={MnUser}/>
+		<Route path="/managedsli" component={DiUser}/>
 		<Route path="/editdsli" component={EditDSLI}/>
 		<Route path="/profile/changepwd" component={ChangePwd}/>
 	</Route>;

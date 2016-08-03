@@ -24,6 +24,12 @@ class Header extends Component {
                 store.dispatch(actions.logout())
               }}
             to="/">LogOut</NavLink ></li>
+            <li><NavLink
+              onClick = {() => {
+                store.dispatch(actions.getProfile(store))
+              }}
+            to="/manageuser">Users</NavLink ></li>
+            <li><NavLink to="/managedsli">DSLI</NavLink ></li>
 			  </ul>
     }
     else{

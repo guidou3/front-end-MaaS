@@ -17,14 +17,29 @@ class Editor extends Component {
           At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
         </textarea>
         {this.warn}
-
-        <button
-          type = "button"
-          onClick = {() => {
-            store.dispatch(actions.redirect('/home'))
+        <div>
+          <button
+            type = "button"
+            onClick = {() => {
+              store.dispatch(actions.redirect('/home'))
           }}>
-          CREATE
-        </button>
+            SAVE
+          </button>
+          <button
+            type = "button"
+            onClick = {() => {
+              store.dispatch(actions.redirect('/home'))
+          }}>
+            DELETE
+          </button>
+          <button
+            type = "button"
+            onClick = {() => {
+              store.dispatch(actions.redirect('/home'))
+          }}>
+            CLONE
+          </button>
+        </div>
       </div>
   	)
   }

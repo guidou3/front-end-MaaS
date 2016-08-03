@@ -30,7 +30,7 @@ export default function systemReducer(state = '', action) {
   }
 }
 
-	export default function infoReducer(state = '', action) {
+export default function infoReducer(state = '', action) {
 		switch (action.type) {
 	    case 'REQUESTED_PROFILE':
 	      return action.value
