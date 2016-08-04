@@ -1,34 +1,33 @@
 export function requestSaveTextDSLI() {
-	return { type: waitingSaveTextDSLI }
+	return { type: 'waitingSaveTextDSLI' }
 }
 
 export function receiveSaveTextDSLI(bool, text) {
 	if(bool) return { 
-		type: successSaveTextDSLI,
-		new_text: text
+		type: 'successSaveTextDSLI',
+		newText: text
 	}
 	else return { 
-		type: failedSaveTextDSLI,
+		type: 'failedSaveTextDSLI',
 		error: text
 		}
 }
 
-export function saveTextDSLI(new_text) {
-	
-	store.dispatch(requestSaveTextDSLI())
-	return
-	{
-		request
-		.put('url1')
-		.send({
-			text: new_text
-		})
-		.then(function(err) {
-				store.dispatch(receiveSaveTextDSLI(false, err)
-			},
-			function(){
-				store.dispatch(receiveUserRegistration(true, new_text) //il reducer deve modificare state.currentDSLI.DSLI
-			}
-		)
+export function saveTextDSLI(newText) {
+	return function(dispatch){
+		dispatch(requestSaveTextDSLI())
+		/*return request
+			.put('url1')
+			.send({
+				text: newText
+			})
+			.then(function() {
+					dispatch(receiveUserRegistration(true, newText)) //il reducer deve modificare state.currentDSLI.DSLI
+				},
+				function(err){
+					dispatch(receiveSaveTextDSLI(false, err))
+				}
+			)*/
+		dispatch(receiveUserRegistration(true, newText))
 	}
 }

@@ -1,31 +1,34 @@
 export function requestRenameDSLI() {
-	return { type: waitingRenameDSLI }
+	return { type: 'waitingRenameDSLI' }
 }
 
 export function receiveRenameDSLI(bool, text) {
-	if(bool) return { type: successRenameDSLI }
+	if(bool) return { 
+		type: 'successRenameDSLI',
+		newName: text
+	}
 	else return { 
-		type: failedRenameDSLI,
+		type: 'failedRenameDSLI',
 		error: text
 	}
 }
 
 export function renameDSLI(newName) {
-	store.dispatch(requestRenameDSLI())
-	return
-	{
-		request
-		.put('url1')
-		.send({
-			name: newName
-		})
-		.then(
-			function(error){
-				store.dispatch(receiveRenameDSLI(false, error))
-			},
-			function(result){
-				store.dispatch(receiveRenameDSLI(true))
-			}
-		)
+	return function(dispatch){
+		dispatch(requestRenameDSLI())
+		/*return request
+			.put('url1')
+			.send({
+				name: newName
+			})
+			.then(
+				function(){
+					dispatch(receiveRenameDSLI(true, newName))
+				},
+				function(error){
+					dispatch(receiveRenameDSLI(false, error))
+				}
+			)*/
+		dispatch(receiveRenameDSLI(true, newName))
 	}
 }

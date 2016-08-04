@@ -1,31 +1,34 @@
 export function requestChangeImage() {
-	return { type: waitingChangeImage }
+	return { type: 'waitingChangeImage' }
 }
 
-export function receiveChangeImage(bool, text) {
-	if(bool) return { type: successChangeImage }
+export function receiveChangeImage(bool, data) {
+	if(bool) return { 
+		type: 'successChangeImage',
+		image: data
+	}
 	else return { 
-		type: failedChangeImage,
-		error: text
+		type: 'failedChangeImage',
+		error: data
 	}
 }
 
 export function changeImage(newImage) {
-	store.dispatch(requestChangeImage())
-	return
-	{
-		request
-		.put('url1')
-		.send({
-			image: newImage
-		})
-		.then(
-			function(error){
-				store.dispatch(receiveChangeImage(false, error))
-			},
-			function(result){
-				store.dispatch(receiveChangeImage(true))
-			}
-		)
+	return function(dispatch){
+		dispatch(requestChangeImage())
+		/*return request
+			.put('url1')
+			.send({
+				image: newImage
+			})
+			.then(
+				function(){
+					dispatch(receiveChangeImage(true, newImage))
+				},
+				function(error){
+					dispatch(receiveChangeImage(false, error))
+				}
+			)*/
+		dispatch(receiveChangeImage(true, newImage))
 	}
 }

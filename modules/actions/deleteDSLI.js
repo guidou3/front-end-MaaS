@@ -1,28 +1,28 @@
 export function requestDeleteDSLI() {
-	return { type: waitingDeleteDSLI }
+	return { type: 'waitingDeleteDSLI' }
 }
 
 export function receiveDeleteDSLI(bool, text) {
-	if(bool) return { type: successDeleteDSLI }
+	if(bool) return { type: 'successDeleteDSLI' }
 	else return { 
-		type: failedDeleteDSLI,
+		type: 'failedDeleteDSLI',
 		error: text
 	}
 }
 
 export function deleteDSLI() {
-	store.dispatch(requestDeleteDSLI())
-	return
-	{
-		request
-		.del('url1')
-		.then(
-			function(error){
-				store.dispatch(receiveDeleteDSLI(false, error))
-			},
-			function(result){
-				store.dispatch(receiveDeleteDSLI(true))
-			}
-		)
+	return function(dispatch){
+		dispatch(requestDeleteDSLI())
+		/*return request
+			.del('url1')
+			.then(
+				function(){
+					dispatch(receiveDeleteDSLI(true))
+				},
+				function(error){
+					dispatch(receiveDeleteDSLI(false, error))
+				}
+			)*/
+		dispatch(receiveDeleteDSLI(true))
 	}
 }

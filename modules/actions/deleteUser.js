@@ -1,41 +1,28 @@
 export function requestDeleteUser() {
-	return { type: waitingDeleteUser }
+	return { type: 'waitingDeleteUser' }
 }
 
 export function receiveDeleteUser(bool, text) {
-	if(bool) return { type: successDeleteUser }
+	if(bool) return { type: 'successDeleteUser' }
 	else return { 
-		type: failedDeleteUser,
+		type: 'failedDeleteUser',
 		error: text
 	}
 }
 
 export function deleteUser() {
-	store.dispatch(requestDeleteUser())
-	var url;
-	if(state.loggedUser.livelloAccesso == 'admin')
-	{
-		url = ...
-	}
-	else
-	{
-		url = ...
-	}
-	return
-	{
-		request
-		.del(url)
-		.then(
-			function(error){
-				store.dispatch(receiveDeleteUser(false, error))
-			},
-			function(result){
-				if(state.loggedUser.livelloAccesso != 'admin')
-				{
-					//action per effettuare il logout
+	return function(dispatch){
+		dispatch(requestDeleteUser())
+		/*return request
+			.del(url)
+			.then(
+				function(){
+					dispatch(receiveDeleteUser(true))
+				},
+				function(error){
+					dispatch(receiveDeleteUser(false, error))
 				}
-				store.dispatch(receiveDeleteUser(true))
-			}
-		)
+			)*/
+		dispatch(receiveDeleteUser(true))
 	}
 }
