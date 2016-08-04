@@ -1,5 +1,15 @@
 import request from 'superagent'
 import {push} from 'react-router-redux'
+import * from './changeImage'
+import * from './changePassword'
+import * from './cloneDSLI'
+import * from './companyRegistration'
+import * from './deleteDSLI'
+import * from './deleteUser'
+import * from './newDSLI'
+import * from './renameDSLI'
+import * from './saveTextDSLI'
+import * from './userRegistration'
 
 export function displayError(error){
   return { type: 'ERR',
