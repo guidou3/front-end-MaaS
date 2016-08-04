@@ -1,8 +1,8 @@
 import request from 'superagent'
 import {push} from 'react-router-redux'
+import cloneDSLI from './cloneDSLI'
 /*import * from './changeImage'
 import * from './changePassword'
-import * from './cloneDSLI'
 import * from './companyRegistration'
 import * from './deleteDSLI'
 import * from './deleteUser'
@@ -11,6 +11,8 @@ import * from './renameDSLI'
 import * from './saveTextDSLI'
 import * from './userRegistration'
 */
+export default {cloneDSLI}
+
 export function displayError(error){
   return { type: 'ERR',
            err : error

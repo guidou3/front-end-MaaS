@@ -16,7 +16,6 @@ class Editor extends Component {
     const { store } = this.context
     return (
   	  <div>
-
         <div>
           <h2>Edit {this.name}</h2>
           <MButton label = "RENAME"
@@ -41,7 +40,7 @@ class Editor extends Component {
           }}/>
           <MButton label = "CLONE"
             onClick = {() => {
-              store.dispatch(actions.redirect('/home'))
+              store.dispatch(actions.cloneDSLI('/home'))
           }}/>
         </div>
 
@@ -70,7 +69,7 @@ class Editor extends Component {
               //store.dispatch(actions.redirect('/home'))
           }}/>
         </Modal>
-        
+
       </div>
   	)
   }
