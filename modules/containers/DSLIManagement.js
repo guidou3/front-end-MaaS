@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
-import MTextBox from '../components/MTextBox'
-import NavLink from '../components/NavLink'
 
-class DiUser extends Component {
+class DSLIManagment extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
@@ -53,8 +51,8 @@ class DiUser extends Component {
   }
 }
 
-DiUser.contextTypes = {
+DSLIManagment.contextTypes = {
   store : React.PropTypes.object
 }
 
-export default DiUser
+export default DSLIManagment

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
-class ErrDisplay extends Component {
+class MError extends Component {
   constructor(props) {
     super(props)
   }
@@ -16,8 +16,8 @@ class ErrDisplay extends Component {
   }
 }
 
-ErrDisplay.contextTypes = {
+MError.contextTypes = {
   store : React.PropTypes.object
 }
 
-export default ErrDisplay
+export default MError

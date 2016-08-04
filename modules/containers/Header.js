@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { IndexLink, Link } from 'react-router'
-import ErrDisplay from '../components/ErrDisplay'
 import * as actions from '../actions/RootAction'
-import NavLink from '../components/NavLink'
+import Components from '../components'
+const {MLink, MError} = Components
 import MainPage from './MainPage'
 
 class Header extends Component {
@@ -12,31 +12,31 @@ class Header extends Component {
     if(store.getState().auth == 1){
       list =
         <ul>
-				    <li><IndexLink to="/home" activeClassName="active">Home</IndexLink></li>
-            <li><NavLink to="/list">List</NavLink ></li>
-            <li><NavLink
+				    <li><MLink to="/home">Home</MLink></li>
+            <li><MLink to="/list">List</MLink ></li>
+            <li><MLink
               onClick = {() => {
                 store.dispatch(actions.getProfile(store))
               }}
-            to="/profile">Profile</NavLink ></li>
-            <li><NavLink
+            to="/profile">Profile</MLink ></li>
+            <li><MLink
               onClick = {() => {
                 store.dispatch(actions.logout())
               }}
-            to="/">LogOut</NavLink ></li>
-            <li><NavLink
+            to="/">LogOut</MLink ></li>
+            <li><MLink
               onClick = {() => {
                 store.dispatch(actions.getProfile(store))
               }}
-            to="/manageuser">Users</NavLink ></li>
-            <li><NavLink to="/managedsli">DSLI</NavLink ></li>
+            to="/manageuser">Users</MLink ></li>
+            <li><MLink to="/managedsli">DSLI</MLink ></li>
 			  </ul>
     }
     else{
       list =
         <ul>
-            <li><NavLink to="/signIn">Sign in</NavLink ></li>
-            <li><NavLink to="/login">Login</NavLink ></li>
+            <li><MLink to="/signIn">Sign in</MLink ></li>
+            <li><MLink to="/login">Login</MLink ></li>
 			  </ul>
     }
 
@@ -54,7 +54,7 @@ class Header extends Component {
             </div>
 
             <div id="errors">
-              <ErrDisplay/>
+              <MError/>
             </div>
 
           </div>
@@ -68,7 +68,7 @@ class Header extends Component {
           </div>
 
           <div id="footer">
-            <NavLink to="/support">Contatta il supporto!</NavLink >
+            <MLink to="/support">Contatta il supporto!</MLink >
             <a href="" id="superadminaccess">administrator login</a>
           </div>
         </div>

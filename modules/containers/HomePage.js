@@ -1,6 +1,7 @@
-// modules/Home.js
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
+import Components from '../components'
+const {MButton} = Components
 
 class Dashboard extends Component {
 
@@ -9,20 +10,14 @@ class Dashboard extends Component {
     return (
 	  <div>
         <h2>Welcome to Your Dashboard</h2>
-        <button
-          type = "button"
+        <MButton label = "CREATE DSLI"
           onClick = {() => {
             store.dispatch(actions.redirect('/newdsli'))
-          }}>
-          CREATE DSLI
-        </button>
-        <button
-          type = "button"
+        }}/>
+        <MButton label = "EDIT DSLI"
           onClick = {() => {
             store.dispatch(actions.redirect('/editdsli'))
-          }}>
-          EDIT DSLI
-        </button>
+        }}/>
     </div>
 	)
   }

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import MTextBox from '../components/MTextBox'
-import NavLink from '../components/NavLink'
 import Modal from 'react-modal'
 
 class MnUser extends Component {

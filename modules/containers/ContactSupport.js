@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
-import MTextBox from '../components/MTextBox'
-import NavLink from '../components/NavLink'
+import Components from '../components'
+const {MTextBox, MButton} = Components
 
-class LogIn extends Component {
+class ContactSupport extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
@@ -20,25 +20,23 @@ class LogIn extends Component {
             this.user = event.target.value
           }}
         />
-        <textarea rows="20" cols="20">
-
-        </textarea>
         {this.warn}
+        <div>
+          <textarea rows="20" cols="20">
 
-        <button
-          type = "button"
+          </textarea>
+        </div>
+        <MButton label = "INVIA"
           onClick = {() => {
-            store.dispatch(actions.attemptLogin(store, this.name, this.owner))
-          }}>
-          INVIA
-        </button>
+            store.dispatch(actions.refresh())
+        }}/>
       </div>
   	)
   }
 }
 
-LogIn.contextTypes = {
+ContactSupport.contextTypes = {
   store : React.PropTypes.object
 }
 
-export default LogIn
+export default ContactSupport

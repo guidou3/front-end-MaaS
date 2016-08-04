@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
-import MTextBox from '../components/MTextBox'
-import NavLink from '../components/NavLink'
+import Components from '../components'
+const {MTextBox, MButton, MLink} = Components
 
 class LogIn extends Component {
   constructor(props) {
@@ -14,28 +14,30 @@ class LogIn extends Component {
     return (
   	  <div>
         <h2>LogIn</h2>
+        <div>
         TUA EMAIL <MTextBox
           boxType="text"
           onWrite={(event) => {
             this.user = event.target.value
           }}
         />
+        </div>
+        <div>
         PASSWORD <MTextBox
           boxType="password"
           onWrite={(event) => {
             this.pwd = event.target.value
           }}
         />
+        </div>
+
         {this.warn}
 
-        <button
-          type = "button"
+        <MButton label = "LOG IN"
           onClick = {() => {
             store.dispatch(actions.attemptLogin(store, this.name, this.owner))
-          }}>
-          LOG IN
-        </button>
-        <NavLink to="/login/reacc">Password Dimenticata?</NavLink >
+        }}/>
+        <MLink to="/login/reacc">Password Dimenticata?</MLink >
       </div>
   	)
   }

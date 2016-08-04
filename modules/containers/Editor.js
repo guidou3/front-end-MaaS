@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import MTextBox from '../components/MTextBox'
 import * as actions from '../actions/RootAction'
-
+import Components from '../components'
+const {MTextBox, MButton} = Components
 import Modal from 'react-modal'
 
 class Editor extends Component {
@@ -19,14 +19,11 @@ class Editor extends Component {
 
         <div>
           <h2>Edit {this.name}</h2>
-          <button
-              type = "button"
+          <MButton label = "RENAME"
               onClick = {() => {
                 this.dialog = true
                 store.dispatch(actions.refresh())
-            }}>
-            RENAME
-          </button>
+          }}/>
         </div>
 
         <textarea rows="20" cols="20">
@@ -34,27 +31,18 @@ class Editor extends Component {
         </textarea>
 
         <div>
-          <button
-            type = "button"
+          <MButton label = "SAVE"
             onClick = {() => {
               store.dispatch(actions.redirect('/home'))
-          }}>
-            SAVE
-          </button>
-          <button
-            type = "button"
+          }}/>
+          <MButton label = "DELETE"
             onClick = {() => {
               store.dispatch(actions.redirect('/home'))
-          }}>
-            DELETE
-          </button>
-          <button
-            type = "button"
+          }}/>
+          <MButton label = "CLONE"
             onClick = {() => {
               store.dispatch(actions.redirect('/home'))
-          }}>
-            CLONE
-          </button>
+          }}/>
         </div>
 
         {this.warn}
@@ -67,28 +55,22 @@ class Editor extends Component {
               this.tempname = event.target.value
             }}
           />
-          <button
-            type = "button"
+          <MButton label = "OK"
             onClick = {() => {
               if(this.tempname)
                 this.name = this.tempname
               this.dialog = false
               store.dispatch(actions.refresh())
               //store.dispatch(actions.redirect('/home'))
-          }}>
-          OK
-          </button>
-          <button
-            type = "button"
+          }}/>
+          <MButton label = "CANCEL"
             onClick = {() => {
               this.dialog = false
               store.dispatch(actions.refresh())
               //store.dispatch(actions.redirect('/home'))
-          }}>
-          CANCEL
-          </button>
+          }}/>
         </Modal>
-
+        
       </div>
   	)
   }
