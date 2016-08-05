@@ -1,17 +1,29 @@
 import request from 'superagent'
 import {push} from 'react-router-redux'
-import cloneDSLI from './cloneDSLI'
-/*import * from './changeImage'
-import * from './changePassword'
-import * from './companyRegistration'
-import * from './deleteDSLI'
-import * from './deleteUser'
-import * from './newDSLI'
-import * from './renameDSLI'
-import * from './saveTextDSLI'
-import * from './userRegistration'
-*/
-export default {cloneDSLI}
+import {changeDSLIPermits} from './changeDSLIPermits'
+import {changeImage} from './changeImage'
+import {changePassword} from './changePassword'
+import {cloneDSLI} from './cloneDSLI'
+import {checkCompanyName, companyRegistration} from './companyRegistration'
+import {deleteDSLI} from './deleteDSLI'
+import {deleteUser} from './deleteUser'
+import {newDSLI} from './newDSLI'
+import {renameDSLI} from './renameDSLI'
+import {saveTextDSLI} from './saveTextDSLI'
+import {checkUsername, userRegistration} from './userRegistration'
+
+export {changeDSLIPermits,
+  changeImage,
+  changePassword,
+  cloneDSLI,
+  checkCompanyName, companyRegistration,
+  deleteDSLI,
+  deleteUser,
+  newDSLI,
+  renameDSLI,
+  saveTextDSLI,
+  checkUsername, userRegistration
+}
 
 export function displayError(error){
   return { type: 'ERR',
@@ -24,9 +36,35 @@ export function refresh(){
 }
 
 export function redirect(url){
-  return push(url)
+  return function(dispatch){
+  		dispatch(push(url))
+  }
 }
 
+export function updateCompanies(json){
+  return { type: 'RECEIVED_COMPANIES',
+           companies : json
+  }
+}
+
+export function attemptLogin(user, pwd){
+  return function(dispatch){
+    dispatch(login("asd","asd"))
+    dispatch(redirect('/home'))
+  }
+}
+
+export function login(user, pwd){
+  return { type: 'AT' }
+}
+
+export function logout(user, pwd){
+  return { type: 'AL' }
+}
+
+
+
+/*
 export function getProfile(store, email){
   /*var promise = request
   .head('http://www.zinoo.it:3000/api/users/'+email)
@@ -36,7 +74,7 @@ export function getProfile(store, email){
   function(err){
     store.dispatch(push('/login/repwd'))
     //store.dispatch(displayError("ERRORE UTENTE NON REGISTRATO"));
-  })*/
+  })
 
 
   return { type: 'REQUESTED_PROFILE',
@@ -48,35 +86,34 @@ export function getProfile(store, email){
 }
 
 
-export function emailResetPassword(store, email){
+export function emailResetPassword(email){
   var promise = request
   .head('http://www.zinoo.it:3000/api/users/'+email)
   .then(function(err){
-    store.dispatch(push('/login/repwd'))
+    dispatch(push('/login/repwd'))
   },
   function(err){
-    store.dispatch(push('/login/repwd'))
-    //store.dispatch(displayError("ERRORE UTENTE NON REGISTRATO"));
+    dispatch(displayError("ERRORE UTENTE NON REGISTRATO"));
   })
 
   return { type: 'REQUESTED_COMPANY_EXISTANCE' }
 }
 
 
-export function signCompany(store, company, owner){
+export function signCompany(company, owner){
   var promise = request
   .head('http://www.zinoo.it:3000/api/aziende/'+company)
   .then(function(err){
     store.dispatch(displayError("ERRORE AZIENDA GIA REGISTRATA"));
   },
   function(err){
-    store.dispatch(postCompany(store, company, owner));
+    store.dispatch(postCompany(company, owner));
   })
 
   return { type: 'REQUESTED_COMPANY_EXISTANCE' }
 }
 
-export function postCompany(store, company, owner){
+export function postCompany(company, owner){
   var promise = request
   .post('http://www.zinoo.it:3000/api/aziende')
   .send({
@@ -95,7 +132,7 @@ export function postCompany(store, company, owner){
   return { type: 'REQUESTED_SIGNIN' }
 }
 
-export function getCompanies(store){
+export function getCompanies(){
   var promise = request
   .get('http://www.zinoo.it:3000/api/aziende')
   .then(function(err){
@@ -108,17 +145,4 @@ export function getCompanies(store){
   return { type: 'REQUESTED_COMPANIES' }
 }
 
-export function updateCompanies(json){
-  return { type: 'RECEIVED_COMPANIES',
-           companies : json
-  }
-}
-
-export function attemptLogin(store, user, pwd){
-  store.dispatch(push('/home'))
-  return { type: 'AT' }
-}
-
-export function logout(store, user, pwd){
-  return { type: 'AL' }
-}
+*/

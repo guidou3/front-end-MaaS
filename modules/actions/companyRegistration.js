@@ -1,4 +1,4 @@
-//le funzioni receive... 
+//le funzioni receive...
 
 import userRegistration from './userRegistration'
 
@@ -32,7 +32,7 @@ export function checkCompanyName(json) {
 						store.dispatch(receiveCheckCompanyName(true))
 					}
 				)*/
-			store.dispatch(receiveCheckCompanyName(true))
+			dispatch(receiveCheckCompanyName(true))
 		}
 	}
 }
@@ -42,11 +42,11 @@ export function requestCompanyRegistration() {
 }
 
 export function receiveCompanyRegistration(bool, text) {
-	if(bool) return { 
+	if(bool) return {
 		type: 'successCompanyRegistration',
 		companyName: text
 		}
-	else return { 
+	else return {
 		type: 'failedCompanyRegistration',
 		error: text
 		}

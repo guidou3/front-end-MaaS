@@ -24,11 +24,13 @@ import rootReducer from './modules/reducers/RootReducer'
 
 import createLogger from 'redux-logger'
 
+import thunk from 'redux-thunk'
+
 const goto = routerMiddleware(browserHistory)
 const logger = createLogger()
 const store = createStore(
 		rootReducer,
-		applyMiddleware(goto, logger)
+		applyMiddleware(goto, logger, thunk)
 )
 
 // Create an enhanced history that syncs navigation events with the store

@@ -3,18 +3,18 @@ export function requestChangeDSLIPermits() {
 }
 
 export function receiveChangeDSLIPermits(bool, text) {
-	if(bool) return { 
+	if(bool) return {
 		type: successChangeDSLIPermits,
 		newLevel: text
 	}
-	else return { 
+	else return {
 		type: failedChangeDSLIPermits,
 		error: text
 		}
 }
 
 export function changeDSLIPermits(newLevel) {
-	
+
 	store.dispatch(requestChangeDSLIPermits())
 	return
 	{
@@ -24,10 +24,10 @@ export function changeDSLIPermits(newLevel) {
 			level: newLevel
 		})
 		.then(function(err) {
-				store.dispatch(receiveChangeDSLIPermits(false, err)
+				store.dispatch(receiveChangeDSLIPermits(false, err))
 			},
 			function(){
-				store.dispatch(receiveChangeDSLIPermits(true, newLevel) //il reducer deve modificare state.currentDSLI.level
+				store.dispatch(receiveChangeDSLIPermits(true, newLevel)) //il reducer deve modificare state.currentDSLI.level
 			}
 		)
 	}

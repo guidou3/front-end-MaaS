@@ -4,7 +4,7 @@ export function requestCloneDSLI() {
 
 export function receiveCloneDSLI(bool, text) {
 	if(bool) return { type: 'successCloneDSLI' }
-	else return { 
+	else return {
 		type: 'failedCloneDSLI',
 		error: text
 	}
