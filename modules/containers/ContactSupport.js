@@ -28,7 +28,7 @@ class ContactSupport extends Component {
         </div>
         <MButton label = "INVIA"
           onClick = {() => {
-            store.dispatch(actions.newDSLI("oh"))
+            store.dispatch(actions.changePassword('prova'))
         }}/>
       </div>
   	)

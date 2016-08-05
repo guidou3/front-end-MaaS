@@ -1,14 +1,38 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
+import changeImageReducer from './changeImage'
+import changePasswordReducer from './changePassword'
+import cloneDSLIReducer from './cloneDSLI'
+import companyRegistrationReducer from './companyRegistration'
+import currentDSLIReducer from './currentDSLI'
+import deleteDSLIReducer from './deleteDSLI'
+import deleteUserReducer from './deleteUser'
+import loggedUserReducer from './loggedUser'
+import newDSLIReducer from './newDSLI'
+import renameDSLIReducer from './renameDSLI'
+import saveTextDSLIReducer from './saveTextDSLI'
+import userRegistrationReducer from './userRegistration'
 
 export default combineReducers({
 		companies : companiesReducer,
 		auth : authReducer,
 		sys : systemReducer,
 		routing: routerReducer,
-		profile: infoReducer
+		profile: infoReducer,
+		loggedUser: loggedUserReducer,
+		status: combineReducers({
+			changeImageReducer,
+			changePasswordReducer,
+			cloneDSLIReducer,
+			companyRegistrationReducer,
+			deleteDSLIReducer,
+			deleteUserReducer,
+			newDSLIReducer,
+			renameDSLIReducer,
+			saveTextDSLIReducer,
+			userRegistrationReducer
+		})
 	})
-
 
 export default function authReducer(state = 0, action) {
 	switch (action.type) {
