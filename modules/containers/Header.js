@@ -9,7 +9,7 @@ class Header extends Component {
   render() {
     const {store} = this.context
     let list
-    if(store.getState().auth == 1){
+    if(store.getState().loggedUser != 0){
       list =
         <ul>
 				    <li><MLink to="/home">Home</MLink></li>

@@ -12,17 +12,17 @@ import statusReducer from './statusReducer'
 export default combineReducers({
 	loggedUser: loggedUserReducer,
 	DSLIList: DSLIListReducer,
-	userList: userListReucer,
+	userList: userListReducer,
 	currentDSLI: currentDSLIReducer,
 	currentUser: currentUserReducer,
 	visitedDSLI: visitedDSLIReducer,
 	status: statusReducer,
-		companies : companiesReducer,
-		auth : authReducer,
-		sys : systemReducer,
-		routing: routerReducer,
-		profile: infoReducer,
-	})
+	companies : companiesReducer,
+	auth : authReducer,
+	sys : systemReducer,
+	routing: routerReducer,
+	profile: infoReducer,
+})
 
 export default function authReducer(state = 0, action) {
 	switch (action.type) {

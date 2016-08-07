@@ -3,7 +3,7 @@ export default function statusReducer(state = 0, action) {
 		case 'waiting':
 			return  {
 				loading: true,
-				waitingFor: action.operation
+				waitingFor: action.operation,
 				result: null,
 				error: null
 			}

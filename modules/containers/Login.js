@@ -35,7 +35,7 @@ class LogIn extends Component {
 
         <MButton label = "LOG IN"
           onClick = {() => {
-            store.dispatch(actions.attemptLogin(store, this.name, this.owner))
+            store.dispatch(actions.login(this.owner))
         }}/>
         <MLink to="/login/reacc">Password Dimenticata?</MLink >
       </div>

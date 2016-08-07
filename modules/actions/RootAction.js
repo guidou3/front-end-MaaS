@@ -8,6 +8,7 @@ import {checkCompanyName, companyRegistration} from './companyRegistration'
 import {deleteDSLI} from './deleteDSLI'
 import {deleteUser} from './deleteUser'
 import {newDSLI} from './newDSLI'
+import {login} from './login'
 import {renameDSLI} from './renameDSLI'
 import {saveTextDSLI} from './saveTextDSLI'
 import {checkUsername, userRegistration} from './userRegistration'
@@ -20,6 +21,7 @@ export {changeDSLIPermits,
   deleteDSLI,
   deleteUser,
   newDSLI,
+  login,
   renameDSLI,
   saveTextDSLI,
   checkUsername, userRegistration
@@ -52,10 +54,6 @@ export function attemptLogin(user, pwd){
     dispatch(login("asd","asd"))
     dispatch(redirect('/home'))
   }
-}
-
-export function login(user, pwd){
-  return { type: 'AT' }
 }
 
 export function logout(user, pwd){

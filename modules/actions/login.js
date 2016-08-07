@@ -1,3 +1,6 @@
+import request from 'superagent'
+import {push} from 'react-router-redux'
+
 export function requestLogin() {
 	return {
 		type: 'waiting',
@@ -52,7 +55,10 @@ export function login(json) {
 		dispatch(receiveLogin(true, {
 			username: 'sonoIlPrimoUtente',
 			accessLevel: 'divino',
-			image: null
+			image: null,
+			DSLIList: null
 		}))
+
+		dispatch(push('/home'))
 	}
 }
