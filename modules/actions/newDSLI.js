@@ -1,10 +1,13 @@
 export function requestNewDSLI() {
-	return { type: 'waitingNewDSLI' }
+	return {
+		type: 'waiting',
+		operation: 'newDSLI'
+	}
 }
 
 export function receiveNewDSLI(bool, text) {
 	if(bool) return { type: 'successNewDSLI' }
-	else return { 
+	else return {
 		type: 'failedNewDSLI',
 		error: text
 	}

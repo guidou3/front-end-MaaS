@@ -1,14 +1,17 @@
 export function requestChangeImage() {
-	return { type: 'waitingChangeImage' }
+	return {
+		type: 'waiting',
+		operation: 'changeImage'
+	}
 }
 
 export function receiveChangeImage(bool, data) {
-	if(bool) return { 
+	if(bool) return {
 		type: 'successChangeImage',
 		image: data
 	}
-	else return { 
-		type: 'failedChangeImage',
+	else return {
+		type: 'failed',
 		error: data
 	}
 }

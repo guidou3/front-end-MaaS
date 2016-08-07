@@ -1,10 +1,13 @@
 export function requestDeleteUser() {
-	return { type: 'waitingDeleteUser' }
+	return {
+		type: 'waiting',
+		operation: 'deleteUser'
+	}
 }
 
 export function receiveDeleteUser(bool, text) {
 	if(bool) return { type: 'successDeleteUser' }
-	else return { 
+	else return {
 		type: 'failedDeleteUser',
 		error: text
 	}

@@ -1,13 +1,16 @@
 export function requestRenameDSLI() {
-	return { type: 'waitingRenameDSLI' }
+	return {
+		type: 'waiting',
+		operation: 'renameDSLI'
+	}
 }
 
 export function receiveRenameDSLI(bool, text) {
-	if(bool) return { 
+	if(bool) return {
 		type: 'successRenameDSLI',
 		newName: text
 	}
-	else return { 
+	else return {
 		type: 'failedRenameDSLI',
 		error: text
 	}

@@ -1,10 +1,13 @@
 export function requestDeleteDSLI() {
-	return { type: 'waitingDeleteDSLI' }
+	return {
+		type: 'waiting',
+		operation: 'deleteDSLI'
+	}
 }
 
 export function receiveDeleteDSLI(bool, text) {
 	if(bool) return { type: 'successDeleteDSLI' }
-	else return { 
+	else return {
 		type: 'failedDeleteDSLI',
 		error: text
 	}

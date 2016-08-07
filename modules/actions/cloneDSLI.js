@@ -1,5 +1,8 @@
 export function requestCloneDSLI() {
-	return { type: 'waitingCloneDSLI' }
+	return {
+		type: 'waiting',
+		operation: 'cloneDSLI'
+	}
 }
 
 export function receiveCloneDSLI(bool, text) {

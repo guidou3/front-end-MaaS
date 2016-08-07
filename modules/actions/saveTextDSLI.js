@@ -1,13 +1,16 @@
 export function requestSaveTextDSLI() {
-	return { type: 'waitingSaveTextDSLI' }
+	return {
+		type: 'waiting',
+		operation: 'saveTextDSLI'
+	}
 }
 
 export function receiveSaveTextDSLI(bool, text) {
-	if(bool) return { 
+	if(bool) return {
 		type: 'successSaveTextDSLI',
 		newText: text
 	}
-	else return { 
+	else return {
 		type: 'failedSaveTextDSLI',
 		error: text
 		}

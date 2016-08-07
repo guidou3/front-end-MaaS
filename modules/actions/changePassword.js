@@ -1,10 +1,13 @@
 export function requestChangePassword() {
-	return { type: 'waitingChangePassword' }
+	return return {
+		type: 'waiting',
+		operation: 'changePassword'
+	}
 }
 
 export function receiveChangePassword(bool, text) {
 	if(bool) return { type: 'successChangePassword' }
-	else return { 
+	else return {
 		type: 'failedChangePassword',
 		error: text
 	}
