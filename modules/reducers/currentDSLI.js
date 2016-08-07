@@ -8,6 +8,8 @@ export default function currentDSLIReducer(state = 0, action) {
 			return Object.assign({}, state, {
 					code: action.newText
 			})
+		case 'getDSLI':
+			return action.selected
 		default:
 			return state
 	}
