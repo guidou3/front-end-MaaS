@@ -26,7 +26,7 @@ class Header extends Component {
             to="/">LogOut</MLink ></li>
             <li><MLink
               onClick = {() => {
-                store.dispatch(actions.getProfile(store))
+                store.dispatch(actions.getCompanies(store))
               }}
             to="/manageuser">Users</MLink ></li>
             <li><MLink to="/managedsli">DSLI</MLink ></li>

@@ -12,47 +12,28 @@ class MnUser extends Component {
 
   render() {
     const { store } = this.context
+    let body = []
+    let comp = JSON.parse(store.getState().companies)
+    let i
+    let n = comp.length;
+    for (i = 0; i < n; i++) {
+      body[i] = (
+      <tr>
+        <td>{comp[i].proprietario}</td>
+        <td>{comp[i].nome}</td>
+        <td><button type = "button">X</button></td>
+        <td><select name="example">
+          <option value="member">Member</option>
+          <option value="admin">Admin</option>
+        </select> </td>
+      </tr>)
+    }
     return (
   	  <div>
         <h2>User Managment</h2>
         <table>
         <tbody>
-          <tr>
-            <td>{store.getState().profile.email}</td>
-            <td>{store.getState().profile.name}</td>
-            <td><button type = "button">X</button></td>
-            <td><select name="example">
-              <option value="member">Member</option>
-              <option value="admin">Admin</option>
-            </select> </td>
-          </tr>
-          <tr>
-            <td>{store.getState().profile.email}</td>
-            <td>{store.getState().profile.name}</td>
-            <td><button type = "button">X</button></td>
-            <td><select name="example">
-              <option value="member">Member</option>
-              <option value="admin">Admin</option>
-            </select> </td>
-          </tr>
-          <tr>
-            <td>{store.getState().profile.email}</td>
-            <td>{store.getState().profile.name}</td>
-            <td><button type = "button">X</button></td>
-            <td><select name="example">
-              <option value="member">Member</option>
-              <option value="admin">Admin</option>
-            </select> </td>
-          </tr>
-          <tr>
-            <td>{store.getState().profile.email}</td>
-            <td>{store.getState().profile.name}</td>
-            <td><button type = "button">X</button></td>
-            <td><select name="example">
-              <option value="member">Member</option>
-              <option value="admin">Admin</option>
-            </select> </td>
-          </tr>
+          {body}
         </tbody>
         </table>
         EMAIL <MTextBox

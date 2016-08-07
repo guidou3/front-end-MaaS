@@ -129,18 +129,16 @@ export function postCompany(company, owner){
 
   return { type: 'REQUESTED_SIGNIN' }
 }
-
-export function getCompanies(){
-  var promise = request
-  .get('http://www.zinoo.it:3000/api/aziende')
-  .then(function(err){
-    store.dispatch(updateCompanies(err.text));
-  },
-  function(err){
-    store.dispatch(displayError(err.toString()));
-  })
-
-  return { type: 'REQUESTED_COMPANIES' }
-}
-
 */
+export function getCompanies(){
+  return function(dispatch){
+    request
+    .get('http://www.zinoo.it:3000/api/aziende')
+    .then(function(err){
+      dispatch(updateCompanies(err.text));
+    },
+    function(err){
+      dispatch(displayError(err.toString()));
+    })
+  }
+}
