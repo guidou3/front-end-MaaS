@@ -1,12 +1,20 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
-const {MButton} = Components
+const {MButton, MDSLIRow} = Components
 
 class Dashboard extends Component {
 
   render() {
     const {store} = this.context
+    let comp = JSON.parse(store.getState().companies)
+
+    let body = []
+    let i
+    let n = comp.length;
+    for (i = 0; i < n; i++) {
+      body[i] = <MDSLIRow data = {comp[i]} showPermits = {false}/>
+    }
     return (
 	  <div>
         <h2>Welcome to Your Dashboard</h2>
@@ -14,12 +22,15 @@ class Dashboard extends Component {
           onClick = {() => {
             store.dispatch(actions.redirect('/newdsli'))
         }}/>
-        <MButton label = "EDIT DSLI"
-          onClick = {() => {
-            store.dispatch(actions.redirect('/editdsli'))
-        }}/>
+      <table>
+      <tbody>
+        {body}
+      </tbody>
+      </table>
+
+      {this.warn}
     </div>
-	)
+  	)
   }
 }
 

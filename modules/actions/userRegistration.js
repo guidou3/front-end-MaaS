@@ -27,7 +27,7 @@ export function checkUsername(username) {
 						dispatch(receiveCheckUsername(true))
 					}
 				)*/
-			dispatch(receiveCheckUsername(false))
+			dispatch(receiveCheckUsername(true))
 		}
 	}
 }
@@ -37,11 +37,11 @@ export function requestUserRegistration() {
 }
 
 export function receiveUserRegistration(bool, text) {
-	if(bool) return { 
+	if(bool) return {
 		type: 'successUserRegistration',
 		username: text
 	}
-	else return { 
+	else return {
 		type: 'failedUserRegistration',
 		error: text
 		}
@@ -64,5 +64,5 @@ export function userRegistration(json) {
 				}
 			)*/
 		dispatch(receiveUserRegistration(true, json.user))
-	}	
+	}
 }

@@ -1,6 +1,6 @@
 //le funzioni receive...
 
-import userRegistration from './userRegistration'
+import {checkUsername} from './userRegistration'
 
 export function requestCheckCompanyName() {
 	return { type: 'waitingCheckCompanyName' }
@@ -32,7 +32,7 @@ export function checkCompanyName(json) {
 						store.dispatch(receiveCheckCompanyName(true))
 					}
 				)*/
-			dispatch(receiveCheckCompanyName(true))
+			dispatch(companyRegistration(json))
 		}
 	}
 }
@@ -70,6 +70,6 @@ export function companyRegistration(json) {
 				}
 			)*/
 		dispatch(receiveCompanyRegistration(true, json.companyName))
-		dispatch(userRegistration(json))
+		dispatch(checkUsername(json.ownerMail))
 	}
 }

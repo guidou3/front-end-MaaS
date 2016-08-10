@@ -57,14 +57,12 @@ export function attemptLogin(user, pwd){
 }
 
 export function logout(user, pwd){
-  return { type: 'AL' }
+  return { type: 'logout' }
 }
-
-
 
 /*
 export function getProfile(store, email){
-  /*var promise = request
+  var promise = request
   .head('http://www.zinoo.it:3000/api/users/'+email)
   .then(function(err){
     store.dispatch(push('/login/repwd'))
@@ -73,7 +71,7 @@ export function getProfile(store, email){
     store.dispatch(push('/login/repwd'))
     //store.dispatch(displayError("ERRORE UTENTE NON REGISTRATO"));
   })
-
+/*
 
   return { type: 'REQUESTED_PROFILE',
            value: {
@@ -130,10 +128,10 @@ export function postCompany(company, owner){
   return { type: 'REQUESTED_SIGNIN' }
 }
 */
-export function getCompanies(){
+export function getCompanies(token){
   return function(dispatch){
     request
-    .get('http://www.zinoo.it:3000/api/aziende')
+    .get('http://www.zinoo.it:3000/api/aziende?access_token='+token)
     .then(function(err){
       dispatch(updateCompanies(err.text));
     },

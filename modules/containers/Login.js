@@ -18,24 +18,24 @@ class LogIn extends Component {
         TUA EMAIL <MTextBox
           boxType="text"
           onWrite={(event) => {
-            this.user = event.target.value
+            this.mail = event.target.value
           }}
         />
-        </div>
+        </div> egli@mail.it
         <div>
         PASSWORD <MTextBox
           boxType="password"
           onWrite={(event) => {
             this.pwd = event.target.value
           }}
-        />
+        /> pwd
         </div>
 
         {this.warn}
 
         <MButton label = "LOG IN"
           onClick = {() => {
-            store.dispatch(actions.login(this.owner))
+            store.dispatch(actions.login({mail:this.mail, pwd:this.pwd}))
         }}/>
         <MLink to="/login/reacc">Password Dimenticata?</MLink >
       </div>

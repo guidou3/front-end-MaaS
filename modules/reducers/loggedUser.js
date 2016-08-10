@@ -10,6 +10,8 @@ export default function loggedUserReducer(state = 0, action) {
 				accessLevel: action.user.accessLevel,
 				image: action.user.image
 			})
+		case 'logout':
+			return 0
 		default:
 			return state
 	}

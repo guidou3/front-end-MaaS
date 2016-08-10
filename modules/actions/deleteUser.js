@@ -13,7 +13,7 @@ export function receiveDeleteUser(bool, text) {
 	}
 }
 
-export function deleteUser() {
+export function deleteUser(email) {
 	return function(dispatch){
 		dispatch(requestDeleteUser())
 		/*return request

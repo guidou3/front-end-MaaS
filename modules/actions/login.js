@@ -1,5 +1,6 @@
 import request from 'superagent'
 import {push} from 'react-router-redux'
+import {getCompanies} from './RootAction'
 
 export function requestLogin() {
 	return {
@@ -22,43 +23,28 @@ export function receiveLogin(bool, data) {
 export function login(json) {
 	return function(dispatch){
 		dispatch(requestLogin())
-		/*return request
-			.get('url1')
+		return request
+			.post('http://www.zinoo.it:3000/api/accounts/login')
+			.send({
+				email: json.mail,
+				password: json.pwd
+			})
 			.then(
 				function(result){
-          if(result.password == json.password)
-          {
-            dispatch(receiveLogin(true, result))
-          }
-          else
-          {
-            dispatch(receiveLogin(false, 'Password sbagliata'))
-          }
+					let response = JSON.parse(result.text);
+					dispatch(receiveLogin(true, {
+						username: 'sonoIlPrimoUtente',
+						accessLevel: 'divino',
+						image: response.id,
+						DSLIList: null
+					}))
+					console.log(response.id);
+					dispatch(getCompanies(response.id))
+					dispatch(push('/home'))
 				},
 				function(error){
 					dispatch(receiveLogin(false, error))
 				}
-			)*/
-			/*
-			return request
-				.get('url1')
-				.auth(json.username, json.password, {type:'auto'})
-				.then(
-					function(result){
-	          dispatch(receiveLogin(true, result))
-					},
-					function(error){
-						dispatch(receiveLogin(false, error))
-					}
-				)
-			*/
-		dispatch(receiveLogin(true, {
-			username: 'sonoIlPrimoUtente',
-			accessLevel: 'divino',
-			image: null,
-			DSLIList: null
-		}))
-
-		dispatch(push('/home'))
+			)
 	}
 }

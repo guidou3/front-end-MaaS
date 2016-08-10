@@ -14,11 +14,7 @@ class Header extends Component {
         <ul>
 				    <li><MLink to="/home">Home</MLink></li>
             <li><MLink to="/list">List</MLink ></li>
-            <li><MLink
-              onClick = {() => {
-                store.dispatch(actions.getProfile(store))
-              }}
-            to="/profile">Profile</MLink ></li>
+            <li><MLink to="/profile">Profile</MLink ></li>
             <li><MLink
               onClick = {() => {
                 store.dispatch(actions.logout())
@@ -29,7 +25,10 @@ class Header extends Component {
                 store.dispatch(actions.getCompanies(store))
               }}
             to="/manageuser">Users</MLink ></li>
-            <li><MLink to="/managedsli">DSLI</MLink ></li>
+            <li><MLink
+              onClick = {() => {
+                store.dispatch(actions.getCompanies(store))
+              }} to="/managedsli">DSLI</MLink ></li>
 			  </ul>
     }
     else{
