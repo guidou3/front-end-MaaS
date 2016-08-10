@@ -1,73 +1,62 @@
-//le funzioni receive...
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import * as actions from '../actions/companyRegistration'
+import nock from 'nock'
+import expect from 'expect' // You can use any testing library
 
-import userRegistration from './userRegistration'
+const middlewares = [ thunk ]
+const mockStore = configureMockStore(middlewares)
 
-export function requestCheckCompanyName() {
-	return { type: 'waitingCheckCompanyName' }
-}
+describe('The action creator checkCompanyName',
+  function() {
+    return {
+      afterEach(function() {
+        return nock.cleanAll()
+      })
 
-export function receiveCheckCompanyName(bool) {
-	if(bool) return { type: 'checkCompanyName' }
-	else return { type: 'failedCheckCompanyName' }
-}
+      it('creates an action of type "checkCompanyName" after having successfully verified that said name for the company is not already used.', () => {
+        nock('http://example.com/')
+          .get('url') //da mettere l'url, e i dati inseriti
+          .reply(200, 0) //non so cosa restituisca loopback
 
-export function checkCompanyName(companyName) {
-	if(companyName == null)
-	{
-		//errore
-	}
-	else
-	{
-		return function(dispatch){
-			dispatch(requestCheckCompanyName())
-			return request
-				.get('url1')
-				.query({company: companyName})
-				.then(
-					function(){
-						dispatch(receiveCheckCompanyName(false))
-					},
-					function(){
-						dispatch(receiveCheckCompanyName(true))
-					}
-				)
-		}
-	}
-}
+        const expectedActions = [
+          { type: 'waitingCheckCompanyName' },
+          { type: 'checkCompanyName' }
+        ]
+        const store = mockStore({ DSLI: 0 })
 
-export function requestCompanyRegistration() {
-	return {
-		type: 'waiting',
-		operation: 'companyRegistration'
-	}
-}
+        return store.dispatch(actions.checkCompanyName('NAME'))
+          .then(function() {
+            return expect(store.getActions()).toEqual(expectedActions)
+          })
+      })
+    }
+  }
+)
 
-export function receiveCompanyRegistration(bool, text) {
-	if(bool) return {
-		type: 'companyRegistration'
-		}
-	else return {
-		type: 'error',
-		error: text
-		}
-}
+describe('The action creator companyRegistration',
+  function() {
+    return {
+      afterEach(function() {
+        return nock.cleanAll()
+      })
 
-export function companyRegistration(data) {
-	return function(dispatch){
-		dispatch(requestCompanyRegistration())
-		return request
-			.post('url1')
-			.send({
-				company: data.companyName,
-				databaseLink: data.databaseLink
-			})
-			.then(function() {
-					dispatch(receiveCompanyRegistration(true))
-					dispatch(userRegistration(data))
-				},
-				function(err){
-					dispatch(receiveCompanyRegistration(false, err))
-				}
-			)
-	}
-}
+      it('creates an action of type "companyRegistration" after having successfully posted the new company on the database.', () => {
+        nock('http://example.com/')
+          .post('url') //da mettere l'url, e i dati inseriti
+          .reply(200, 0) //non so cosa restituisca loopback
+
+        const expectedActions = [
+          { type: 'waiting', operation: 'companyRegistration' },
+          { type: 'companyRegistration' }
+        ]
+        const store = mockStore({ DSLI: 0 })
+
+        return store.dispatch(actions.companyRegistration({companyName:'NAME', databaseLink: 'DBLINK'}))
+          .then(function() {
+            return expect(store.getActions()).toEqual(expectedActions)
+          })
+      })
+    }
+  }
+)
