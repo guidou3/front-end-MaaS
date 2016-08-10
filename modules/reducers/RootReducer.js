@@ -6,7 +6,6 @@ import DSLIListReducer from './DSLIList'
 import userListReducer from './userList'
 import currentDSLIReducer from './currentDSLI'
 import currentUserReducer from './currentUser'
-import visitedDSLIReducer from './visitedDSLI'
 import statusReducer from './statusReducer'
 
 export default combineReducers({

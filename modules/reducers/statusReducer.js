@@ -22,12 +22,18 @@ export default function statusReducer(state = 0, action) {
 					error: action.error
 			})
 
-    case 'changeImage':
+		case 'changeAccessLevel':
+		case 'changeDSLIPermits':
+		case 'changeImage':
     case 'changePassword':
     case 'cloneDSLI':
     case 'companyRegistration':
     case 'deleteDSLI':
     case 'deleteUser':
+		case 'embodyUser':
+		case 'getDSLI':
+		case 'getDSLIList':
+		case 'login':
     case 'newDSLI':
     case 'renameDSLI':
     case 'saveTextDSLI':
