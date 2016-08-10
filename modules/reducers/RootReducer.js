@@ -1,14 +1,27 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
+import loggedUserReducer from './loggedUser'
+import DSLIListReducer from './DSLIList'
+import userListReducer from './userList'
+import currentDSLIReducer from './currentDSLI'
+import currentUserReducer from './currentUser'
+import visitedDSLIReducer from './visitedDSLI'
+import statusReducer from './statusReducer'
+
 export default combineReducers({
+	loggedUser: loggedUserReducer,
+	DSLIList: DSLIListReducer,
+	userList: userListReucer,
+	currentDSLI: currentDSLIReducer,
+	currentUser: currentUserReducer,
+	status: statusReducer,
 		companies : companiesReducer,
 		auth : authReducer,
 		sys : systemReducer,
 		routing: routerReducer,
-		profile: infoReducer
+		profile: infoReducer,
 	})
-
 
 export default function authReducer(state = 0, action) {
 	switch (action.type) {
