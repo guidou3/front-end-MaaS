@@ -1,32 +1,38 @@
 export function requestNewDSLI() {
-	return { type: 'waitingNewDSLI' }
-}
-
-export function receiveNewDSLI(bool, text) {
-	if(bool) return { type: 'successNewDSLI' }
-	else return { 
-		type: 'failedNewDSLI',
-		error: text
+	return {
+		type: 'waiting',
+		operation: 'newDSLI'
 	}
 }
 
-export function newDSLI(json) {
+export function receiveNewDSLI(bool, data) {
+	if(bool) return {
+		type: 'newDSLI',
+		DSLI: data
+	}
+	else return {
+		type: 'error',
+		error: data
+	}
+}
+
+export function newDSLI(data) {
 	return function(dispatch){
 		dispatch(requestNewDSLI())
-		/*return request
+		return request
 			.post('url1')
 			.send({
-				name: json.name,
-				DSLI: json.DSLI
+				name: data.name,
+				code: data.DSLI
 			})
 			.then(
-				function(){
-					dispatch(receiveNewDSLI(true))
+				function(result){
+					dispatch(receiveNewDSLI(true, result))
+					dispatch(push('...')) //indirizzo destinazione
 				},
 				function(error){
 					dispatch(receiveNewDSLI(false, error))
 				}
-			)*/
-		dispatch(receiveNewDSLI(true))
+			)
 	}
 }

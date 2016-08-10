@@ -1,11 +1,14 @@
 export function requestChangePassword() {
-	return { type: 'waitingChangePassword' }
+	return return {
+		type: 'waiting',
+		operation: 'changePassword'
+	}
 }
 
 export function receiveChangePassword(bool, text) {
-	if(bool) return { type: 'successChangePassword' }
-	else return { 
-		type: 'failedChangePassword',
+	if(bool) return { type: 'changePassword' }
+	else return {
+		type: 'error',
 		error: text
 	}
 }
@@ -13,7 +16,7 @@ export function receiveChangePassword(bool, text) {
 export function changePassword(newPassword) {
 	return function(dispatch){
 		dispatch(requestChangePassword())
-		/*return request
+		return request
 			.put('url1')
 			.send({
 				password: newPassword
@@ -25,7 +28,6 @@ export function changePassword(newPassword) {
 				function(error){
 					dispatch(receiveChangePassword(false, error))
 				}
-			)*/
-		dispatch(receiveChangePassword(true))
+			)
 	}
 }

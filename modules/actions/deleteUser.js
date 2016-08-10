@@ -1,11 +1,14 @@
 export function requestDeleteUser() {
-	return { type: 'waitingDeleteUser' }
+	return {
+		type: 'waiting',
+		operation: 'deleteUser'
+	}
 }
 
 export function receiveDeleteUser(bool, text) {
-	if(bool) return { type: 'successDeleteUser' }
-	else return { 
-		type: 'failedDeleteUser',
+	if(bool) return { type: 'deleteUser' }
+	else return {
+		type: 'error',
 		error: text
 	}
 }
@@ -13,7 +16,7 @@ export function receiveDeleteUser(bool, text) {
 export function deleteUser() {
 	return function(dispatch){
 		dispatch(requestDeleteUser())
-		/*return request
+		return request
 			.del(url)
 			.then(
 				function(){
@@ -22,7 +25,6 @@ export function deleteUser() {
 				function(error){
 					dispatch(receiveDeleteUser(false, error))
 				}
-			)*/
-		dispatch(receiveDeleteUser(true))
+			)
 	}
 }

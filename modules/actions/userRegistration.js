@@ -16,7 +16,7 @@ export function checkUsername(username) {
 	{
 		return function(dispatch) {
 			dispatch(requestCheckUsername())
-			/*return request
+			return request
 				.get('url2')
 				.query({username: username})
 				.then(
@@ -26,43 +26,44 @@ export function checkUsername(username) {
 					function(){
 						dispatch(receiveCheckUsername(true))
 					}
-				)*/
-			dispatch(receiveCheckUsername(false))
+				)
 		}
 	}
 }
 
 export function requestUserRegistration() {
-	return { type: 'waitingUserRegistration' }
+	return {
+		type: 'waiting',
+		operation: 'userRegistration'
+ }
 }
 
-export function receiveUserRegistration(bool, text) {
-	if(bool) return { 
-		type: 'successUserRegistration',
-		username: text
+export function receiveUserRegistration(bool, data) {
+	if(bool) return {
+		type: 'userRegistration',
+		user: data
 	}
-	else return { 
-		type: 'failedUserRegistration',
-		error: text
+	else return {
+		type: 'error',
+		error: data
 		}
 }
 
-export function userRegistration(json) {
+export function userRegistration(data) {
 	return function(dispatch){
 		dispatch(requestUserRegistration())
-		/*return request
+		return request
 			.post('url1')
 			.send({
-				username: json.user,
-				password: json.password
+				username: data.user,
+				password: data.password
 			})
-			.then(function() {
-					dispatch(receiveUserRegistration(true, json.user))
+			.then(function(result) {
+					dispatch(receiveUserRegistration(true, result))
 				},
 				function(err){
 					dispatch(receiveUserRegistration(false, err))
 				}
-			)*/
-		dispatch(receiveUserRegistration(true, json.user))
-	}	
+			)
+	}
 }

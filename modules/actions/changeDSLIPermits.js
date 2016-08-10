@@ -1,34 +1,35 @@
 export function requestChangeDSLIPermits() {
-	return { type: waitingChangeDSLIPermits }
+	return {
+		type: 'waiting',
+		operation: 'changeDSLIPermits'
+	}
 }
 
-export function receiveChangeDSLIPermits(bool, text) {
-	if(bool) return { 
-		type: successChangeDSLIPermits,
-		newLevel: text
+export function receiveChangeDSLIPermits(bool, data) {
+	if(bool) return {
+		type: 'changeDSLIPermits',
+		newPermits: data
 	}
-	else return { 
-		type: failedChangeDSLIPermits,
-		error: text
+	else return {
+		type: 'error',
+		error: data
 		}
 }
 
-export function changeDSLIPermits(newLevel) {
-	
-	store.dispatch(requestChangeDSLIPermits())
-	return
-	{
-		request
-		.put('url')
-		.send({
-			level: newLevel
-		})
-		.then(function(err) {
-				store.dispatch(receiveChangeDSLIPermits(false, err)
-			},
-			function(){
-				store.dispatch(receiveChangeDSLIPermits(true, newLevel) //il reducer deve modificare state.currentDSLI.level
-			}
-		)
+export function changeDSLIPermits(newPermits) { //newPermits is an array
+	return function(dispatch){
+		dispatch(requestChangeDSLIPermits())
+		return request
+			.put('url1')
+			.send({
+				permits: newPermits
+			})
+			.then(function() {
+					dispatch(receiveChangeDSLIPermits(true, newPermits))
+				},
+				function(error){
+					dispatch(receiveChangeDSLIPermits(false, error))
+				}
+			)
 	}
 }

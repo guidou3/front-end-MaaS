@@ -1,4 +1,4 @@
-//le funzioni receive... 
+//le funzioni receive...
 
 import userRegistration from './userRegistration'
 
@@ -7,12 +7,11 @@ export function requestCheckCompanyName() {
 }
 
 export function receiveCheckCompanyName(bool) {
-	if(bool) return { type: 'successCheckCompanyName' }
+	if(bool) return { type: 'checkCompanyName' }
 	else return { type: 'failedCheckCompanyName' }
 }
 
-export function checkCompanyName(json) {
-	var companyName = json.companyName;
+export function checkCompanyName(companyName) {
 	if(companyName == null)
 	{
 		//errore
@@ -21,55 +20,54 @@ export function checkCompanyName(json) {
 	{
 		return function(dispatch){
 			dispatch(requestCheckCompanyName())
-			/*return request
+			return request
 				.get('url1')
 				.query({company: companyName})
 				.then(
 					function(){
-						store.dispatch(receiveCheckCompanyName(false))
+						dispatch(receiveCheckCompanyName(false))
 					},
 					function(){
-						store.dispatch(receiveCheckCompanyName(true))
+						dispatch(receiveCheckCompanyName(true))
 					}
-				)*/
-			store.dispatch(receiveCheckCompanyName(true))
+				)
 		}
 	}
 }
 
 export function requestCompanyRegistration() {
-	return { type: 'waitingCompanyRegistration' }
+	return {
+		type: 'waiting',
+		operation: 'companyRegistration'
+	}
 }
 
 export function receiveCompanyRegistration(bool, text) {
-	if(bool) return { 
-		type: 'successCompanyRegistration',
-		companyName: text
+	if(bool) return {
+		type: 'companyRegistration'
 		}
-	else return { 
-		type: 'failedCompanyRegistration',
+	else return {
+		type: 'error',
 		error: text
 		}
 }
 
-export function companyRegistration(json) {
+export function companyRegistration(data) {
 	return function(dispatch){
 		dispatch(requestCompanyRegistration())
-		/*return request
+		return request
 			.post('url1')
 			.send({
-				company: json.companyName,
-				databaseLink: json.databaseLink
+				company: data.companyName,
+				databaseLink: data.databaseLink
 			})
 			.then(function() {
-					dispatch(receiveCompanyRegistration(true, json.companyName))
-					dispatch(userRegistration(json))
+					dispatch(receiveCompanyRegistration(true))
+					dispatch(userRegistration(data))
 				},
 				function(err){
 					dispatch(receiveCompanyRegistration(false, err))
 				}
-			)*/
-		dispatch(receiveCompanyRegistration(true, json.companyName))
-		dispatch(userRegistration(json))
+			)
 	}
 }

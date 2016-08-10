@@ -1,32 +1,37 @@
 export function requestCloneDSLI() {
-	return { type: 'waitingCloneDSLI' }
+	return {
+		type: 'waiting',
+		operation: 'cloneDSLI'
+	}
 }
 
-export function receiveCloneDSLI(bool, text) {
-	if(bool) return { type: 'successCloneDSLI' }
-	else return { 
-		type: 'failedCloneDSLI',
-		error: text
+export function receiveCloneDSLI(bool, data) {
+	if(bool) return {
+		type: 'cloneDSLI',
+		DSLI: data
+	}
+	else return {
+		type: 'error',
+		error: data
 	}
 }
 
 export function cloneDSLI(newName) {
 	return function(dispatch){
 		dispatch(requestCloneDSLI())
-		/*return request
+		return request
 			.post('url1')
 			.send({
 				name: newName,
-				DSLI: this.currentDSLI.DSLI
+				code: state.currentDSLI.code //non credo sia proprio così
 			})
 			.then(
-				function(){
-					dispatch(receiveCloneDSLI(true))
+				function(result){
+					dispatch(receiveCloneDSLI(true, result))
 				},
 				function(error){
 					dispatch(receiveCloneDSLI(false, error))
 				}
-			)*/
-		dispatch(receiveCloneDSLI(true))
+			)
 	}
 }

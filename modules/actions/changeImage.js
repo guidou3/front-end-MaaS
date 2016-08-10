@@ -1,14 +1,17 @@
 export function requestChangeImage() {
-	return { type: 'waitingChangeImage' }
+	return {
+		type: 'waiting',
+		operation: 'changeImage'
+	}
 }
 
 export function receiveChangeImage(bool, data) {
-	if(bool) return { 
-		type: 'successChangeImage',
+	if(bool) return {
+		type: 'changeImage',
 		image: data
 	}
-	else return { 
-		type: 'failedChangeImage',
+	else return {
+		type: 'error',
 		error: data
 	}
 }
@@ -16,7 +19,7 @@ export function receiveChangeImage(bool, data) {
 export function changeImage(newImage) {
 	return function(dispatch){
 		dispatch(requestChangeImage())
-		/*return request
+		return request
 			.put('url1')
 			.send({
 				image: newImage
@@ -28,7 +31,6 @@ export function changeImage(newImage) {
 				function(error){
 					dispatch(receiveChangeImage(false, error))
 				}
-			)*/
-		dispatch(receiveChangeImage(true, newImage))
+			)
 	}
 }
