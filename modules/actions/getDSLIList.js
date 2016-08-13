@@ -1,13 +1,16 @@
+import request from 'superagent'
+import {push} from 'react-router-redux'
+
 export function requestDSLIList() {
 	return {
 		type: 'waiting',
-		operation: 'getDSLI'
+		operation: 'getDSLIList'
 	}
 }
 
 export function receiveDSLIList(bool, data) {
 	if(bool) return {
-		type: 'getDSLI',
+		type: 'getDSLIList',
 		listDSLI: data //lista
 	}
 	else return {
@@ -16,36 +19,20 @@ export function receiveDSLIList(bool, data) {
 	}
 }
 
-export function getDSLIList() {
-	return function(dispatch){
+export function getDSLIList(token) {
+	return function(dispatch, getState){
 		dispatch(requestDSLIList())
-		/*return request
-			.get('url1')
+		request
+			.get('http://www.zinoo.it:3000/api/companies/'+getState().loggedUser.company+'/dsls?access_token='+getState().loggedUser.token)
 			.then(
 				function(result){
-					dispatch(receiveDSLI(true, result))
+					let res = JSON.parse(result.text)
+					dispatch(receiveDSLIList(true, res))
+					dispatch(push('/home'))
 				},
 				function(error){
-					dispatch(receiveDSLI(false, error))
+					dispatch(receiveDSLIList(false, error))
 				}
-			)*/
-		dispatch(receiveDSLIList(true, [
-      {
-        id: 'adseosgbossur',
-        name: 'primo'
-      },
-      {
-        id: 'adsdgvrdgbour',
-        name: 'secondo'
-      },
-      {
-        id: 'fiaeyesiufour',
-        name: 'terzo'
-      },
-      {
-        id: 'adsdgvuosfeho',
-        name: 'quarto'
-      }
-    ]))
+			)
 	}
 }

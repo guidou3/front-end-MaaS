@@ -7,11 +7,11 @@ export function requestChangeImage() {
 
 export function receiveChangeImage(bool, data) {
 	if(bool) return {
-		type: 'successChangeImage',
+		type: 'changeImage',
 		image: data
 	}
 	else return {
-		type: 'failed',
+		type: 'error',
 		error: data
 	}
 }
@@ -19,7 +19,7 @@ export function receiveChangeImage(bool, data) {
 export function changeImage(newImage) {
 	return function(dispatch){
 		dispatch(requestChangeImage())
-		/*return request
+		return request
 			.put('url1')
 			.send({
 				image: newImage
@@ -31,7 +31,6 @@ export function changeImage(newImage) {
 				function(error){
 					dispatch(receiveChangeImage(false, error))
 				}
-			)*/
-		dispatch(receiveChangeImage(true, newImage))
+			)
 	}
 }

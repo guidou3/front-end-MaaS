@@ -7,11 +7,11 @@ export function requestSaveTextDSLI() {
 
 export function receiveSaveTextDSLI(bool, text) {
 	if(bool) return {
-		type: 'successSaveTextDSLI',
+		type: 'saveTextDSLI',
 		newText: text
 	}
 	else return {
-		type: 'failedSaveTextDSLI',
+		type: 'error',
 		error: text
 		}
 }
@@ -19,7 +19,7 @@ export function receiveSaveTextDSLI(bool, text) {
 export function saveTextDSLI(newText) {
 	return function(dispatch){
 		dispatch(requestSaveTextDSLI())
-		/*return request
+		return request
 			.put('url1')
 			.send({
 				text: newText
@@ -30,7 +30,6 @@ export function saveTextDSLI(newText) {
 				function(err){
 					dispatch(receiveSaveTextDSLI(false, err))
 				}
-			)*/
-		dispatch(receiveUserRegistration(true, newText))
+			)
 	}
 }

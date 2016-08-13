@@ -7,11 +7,11 @@ export function requestRenameDSLI() {
 
 export function receiveRenameDSLI(bool, text) {
 	if(bool) return {
-		type: 'successRenameDSLI',
+		type: 'renameDSLI',
 		newName: text
 	}
 	else return {
-		type: 'failedRenameDSLI',
+		type: 'error',
 		error: text
 	}
 }
@@ -19,7 +19,7 @@ export function receiveRenameDSLI(bool, text) {
 export function renameDSLI(newName) {
 	return function(dispatch){
 		dispatch(requestRenameDSLI())
-		/*return request
+		return request
 			.put('url1')
 			.send({
 				name: newName
@@ -31,7 +31,6 @@ export function renameDSLI(newName) {
 				function(error){
 					dispatch(receiveRenameDSLI(false, error))
 				}
-			)*/
-		dispatch(receiveRenameDSLI(true, newName))
+			)
 	}
 }

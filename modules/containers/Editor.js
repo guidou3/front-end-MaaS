@@ -25,9 +25,8 @@ class Editor extends Component {
           }}/>
         </div>
 
-        <textarea rows="20" cols="20">
-        At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
-        </textarea>
+        <textarea rows="20" cols="20" defaultValue = "
+        At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies."/>
 
         <div>
           <MButton label = "SAVE"

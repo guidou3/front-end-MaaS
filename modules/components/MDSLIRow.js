@@ -17,8 +17,8 @@ class MDSLIRow extends Component {
                 }}/></td>)
     return (
       <tr>
-        <td>{this.props.data.proprietario}</td>
-        <td>{this.props.data.nome}</td>
+        <td>{this.props.data.id}</td>
+        <td>{this.props.data.accountId}</td>
         <td><MButton label = "Edit"
           onClick = {() => {
             store.dispatch(actions.redirect("/editdsli"))

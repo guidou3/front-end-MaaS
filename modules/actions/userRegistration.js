@@ -1,5 +1,11 @@
+import request from 'superagent'
+import {push} from 'react-router-redux'
+
 export function requestCheckUsername() {
-	return { type: 'waitingCheckUsername' }
+	return {
+		type: 'waiting',
+	 	operation: 'checkUsername'
+	}
 }
 
 export function receiveCheckUsername(bool) {
@@ -8,61 +14,62 @@ export function receiveCheckUsername(bool) {
 }
 
 export function checkUsername(username) {
-	if(username == null)
-	{
-		//errore
-	}
-	else
-	{
-		return function(dispatch) {
-			dispatch(requestCheckUsername())
-			/*return request
-				.get('url2')
-				.query({username: username})
-				.then(
-					function(){
-						dispatch(receiveCheckUsername(false))
-					},
-					function(){
-						dispatch(receiveCheckUsername(true))
-					}
-				)*/
-			dispatch(receiveCheckUsername(true))
-		}
+	return function(dispatch) {
+		dispatch(requestCheckUsername())
+		request
+			.head('http://www.zinoo.it:3000/api/accounts/'+username)
+			.then(
+				function(res){
+					dispatch(receiveCheckUsername(true))
+				},
+				function(){
+					dispatch(receiveCheckUsername(false))
+					dispatch(companyRegistration(username))
+				}
+			)
 	}
 }
 
 export function requestUserRegistration() {
-	return { type: 'waitingUserRegistration' }
+	return {
+		type: 'waiting',
+		operation: 'userRegistration'
+ }
 }
 
-export function receiveUserRegistration(bool, text) {
+export function receiveUserRegistration(bool, data) {
 	if(bool) return {
-		type: 'successUserRegistration',
-		username: text
+		type: 'userRegistration',
+		user: data
 	}
 	else return {
-		type: 'failedUserRegistration',
-		error: text
+		type: 'error',
+		error: data
 		}
 }
 
-export function userRegistration(json) {
+export function userRegistration(data, role) {
 	return function(dispatch){
 		dispatch(requestUserRegistration())
-		/*return request
-			.post('url1')
+		console.log(data);
+		return request
+			.post('http://www.zinoo.it:3000/api/accounts/')
 			.send({
-				username: json.user,
-				password: json.password
+				email: data.ownerMail,
+				password: "asd",
+				realm: data.companyName,
+				companyId: data.companyName,
+				dutyId: role,
+				subscribedAt: Date(),
+				emailVerified: false
 			})
-			.then(function() {
-					dispatch(receiveUserRegistration(true, json.user))
+			.then(function(result) {
+					dispatch(receiveUserRegistration(true, result))
+					dispatch(push('/'))
 				},
 				function(err){
 					dispatch(receiveUserRegistration(false, err))
 				}
-			)*/
-		dispatch(receiveUserRegistration(true, json.user))
+			)
 	}
 }

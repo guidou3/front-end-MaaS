@@ -6,7 +6,6 @@ import DSLIListReducer from './DSLIList'
 import userListReducer from './userList'
 import currentDSLIReducer from './currentDSLI'
 import currentUserReducer from './currentUser'
-import visitedDSLIReducer from './visitedDSLI'
 import statusReducer from './statusReducer'
 
 export default combineReducers({
@@ -15,14 +14,13 @@ export default combineReducers({
 	userList: userListReducer,
 	currentDSLI: currentDSLIReducer,
 	currentUser: currentUserReducer,
-	visitedDSLI: visitedDSLIReducer,
 	status: statusReducer,
-	companies : companiesReducer,
-	auth : authReducer,
-	sys : systemReducer,
-	routing: routerReducer,
-	profile: infoReducer,
-})
+		companies : companiesReducer,
+		auth : authReducer,
+		sys : systemReducer,
+		routing: routerReducer,
+		profile: infoReducer,
+	})
 
 export default function authReducer(state = 0, action) {
 	switch (action.type) {

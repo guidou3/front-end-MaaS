@@ -7,8 +7,11 @@ import {cloneDSLI} from './cloneDSLI'
 import {checkCompanyName, companyRegistration} from './companyRegistration'
 import {deleteDSLI} from './deleteDSLI'
 import {deleteUser} from './deleteUser'
+import {embodyUser} from './embodyUser'
+import {getDSLI} from './getDSLI'
+import {getDSLIList} from './getDSLIList'
+import {login, logout} from './login'
 import {newDSLI} from './newDSLI'
-import {login} from './login'
 import {renameDSLI} from './renameDSLI'
 import {saveTextDSLI} from './saveTextDSLI'
 import {checkUsername, userRegistration} from './userRegistration'
@@ -17,14 +20,20 @@ export {changeDSLIPermits,
   changeImage,
   changePassword,
   cloneDSLI,
-  checkCompanyName, companyRegistration,
+  checkCompanyName,
+  companyRegistration,
   deleteDSLI,
   deleteUser,
-  newDSLI,
+  embodyUser,
+  getDSLI,
+  getDSLIList,
   login,
+  logout,
+  newDSLI,
   renameDSLI,
   saveTextDSLI,
-  checkUsername, userRegistration
+  checkUsername,
+  userRegistration
 }
 
 export function displayError(error){
@@ -42,7 +51,7 @@ export function redirect(url){
   		dispatch(push(url))
   }
 }
-
+/*
 export function updateCompanies(json){
   return { type: 'RECEIVED_COMPANIES',
            companies : json
@@ -56,13 +65,19 @@ export function attemptLogin(user, pwd){
   }
 }
 
-export function logout(user, pwd){
-  return { type: 'logout' }
+export function login(user, pwd){
+  return { type: 'AT' }
 }
+
+export function logout(user, pwd){
+  return { type: 'AL' }
+}
+
+
 
 /*
 export function getProfile(store, email){
-  var promise = request
+  /*var promise = request
   .head('http://www.zinoo.it:3000/api/users/'+email)
   .then(function(err){
     store.dispatch(push('/login/repwd'))
@@ -71,7 +86,7 @@ export function getProfile(store, email){
     store.dispatch(push('/login/repwd'))
     //store.dispatch(displayError("ERRORE UTENTE NON REGISTRATO"));
   })
-/*
+
 
   return { type: 'REQUESTED_PROFILE',
            value: {
@@ -127,16 +142,18 @@ export function postCompany(company, owner){
 
   return { type: 'REQUESTED_SIGNIN' }
 }
-*/
-export function getCompanies(token){
-  return function(dispatch){
-    request
-    .get('http://www.zinoo.it:3000/api/aziende?access_token='+token)
-    .then(function(err){
-      dispatch(updateCompanies(err.text));
-    },
-    function(err){
-      dispatch(displayError(err.toString()));
-    })
-  }
+
+export function getCompanies(){
+  var promise = request
+  .get('http://www.zinoo.it:3000/api/aziende')
+  .then(function(err){
+    store.dispatch(updateCompanies(err.text));
+  },
+  function(err){
+    store.dispatch(displayError(err.toString()));
+  })
+
+  return { type: 'REQUESTED_COMPANIES' }
 }
+
+*/

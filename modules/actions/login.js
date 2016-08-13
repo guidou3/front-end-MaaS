@@ -1,17 +1,17 @@
 import request from 'superagent'
 import {push} from 'react-router-redux'
-import {getCompanies} from './RootAction'
+import {getDSLIList} from './getDSLIList'
 
-export function requestLogin() {
+function requestLogin() {
 	return {
 		type: 'waiting',
 		operation: 'login'
 	}
 }
 
-export function receiveLogin(bool, data) {
+function receiveLogin(bool, data) {
 	if(bool) return {
-		type: 'successLogin',
+		type: 'login',
 		user: data
 	}
 	else return {
@@ -23,28 +23,26 @@ export function receiveLogin(bool, data) {
 export function login(json) {
 	return function(dispatch){
 		dispatch(requestLogin())
-		return request
-			.post('http://www.zinoo.it:3000/api/accounts/login')
+		request
+			.post('http://www.zinoo.it:3000/api/accounts/login?include=user')
 			.send({
 				email: json.mail,
 				password: json.pwd
 			})
 			.then(
 				function(result){
-					let response = JSON.parse(result.text);
+					let res = JSON.parse(result.text);
 					dispatch(receiveLogin(true, {
-						username: 'sonoIlPrimoUtente',
-						accessLevel: 'divino',
-						image: response.id,
+						username: res.userId,
+						accessLevel: res.user.dutyId,
+						token: res.id,
+						company: res.user.companyId,
 						DSLIList: null
 					}))
-					console.log(response.id);
-					dispatch(getCompanies(response.id))
-					dispatch(push('/home'))
+					dispatch(getDSLIList())
 				},
 				function(error){
 					dispatch(receiveLogin(false, error))
-				}
-			)
+				})
 	}
 }

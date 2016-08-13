@@ -7,7 +7,7 @@ class Dashboard extends Component {
 
   render() {
     const {store} = this.context
-    let comp = JSON.parse(store.getState().companies)
+    let comp = store.getState().DSLIList
 
     let body = []
     let i
@@ -21,6 +21,10 @@ class Dashboard extends Component {
         <MButton label = "CREATE DSLI"
           onClick = {() => {
             store.dispatch(actions.redirect('/newdsli'))
+        }}/>
+        <MButton label = "REFRESH"
+          onClick = {() => {
+            store.dispatch(actions.getDSLIList())
         }}/>
       <table>
       <tbody>

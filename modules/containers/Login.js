@@ -17,18 +17,20 @@ class LogIn extends Component {
         <div>
         TUA EMAIL <MTextBox
           boxType="text"
+          value = "bertosinriccardo@gmail.com"
           onWrite={(event) => {
             this.mail = event.target.value
           }}
         />
-        </div> egli@mail.it
+        </div>
         <div>
         PASSWORD <MTextBox
           boxType="password"
+          value = "asd"
           onWrite={(event) => {
             this.pwd = event.target.value
           }}
-        /> pwd
+        />
         </div>
 
         {this.warn}

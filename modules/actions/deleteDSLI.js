@@ -6,9 +6,9 @@ export function requestDeleteDSLI() {
 }
 
 export function receiveDeleteDSLI(bool, text) {
-	if(bool) return { type: 'successDeleteDSLI' }
+	if(bool) return { type: 'deleteDSLI' }
 	else return {
-		type: 'failedDeleteDSLI',
+		type: 'error',
 		error: text
 	}
 }
@@ -16,7 +16,7 @@ export function receiveDeleteDSLI(bool, text) {
 export function deleteDSLI() {
 	return function(dispatch){
 		dispatch(requestDeleteDSLI())
-		/*return request
+		return request
 			.del('url1')
 			.then(
 				function(){
@@ -25,7 +25,6 @@ export function deleteDSLI() {
 				function(error){
 					dispatch(receiveDeleteDSLI(false, error))
 				}
-			)*/
-		dispatch(receiveDeleteDSLI(true))
+			)
 	}
 }

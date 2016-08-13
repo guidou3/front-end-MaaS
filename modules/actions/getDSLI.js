@@ -1,14 +1,14 @@
-export function requestDSLIList() {
+export function requestDSLI() {
 	return {
 		type: 'waiting',
 		operation: 'getDSLI'
 	}
 }
 
-export function receiveDSLIList(bool, data) {
+export function receiveDSLI(bool, data) {
 	if(bool) return {
 		type: 'getDSLI',
-		listDSLI: data //lista
+		selected: data
 	}
 	else return {
 		type: 'error',
@@ -16,10 +16,10 @@ export function receiveDSLIList(bool, data) {
 	}
 }
 
-export function getDSLIList() {
+export function getDSLI() {
 	return function(dispatch){
-		dispatch(requestDSLIList())
-		/*return request
+		dispatch(requestDSLI())
+		return request
 			.get('url1')
 			.then(
 				function(result){
@@ -28,24 +28,6 @@ export function getDSLIList() {
 				function(error){
 					dispatch(receiveDSLI(false, error))
 				}
-			)*/
-		dispatch(receiveDSLIList(true, [
-      {
-        id: 'adseosgbossur',
-        name: 'primo'
-      },
-      {
-        id: 'adsdgvrdgbour',
-        name: 'secondo'
-      },
-      {
-        id: 'fiaeyesiufour',
-        name: 'terzo'
-      },
-      {
-        id: 'adsdgvuosfeho',
-        name: 'quarto'
-      }
-    ]))
+			)
 	}
 }

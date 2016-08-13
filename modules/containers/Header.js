@@ -23,12 +23,15 @@ class Header extends Component {
             <li><MLink
               onClick = {() => {
                 store.dispatch(actions.getCompanies(store))
-              }}
-            to="/manageuser">Users</MLink ></li>
+              }} to="/manageuser">Users</MLink ></li>
             <li><MLink
               onClick = {() => {
                 store.dispatch(actions.getCompanies(store))
               }} to="/managedsli">DSLI</MLink ></li>
+            <li><MLink
+              onClick = {() => {
+                store.dispatch(actions.getDatabase(store))
+              }} to="/managedata">Database</MLink ></li>
 			  </ul>
     }
     else{
