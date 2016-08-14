@@ -30,6 +30,7 @@ switch(action.type) {
 	case 'companyRegistration':
 	case 'deleteDSLI':
 	case 'deleteUser':
+	case 'deleteData':
 	case 'embodyUser':
 	case 'getDSLI':
 	case 'getDSLIList':
@@ -38,7 +39,8 @@ switch(action.type) {
 	case 'renameDSLI':
 	case 'saveTextDSLI':
 	case 'userRegistration':
-	case 'assDatabase'
+	case 'addDatabase':
+	case 'getDatabase':
 		return Object.assign({}, state, {
 				loading: false,
 				waitingFor: null,

@@ -1,11 +1,13 @@
-export function requestSaveTextDSLI() {
+import request from 'superagent'
+
+function requestSaveTextDSLI() {
 	return {
 		type: 'waiting',
 		operation: 'saveTextDSLI'
 	}
 }
 
-export function receiveSaveTextDSLI(bool, text) {
+function receiveSaveTextDSLI(bool, text) {
 	if(bool) return {
 		type: 'saveTextDSLI',
 		newText: text
@@ -16,16 +18,20 @@ export function receiveSaveTextDSLI(bool, text) {
 		}
 }
 
-export function saveTextDSLI(newText) {
-	return function(dispatch){
+export function saveTextDSLI(dsli) {
+	return function(dispatch, getState){
 		dispatch(requestSaveTextDSLI())
+		console.log(dsli)
 		return request
-			.put('url1')
+			.put('http://www.zinoo.it:3000/api/companies/'+ getState().loggedUser.company + '/dsls/' + dsli.id + '?access_token=' + getState().loggedUser.token)
 			.send({
-				text: newText
+				name: dsli.name,
+				code: dsli.code,
+				lastModifiedDate: Date(),
+				databseId: dsli.db
 			})
 			.then(function() {
-					dispatch(receiveUserRegistration(true, newText)) //il reducer deve modificare state.currentDSLI.DSLI
+					dispatch(receiveSaveTextDSLI(true, dsli)) //il reducer deve modificare state.currentDSLI.DSLI
 				},
 				function(err){
 					dispatch(receiveSaveTextDSLI(false, err))

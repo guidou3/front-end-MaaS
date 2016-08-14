@@ -8,6 +8,14 @@ export default function currentDSLIReducer(state = 0, action) {
 			return Object.assign({}, state, {
 					code: action.newText
 			})
+		case 'setDSLI':
+			return {
+				id: action.dsli.id,
+				name: action.dsli.name,
+				code: action.dsli.code,
+				lastModifiedDate: action.dsli.lastModifiedDate,
+				databaseId: action.dsli.databaseId
+			}
 		case 'getDSLI':
 			return {
 				id: action.selected.id,

@@ -12,7 +12,7 @@ class DSLIManagment extends Component {
 
   render() {
     const { store } = this.context
-    let comp = JSON.parse(store.getState().companies)
+    let comp = store.getState().DSLIList
 
     let body = []
     let i

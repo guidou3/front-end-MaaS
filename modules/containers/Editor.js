@@ -14,32 +14,36 @@ class Editor extends Component {
 
   render() {
     const { store } = this.context
+    let dsli = store.getState().currentDSLI
+
     return (
   	  <div>
         <div>
-          <h2>Edit {this.name}</h2>
+          <h2>{dsli.name}</h2>
           <MButton label = "RENAME"
               onClick = {() => {
                 this.dialog = true
                 store.dispatch(actions.refresh())
           }}/>
         </div>
-
-        <textarea rows="20" cols="20" defaultValue = "
-        At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies."/>
+        <textarea rows="20" cols="20" defaultValue = {dsli.code}
+        onChange={(event) => {
+          dsli.code = event.target.value
+          console.log(dsli.code)
+        }} />
 
         <div>
           <MButton label = "SAVE"
             onClick = {() => {
-              store.dispatch(actions.redirect('/home'))
+              store.dispatch(actions.saveTextDSLI(dsli))
           }}/>
           <MButton label = "DELETE"
             onClick = {() => {
-              store.dispatch(actions.redirect('/home'))
+              store.dispatch(actions.deleteDSLI(dsli.id))
           }}/>
           <MButton label = "CLONE"
             onClick = {() => {
-              store.dispatch(actions.cloneDSLI('/home'))
+              store.dispatch(actions.cloneDSLI(dsli))
           }}/>
         </div>
 
@@ -49,6 +53,7 @@ class Editor extends Component {
           <h2>Insert new Name for this DSLI</h2>
           NEW NAME <MTextBox
             boxType="text"
+            value={dsli.name}
             onWrite={(event) => {
               this.tempname = event.target.value
             }}
@@ -56,7 +61,7 @@ class Editor extends Component {
           <MButton label = "OK"
             onClick = {() => {
               if(this.tempname)
-                this.name = this.tempname
+                dsli.name = this.tempname
               this.dialog = false
               store.dispatch(actions.refresh())
               //store.dispatch(actions.redirect('/home'))

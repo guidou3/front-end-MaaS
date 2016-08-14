@@ -1,37 +1,8 @@
-export function requestCloneDSLI() {
-	return {
-		type: 'waiting',
-		operation: 'cloneDSLI'
-	}
-}
+import {newDSLI} from './newDSLI'
 
-export function receiveCloneDSLI(bool, data) {
-	if(bool) return {
-		type: 'cloneDSLI',
-		DSLI: data
-	}
-	else return {
-		type: 'error',
-		error: data
-	}
-}
-
-export function cloneDSLI(newName) {
+export function cloneDSLI(dsli) {
 	return function(dispatch){
-		dispatch(requestCloneDSLI())
-		return request
-			.post('url1')
-			.send({
-				name: newName,
-				code: state.currentDSLI.code //non credo sia proprio così
-			})
-			.then(
-				function(result){
-					dispatch(receiveCloneDSLI(true, result))
-				},
-				function(error){
-					dispatch(receiveCloneDSLI(false, error))
-				}
-			)
+		dsli.name = "Clone of "+ dsli.name
+		dispatch(newDSLI(dsli))
 	}
 }

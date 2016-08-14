@@ -1,11 +1,13 @@
-export function requestAddDatabase() {
+import request from 'superagent'
+
+function requestAddDatabase() {
 	return {
 		type: 'waiting',
 		operation: 'addDatabase'
 	}
 }
 
-export function receiveAddDatabase(bool, data) {
+function receiveAddDatabase(bool, data) {
 	if(bool) return {
 		type: 'addDatabase'
 		}
@@ -15,13 +17,13 @@ export function receiveAddDatabase(bool, data) {
 		}
 }
 
-export function addDatabase(id, data) {
-	return function(dispatch){
+export function addDatabase(data) {
+	return function(dispatch, getState){
 		dispatch(requestAddDatabase())
 		return request
-			.post('url1')
+		  .post('http://www.zinoo.it:3000/api/companies/'+getState().loggedUser.company+'/databases?access_token='+getState().loggedUser.token)
 			.send({
-				databaseLink: data
+				uri: data
 			})
 			.then(function() {
 					dispatch(receiveAddDatabase(true))

@@ -7,6 +7,7 @@ import {cloneDSLI} from './cloneDSLI'
 import {checkCompanyName, companyRegistration} from './companyRegistration'
 import {deleteDSLI} from './deleteDSLI'
 import {deleteUser} from './deleteUser'
+import {deleteData} from './deleteData'
 import {embodyUser} from './embodyUser'
 import {getDSLI} from './getDSLI'
 import {getDSLIList} from './getDSLIList'
@@ -14,9 +15,13 @@ import {login, logout} from './login'
 import {newDSLI} from './newDSLI'
 import {renameDSLI} from './renameDSLI'
 import {saveTextDSLI} from './saveTextDSLI'
+import {getDatabase} from './getDatabase'
+import {addDatabase} from './addDatabase'
 import {checkUsername, userRegistration} from './userRegistration'
 
-export {changeDSLIPermits,
+export {
+  addDatabase,
+  changeDSLIPermits,
   changeImage,
   changePassword,
   cloneDSLI,
@@ -24,7 +29,9 @@ export {changeDSLIPermits,
   companyRegistration,
   deleteDSLI,
   deleteUser,
+  deleteData,
   embodyUser,
+  getDatabase,
   getDSLI,
   getDSLIList,
   login,
@@ -50,6 +57,13 @@ export function redirect(url){
   return function(dispatch){
   		dispatch(push(url))
   }
+}
+
+export function setDSLI(DSLI) {
+	return {
+		type: 'setDSLI',
+		dsli: DSLI
+	}
 }
 /*
 export function updateCompanies(json){

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Modal from 'react-modal'
 import Components from '../components'
-const {MTextBox, MButton, MUserRow} = Components
+const {MTextBox, MButton, MDataRow} = Components
 
 class MnUser extends Component {
   constructor(props) {
@@ -13,36 +13,36 @@ class MnUser extends Component {
 
   render() {
     const { store } = this.context
-    let comp = JSON.parse(store.getState().companies)
+    let comp = store.getState().dataList
 
     let body = []
     let i
     let n = comp.length;
     for (i = 0; i < n; i++) {
-      body[i] = <MUserRow user = {comp[i]}/>
+      body[i] = <MDataRow data = {comp[i]}/>
     }
     return (
   	  <div>
-        <h2>User Managment</h2>
+        <h2>Database Managment</h2>
         <table>
         <tbody>
           {body}
         </tbody>
         </table>
-        EMAIL <MTextBox
+        URI <MTextBox
           boxType="text"
           onWrite={(event) => {
-            this.user = event.target.value
+            this.uri = event.target.value
           }}
         />
         <button
           type = "button"
           onClick = {() => {
-            this.dialog = true
-            store.dispatch(actions.refresh())
+            //this.dialog = true
+            store.dispatch(actions.addDatabase(this.uri))
             //store.dispatch(actions.redirect('/home'))
         }}>
-        SEND INVITE
+        ADD DATABASE
         </button>
         <Modal isOpen= {this.dialog}>
           <h2>Do you really want to delete this useless person?</h2>

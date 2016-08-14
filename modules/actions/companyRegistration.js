@@ -3,14 +3,14 @@ import request from 'superagent'
 import {push} from 'react-router-redux'
 import {userRegistration} from './userRegistration'
 
-export function requestCheckCompanyName() {
+function requestCheckCompanyName() {
 	return {
 		type: 'waiting',
 		operation: 'checkCompanyName'
 	}
 }
 
-export function receiveCheckCompanyName(bool, step) {
+function receiveCheckCompanyName(bool, step) {
 	if(bool){
 	  if(step > 0)
 			return { type: 'failedCheckUsername'}
@@ -24,14 +24,15 @@ export function receiveCheckCompanyName(bool, step) {
 export function checkCompanyName(data) {
 	return function(dispatch){
 		dispatch(requestCheckCompanyName())
-		request
+		return request
 			.head('http://www.zinoo.it:3000/api/companies/'+data.companyName)
 			.then(
 				function(){
+					console.log("wot");
 					dispatch(receiveCheckCompanyName(true), 0)
 				},
 				function(){
-					request
+					return request
 						.head('http://www.zinoo.it:3000/api/accounts/'+data.ownerMail)
 						.then(
 							function(res){
@@ -47,14 +48,14 @@ export function checkCompanyName(data) {
 	}
 }
 
-export function requestCompanyRegistration() {
+function requestCompanyRegistration() {
 	return {
 		type: 'waiting',
 		operation: 'companyRegistration'
 	}
 }
 
-export function receiveCompanyRegistration(bool, text) {
+function receiveCompanyRegistration(bool, text) {
 	if(bool) return {
 		type: 'companyRegistration'
 		}
@@ -67,7 +68,7 @@ export function receiveCompanyRegistration(bool, text) {
 export function companyRegistration(data) {
 	return function(dispatch){
 		dispatch(requestCompanyRegistration())
-		request
+		return request
 			.post('http://www.zinoo.it:3000/api/companies')
 			.send({
 				organization: data.companyName,

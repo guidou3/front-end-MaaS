@@ -23,7 +23,7 @@ function receiveLogin(bool, data) {
 export function login(json) {
 	return function(dispatch){
 		dispatch(requestLogin())
-		request
+		return request
 			.post('http://www.zinoo.it:3000/api/accounts/login?include=user')
 			.send({
 				email: json.mail,
@@ -39,7 +39,7 @@ export function login(json) {
 						company: res.user.companyId,
 						DSLIList: null
 					}))
-					dispatch(getDSLIList())
+					dispatch(getDSLIList()).then(() => (dispatch(push('/home'))))
 				},
 				function(error){
 					dispatch(receiveLogin(false, error))
