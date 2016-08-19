@@ -15,7 +15,11 @@ function receiveLogin(bool, data) {
 		user: data
 	}
 	else return {
+<<<<<<< HEAD
 		type: 'failedLogin',
+=======
+		type: 'error',
+>>>>>>> master
 		error: data
 	}
 }

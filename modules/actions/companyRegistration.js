@@ -1,4 +1,5 @@
 //le funzioni receive...
+<<<<<<< HEAD
 import request from 'superagent'
 import {push} from 'react-router-redux'
 import {userRegistration} from './userRegistration'

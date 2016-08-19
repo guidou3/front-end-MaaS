@@ -16,7 +16,6 @@ function receiveDSLI(bool, data) {
 	}
 }
 
-
 export function getDSLI() {
 	return function(dispatch){
 		dispatch(requestDSLI())

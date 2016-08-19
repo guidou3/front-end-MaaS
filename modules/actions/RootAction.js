@@ -66,6 +66,8 @@ export function setDSLI(DSLI) {
 	}
 }
 /*
+=======
+>>>>>>> master
 export function updateCompanies(json){
   return { type: 'RECEIVED_COMPANIES',
            companies : json
