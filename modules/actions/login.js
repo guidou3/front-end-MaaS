@@ -37,7 +37,7 @@ export function login(json) {
 						accessLevel: res.user.dutyId,
 						token: res.id,
 						company: res.user.companyId,
-						DSLIList: null
+						DSLIList: [{id: "prova"}]
 					}))
 					dispatch(getDSLIList()).then(() => (dispatch(push('/home'))))
 				},
