@@ -21,16 +21,16 @@ import MnDSLI from './modules/containers/DSLIManagement'
 import MnData from './modules/containers/DataManagement'
 import Provider from './modules/containers/Provider'
 import rootReducer from './modules/reducers/RootReducer'
-
 import createLogger from 'redux-logger'
-
 import thunk from 'redux-thunk'
+
+const api = 'http://www.zinoo.it:3000/api/'
 
 const goto = routerMiddleware(browserHistory)
 const logger = createLogger()
 const store = createStore(
 		rootReducer,
-		applyMiddleware(goto, logger, thunk)
+		applyMiddleware(goto, logger, thunk.withExtraArgument(api))
 )
 
 // Create an enhanced history that syncs navigation events with the store

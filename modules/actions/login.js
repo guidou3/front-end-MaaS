@@ -21,10 +21,10 @@ function receiveLogin(bool, data) {
 }
 
 export function login(json) {
-	return function(dispatch){
+	return function(dispatch, getState, api){
 		dispatch(requestLogin())
 		return request
-			.post('http://www.zinoo.it:3000/api/accounts/login?include=user')
+			.post(api + 'accounts/login?include=user')
 			.send({
 				email: json.mail,
 				password: json.pwd
