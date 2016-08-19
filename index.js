@@ -21,6 +21,8 @@ import MnDSLI from './modules/containers/DSLIManagement'
 import MnData from './modules/containers/DataManagement'
 import Provider from './modules/containers/Provider'
 import rootReducer from './modules/reducers/RootReducer'
+import PageBuilder from './modules/services/PageBuilder'
+
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 
@@ -53,6 +55,7 @@ const routes =
 		<Route path="/managedsli" component={MnDSLI}/>
 		<Route path="/managedata" component={MnData}/>
 		<Route path="/editdsli" component={EditDSLI}/>
+		<Route path="/execdsli" component={PageBuilder}/>
 		<Route path="/profile/changepwd" component={ChangePwd}/>
 	</Route>;
 
