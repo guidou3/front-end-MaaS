@@ -27,7 +27,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --inline --content-base . --history-api-fallback"
+    "start": "webpack-dev-server --output-public-path /assets/ --content-base . --history-api-fallback"
   },
   "repository": {
     "type": "git",

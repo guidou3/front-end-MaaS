@@ -1,9 +1,11 @@
+var path = require("path");
 module.exports = {
   entry: './index.js',
 
   output: {
-    filename: 'bundle.js',
-    publicPath: ''
+    path: path.resolve(__dirname, "build"),
+    publicPath: "/assets/",
+    filename: "bundle.js"
   },
 
   module: {
@@ -12,3 +14,4 @@ module.exports = {
     ]
   }
 }
+console.log(module.exports.output.path);

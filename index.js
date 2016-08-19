@@ -26,7 +26,7 @@ import PageBuilder from './modules/services/PageBuilder'
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 
-const api = 'http://www.zinoo.it:3000/api/'
+const api = 'https://mass-demo.herokuapp.com/api/'
 
 const goto = routerMiddleware(browserHistory)
 const logger = createLogger()
