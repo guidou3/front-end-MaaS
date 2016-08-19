@@ -18,10 +18,10 @@ function receiveAddDatabase(bool, data) {
 }
 
 export function addDatabase(data) {
-	return function(dispatch, getState){
+	return function(dispatch, getState, api){
 		dispatch(requestAddDatabase())
 		return request
-		  .post('http://www.zinoo.it:3000/api/companies/'+getState().loggedUser.company+'/databases?access_token='+getState().loggedUser.token)
+		  .post(api + 'companies/'+ getState().loggedUser.company+'/databases?access_token='+getState().loggedUser.token)
 			.send({
 				uri: data
 			})

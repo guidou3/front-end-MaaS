@@ -20,10 +20,10 @@ function receiveNewDSLI(bool, data) {
 }
 
 export function newDSLI(data) {
-	return function(dispatch, getState){
+	return function(dispatch, getState, api){
 		dispatch(requestNewDSLI())
 		return request
-			.post('http://www.zinoo.it:3000/api/companies/'+ getState().loggedUser.company + '/dsls?access_token=' + getState().loggedUser.token)
+			.post(api + 'companies/'+ getState().loggedUser.company + '/dsls?access_token=' + getState().loggedUser.token)
 			.send({
 				name: data.name,
 				code: data.code,

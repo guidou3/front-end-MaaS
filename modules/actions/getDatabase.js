@@ -19,10 +19,10 @@ function receiveDatabase(bool, data) {
 }
 
 export function getDatabase(token) {
-	return function(dispatch, getState){
+	return function(dispatch, getState, api){
 		dispatch(requestDatabase())
 		return request
-			.get('http://www.zinoo.it:3000/api/companies/'+getState().loggedUser.company+'/databases?access_token='+getState().loggedUser.token)
+			.get(api + 'companies/'+getState().loggedUser.company+'/databases?access_token='+getState().loggedUser.token)
 			.then(
 				function(result){
 					let res = JSON.parse(result.text)

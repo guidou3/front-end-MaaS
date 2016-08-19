@@ -19,11 +19,11 @@ function receiveSaveTextDSLI(bool, text) {
 }
 
 export function saveTextDSLI(dsli) {
-	return function(dispatch, getState){
+	return function(dispatch, getState, api){
 		dispatch(requestSaveTextDSLI())
 		console.log(dsli)
 		return request
-			.put('http://www.zinoo.it:3000/api/companies/'+ getState().loggedUser.company + '/dsls/' + dsli.id + '?access_token=' + getState().loggedUser.token)
+			.put(api + 'companies/'+ getState().loggedUser.company + '/dsls/' + dsli.id + '?access_token=' + getState().loggedUser.token)
 			.send({
 				name: dsli.name,
 				code: dsli.code,

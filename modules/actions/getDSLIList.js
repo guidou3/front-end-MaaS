@@ -19,10 +19,10 @@ function receiveDSLIList(bool, data) {
 }
 
 export function getDSLIList() {
-	return function(dispatch, getState){
+	return function(dispatch, getState, api){
 		dispatch(requestDSLIList())
 		return request
-			.get('http://www.zinoo.it:3000/api/companies/'+getState().loggedUser.company+'/dsls?access_token='+getState().loggedUser.token)
+			.get(api + 'companies/'+getState().loggedUser.company+'/dsls?access_token='+getState().loggedUser.token)
 			.then(
 				function(result){
 					let res = JSON.parse(result.text)

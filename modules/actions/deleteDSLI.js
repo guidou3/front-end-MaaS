@@ -16,10 +16,10 @@ function receiveDeleteDSLI(bool, text) {
 }
 
 export function deleteDSLI(dsliId) {
-	return function(dispatch, getState){
+	return function(dispatch, getState, api){
 		dispatch(requestDeleteDSLI())
 		return request
-			.del('http://www.zinoo.it:3000/api/companies/'+ getState().loggedUser.company + '/dsls/' + dsliId + '?access_token=' + getState().loggedUser.token)
+			.del(api + 'companies/'+ getState().loggedUser.company + '/dsls/' + dsliId + '?access_token=' + getState().loggedUser.token)
 			.then(
 				function(){
 					dispatch(receiveDeleteDSLI(true))

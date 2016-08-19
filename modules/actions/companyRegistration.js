@@ -1,5 +1,4 @@
 //le funzioni receive...
-<<<<<<< HEAD
 import request from 'superagent'
 import {push} from 'react-router-redux'
 import {userRegistration} from './userRegistration'
@@ -23,17 +22,17 @@ function receiveCheckCompanyName(bool, step) {
 }
 
 export function checkCompanyName(data) {
-	return function(dispatch){
+	return function(dispatch, getState, api){
 		dispatch(requestCheckCompanyName())
 		return request
-			.head('http://www.zinoo.it:3000/api/companies/'+data.companyName)
+			.head(api + 'companies/' + data.companyName)
 			.then(
 				function(){
 					dispatch(receiveCheckCompanyName(true), 0)
 				},
 				function(){
 					return request
-						.head('http://www.zinoo.it:3000/api/accounts/'+data.ownerMail)
+						.head(api + 'accounts/' + data.ownerMail)
 						.then(
 							function(res){
 								dispatch(receiveCheckCompanyName(true), 1)
@@ -66,10 +65,10 @@ function receiveCompanyRegistration(bool, text) {
 }
 
 export function companyRegistration(data) {
-	return function(dispatch){
+	return function(dispatch, getState, api){
 		dispatch(requestCompanyRegistration())
 		return request
-			.post('http://www.zinoo.it:3000/api/companies')
+			.post(api + 'companies')
 			.send({
 				organization: data.companyName,
 				ownerId: data.ownerMail,

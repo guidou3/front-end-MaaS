@@ -14,10 +14,10 @@ export function receiveCheckUsername(bool) {
 }
 
 export function checkUsername(username) {
-	return function(dispatch) {
+	return function(dispatch, getState, api){
 		dispatch(requestCheckUsername())
 		request
-			.head('http://www.zinoo.it:3000/api/accounts/'+username)
+			.head(api + 'accounts/'+username)
 			.then(
 				function(res){
 					dispatch(receiveCheckUsername(true))
@@ -49,11 +49,11 @@ export function receiveUserRegistration(bool, data) {
 }
 
 export function userRegistration(data, role) {
-	return function(dispatch){
+	return function(dispatch, getState, api){
 		dispatch(requestUserRegistration())
 		console.log(data);
 		return request
-			.post('http://www.zinoo.it:3000/api/companies/'+data.companyName+'/users')
+			.post(api + 'companies/'+data.companyName+'/users')
 			.send({
 				email: data.ownerMail,
 				password: "asd",

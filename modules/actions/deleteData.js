@@ -19,10 +19,10 @@ function receiveDeleteData(bool, text) {
 }
 
 export function deleteData(dataId) {
-	return function(dispatch, getState){
+	return function(dispatch, getState, api){
 		dispatch(requestDeleteData())
 		return request
-			.del('http://www.zinoo.it:3000/api/companies/'+getState().loggedUser.company+'/databases/'+dataId+'?access_token='+getState().loggedUser.token)
+			.del(api + 'companies/' + getState().loggedUser.company+'/databases/'+dataId+'?access_token='+getState().loggedUser.token)
 			.then(
 				function(){
 					dispatch(receiveDeleteData(true), dataId)
