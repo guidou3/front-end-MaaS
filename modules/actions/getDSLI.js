@@ -1,11 +1,11 @@
-export function requestDSLI() {
+function requestDSLI() {
 	return {
 		type: 'waiting',
 		operation: 'getDSLI'
 	}
 }
 
-export function receiveDSLI(bool, data) {
+function receiveDSLI(bool, data) {
 	if(bool) return {
 		type: 'getDSLI',
 		selected: data

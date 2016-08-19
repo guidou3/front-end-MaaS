@@ -4,7 +4,8 @@ export default function DSLIListReducer(state = 0, action) {
 		  return action.user.DSLIList
 			//se questo non va si può chiamare dalla action getDSLIList
 		case 'getDSLIList':
-			return action.list
+			console.log(action);
+			return action.listDSLI
 		case 'renameDSLI':
 		{
 			var temp = Object.assign({}, state)

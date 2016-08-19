@@ -32,7 +32,7 @@ class RePwd extends Component {
           type = "button"
           onClick = {() => {
             if(this.p1 == this.p2)
-              store.dispatch(push('/'))
+              store.dispatch(actions.emailResetPassword("asd"))
             else{
               console.log(this.p1);
               console.log(this.p2);

@@ -1,3 +1,11 @@
+import {newDSLI} from './newDSLI'
+
+export function cloneDSLI(dsli) {
+	return function(dispatch){
+		dsli.name = "Clone of "+ dsli.name
+		dispatch(newDSLI(dsli))
+	}
+/*
 export function requestCloneDSLI() {
 	return {
 		type: 'waiting',
@@ -34,4 +42,5 @@ export function cloneDSLI(newName) {
 				}
 			)
 	}
+*/
 }

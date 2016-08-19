@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
-import MTextBox from '../components/MTextBox'
 import Modal from 'react-modal'
+import Components from '../components'
+const {MTextBox, MButton, MUserRow} = Components
 
 class MnUser extends Component {
   constructor(props) {
@@ -12,47 +13,20 @@ class MnUser extends Component {
 
   render() {
     const { store } = this.context
+    let comp = JSON.parse(store.getState().companies)
+
+    let body = []
+    let i
+    let n = comp.length;
+    for (i = 0; i < n; i++) {
+      body[i] = <MUserRow user = {comp[i]}/>
+    }
     return (
   	  <div>
         <h2>User Managment</h2>
         <table>
         <tbody>
-          <tr>
-            <td>{store.getState().profile.email}</td>
-            <td>{store.getState().profile.name}</td>
-            <td><button type = "button">X</button></td>
-            <td><select name="example">
-              <option value="member">Member</option>
-              <option value="admin">Admin</option>
-            </select> </td>
-          </tr>
-          <tr>
-            <td>{store.getState().profile.email}</td>
-            <td>{store.getState().profile.name}</td>
-            <td><button type = "button">X</button></td>
-            <td><select name="example">
-              <option value="member">Member</option>
-              <option value="admin">Admin</option>
-            </select> </td>
-          </tr>
-          <tr>
-            <td>{store.getState().profile.email}</td>
-            <td>{store.getState().profile.name}</td>
-            <td><button type = "button">X</button></td>
-            <td><select name="example">
-              <option value="member">Member</option>
-              <option value="admin">Admin</option>
-            </select> </td>
-          </tr>
-          <tr>
-            <td>{store.getState().profile.email}</td>
-            <td>{store.getState().profile.name}</td>
-            <td><button type = "button">X</button></td>
-            <td><select name="example">
-              <option value="member">Member</option>
-              <option value="admin">Admin</option>
-            </select> </td>
-          </tr>
+          {body}
         </tbody>
         </table>
         EMAIL <MTextBox

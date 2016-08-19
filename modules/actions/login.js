@@ -1,55 +1,52 @@
-export function requestLogin() {
+import request from 'superagent'
+import {push} from 'react-router-redux'
+import {getDSLIList} from './getDSLIList'
+
+function requestLogin() {
 	return {
 		type: 'waiting',
 		operation: 'login'
 	}
 }
 
-export function receiveLogin(bool, data) {
+function receiveLogin(bool, data) {
 	if(bool) return {
 		type: 'login',
 		user: data
 	}
 	else return {
+<<<<<<< HEAD
+		type: 'failedLogin',
+=======
 		type: 'error',
+>>>>>>> master
 		error: data
 	}
 }
 
 export function login(json) {
-	return function(dispatch){
+	return function(dispatch, getState, api){
 		dispatch(requestLogin())
-		/*return request
-			.get('url1')
+		return request
+			.post(api + 'accounts/login?include=user')
+			.send({
+				email: json.mail,
+				password: json.pwd
+			})
 			.then(
 				function(result){
-          if(result.password == json.password)
-          {
-            dispatch(receiveLogin(true, result))
-          }
-          else
-          {
-            dispatch(receiveLogin(false, 'Password sbagliata'))
-          }
+					let res = JSON.parse(result.text);
+					dispatch(receiveLogin(true, {
+						username: res.userId,
+						accessLevel: res.user.dutyId,
+						token: res.id,
+						company: res.user.companyId,
+						DSLIList: [{id: "prova"}]
+					}))
+					dispatch(getDSLIList()).then(() => (dispatch(push('/home'))))
 				},
 				function(error){
 					dispatch(receiveLogin(false, error))
-				}
-			)*/
-			return request
-				.get('url1')
-				.auth(json.username, json.password, {type:'auto'})
-				.then(
-					function(result){
-	          dispatch(receiveLogin(true, result))
-					},
-					function(error){
-						dispatch(receiveLogin(false, error))
-					}
-				)
+				})
 	}
-}
-
-export function logout() {
-	return { type: 'logout'}
 }

@@ -1,5 +1,5 @@
 export function requestChangePassword() {
-	return return {
+	return {
 		type: 'waiting',
 		operation: 'changePassword'
 	}

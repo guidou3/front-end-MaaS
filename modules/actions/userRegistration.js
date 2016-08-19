@@ -1,5 +1,8 @@
+import request from 'superagent'
+import {push} from 'react-router-redux'
+
 export function requestCheckUsername() {
-	return { 
+	return {
 		type: 'waiting',
 	 	operation: 'checkUsername'
 	}
@@ -11,26 +14,19 @@ export function receiveCheckUsername(bool) {
 }
 
 export function checkUsername(username) {
-	if(username == null)
-	{
-		//errore
-	}
-	else
-	{
-		return function(dispatch) {
-			dispatch(requestCheckUsername())
-			return request
-				.get('url2')
-				.query({username: username})
-				.then(
-					function(){
-						dispatch(receiveCheckUsername(false))
-					},
-					function(){
-						dispatch(receiveCheckUsername(true))
-					}
-				)
-		}
+	return function(dispatch) {
+		dispatch(requestCheckUsername())
+		request
+			.head('http://www.zinoo.it:3000/api/accounts/'+username)
+			.then(
+				function(res){
+					dispatch(receiveCheckUsername(true))
+				},
+				function(){
+					dispatch(receiveCheckUsername(false))
+					dispatch(companyRegistration(username))
+				}
+			)
 	}
 }
 
@@ -52,17 +48,24 @@ export function receiveUserRegistration(bool, data) {
 		}
 }
 
-export function userRegistration(data) {
+export function userRegistration(data, role) {
 	return function(dispatch){
 		dispatch(requestUserRegistration())
+		console.log(data);
 		return request
-			.post('url1')
+			.post('http://www.zinoo.it:3000/api/companies/'+data.companyName+'/users')
 			.send({
-				username: data.user,
-				password: data.password
+				email: data.ownerMail,
+				password: "asd",
+				realm: data.companyName,
+				companyId: data.companyName,
+				dutyId: role,
+				subscribedAt: Date(),
+				emailVerified: false
 			})
 			.then(function(result) {
 					dispatch(receiveUserRegistration(true, result))
+					dispatch(push('/'))
 				},
 				function(err){
 					dispatch(receiveUserRegistration(false, err))

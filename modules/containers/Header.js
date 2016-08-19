@@ -9,16 +9,11 @@ class Header extends Component {
   render() {
     const {store} = this.context
     let list
-    if(store.getState().auth == 1){
+    if(store.getState().loggedUser != 0){
       list =
         <ul>
 				    <li><MLink to="/home">Home</MLink></li>
-            <li><MLink to="/list">List</MLink ></li>
-            <li><MLink
-              onClick = {() => {
-                store.dispatch(actions.getProfile(store))
-              }}
-            to="/profile">Profile</MLink ></li>
+            <li><MLink to="/profile">Profile</MLink ></li>
             <li><MLink
               onClick = {() => {
                 store.dispatch(actions.logout())
@@ -26,10 +21,16 @@ class Header extends Component {
             to="/">LogOut</MLink ></li>
             <li><MLink
               onClick = {() => {
-                store.dispatch(actions.getProfile(store))
-              }}
-            to="/manageuser">Users</MLink ></li>
-            <li><MLink to="/managedsli">DSLI</MLink ></li>
+                store.dispatch(actions.getCompanies(store))
+              }} to="/manageuser">Users</MLink ></li>
+            <li><MLink
+              onClick = {() => {
+                store.dispatch(actions.getDSLIList())
+              }} to="/managedsli">DSLI</MLink ></li>
+            <li><MLink
+              onClick = {() => {
+                store.dispatch(actions.getDatabase())
+              }} to="/managedata">Database</MLink ></li>
 			  </ul>
     }
     else{
@@ -62,7 +63,7 @@ class Header extends Component {
           <div id="bodyImage">
             <div id="body">
               <div id="content">
-                {this.props.children || <Home/>}
+                {this.props.children || <MainPage/>}
               </div>
             </div>
           </div>

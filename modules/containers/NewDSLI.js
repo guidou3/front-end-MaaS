@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import MTextBox from '../components/MTextBox'
 import * as actions from '../actions/RootAction'
-import { routerMiddleware, push } from 'react-router-redux'
 
 class NewDSLI extends Component {
   constructor(props) {
@@ -17,7 +16,7 @@ class NewDSLI extends Component {
         NomeDSLI <MTextBox
           boxType="text"
           onWrite={(event) => {
-            this.user = event.target.value
+            this.name = event.target.value
           }}
         />
         {this.warn}
@@ -25,7 +24,7 @@ class NewDSLI extends Component {
         <button
           type = "button"
           onClick = {() => {
-            store.dispatch(push('/home'))
+            store.dispatch(actions.newDSLI({name:this.name, code:"Insert your DSL code here!"}))
           }}>
           CREATE
         </button>

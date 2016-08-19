@@ -8,6 +8,8 @@ export default function loggedUserReducer(state = 0, action) {
 			return {
 				username: action.user.username,
 				accessLevel: action.user.accessLevel,
+				company: action.user.company,
+				token: action.user.token,
 				image: action.user.image
 			}
 		case 'changeAccessLevel':

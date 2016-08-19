@@ -1,11 +1,13 @@
-export function requestDeleteDSLI() {
+import request from 'superagent'
+
+function requestDeleteDSLI() {
 	return {
 		type: 'waiting',
 		operation: 'deleteDSLI'
 	}
 }
 
-export function receiveDeleteDSLI(bool, text) {
+function receiveDeleteDSLI(bool, text) {
 	if(bool) return { type: 'deleteDSLI' }
 	else return {
 		type: 'error',
@@ -13,11 +15,11 @@ export function receiveDeleteDSLI(bool, text) {
 	}
 }
 
-export function deleteDSLI() {
-	return function(dispatch){
+export function deleteDSLI(dsliId) {
+	return function(dispatch, getState){
 		dispatch(requestDeleteDSLI())
 		return request
-			.del('url1')
+			.del('http://www.zinoo.it:3000/api/companies/'+ getState().loggedUser.company + '/dsls/' + dsliId + '?access_token=' + getState().loggedUser.token)
 			.then(
 				function(){
 					dispatch(receiveDeleteDSLI(true))
