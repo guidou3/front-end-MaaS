@@ -28,7 +28,6 @@ export function checkCompanyName(data) {
 			.head('http://www.zinoo.it:3000/api/companies/'+data.companyName)
 			.then(
 				function(){
-					console.log("wot");
 					dispatch(receiveCheckCompanyName(true), 0)
 				},
 				function(){

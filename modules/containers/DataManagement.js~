@@ -4,7 +4,7 @@ import Modal from 'react-modal'
 import Components from '../components'
 const {MTextBox, MButton, MDataRow} = Components
 
-class MnData extends Component {
+class MnUser extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
@@ -71,8 +71,8 @@ class MnData extends Component {
   }
 }
 
-MnData.contextTypes = {
+MnUser.contextTypes = {
   store : React.PropTypes.object
 }
 
-export default MnData
+export default MnUser

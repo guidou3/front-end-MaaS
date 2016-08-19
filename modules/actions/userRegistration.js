@@ -53,7 +53,7 @@ export function userRegistration(data, role) {
 		dispatch(requestUserRegistration())
 		console.log(data);
 		return request
-			.post('http://www.zinoo.it:3000/api/accounts/')
+			.post('http://www.zinoo.it:3000/api/companies/'+data.companyName+'/users')
 			.send({
 				email: data.ownerMail,
 				password: "asd",
