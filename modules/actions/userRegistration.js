@@ -57,7 +57,6 @@ export function userRegistration(data, role) {
 			.send({
 				email: data.ownerMail,
 				password: "asd",
-				realm: data.companyName,
 				companyId: data.companyName,
 				dutyId: role,
 				subscribedAt: Date(),
