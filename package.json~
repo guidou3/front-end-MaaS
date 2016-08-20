@@ -27,7 +27,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "heroku": "webpack-dev-server --output-public-path /assets/ --content-base . --history-api-fallback",
+    "getBundle": "webpack-dev-server --output-public-path /assets/ --content-base . --history-api-fallback",
 	"start": "webpack-dev-server --inline --content-base . --history-api-fallback"
   },
   "repository": {
