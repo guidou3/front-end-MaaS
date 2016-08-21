@@ -46,3 +46,9 @@ export function login(json) {
 				})
 	}
 }
+
+export function logout() {
+	return {
+		type: 'logout'
+	}
+}
