@@ -47,7 +47,7 @@ class LogIn extends Component {
           	    <div className="col-xs-12">
               	    <div className="form-wrap">
                       <h1>Log in with your email account</h1>
-                          <form role="form" action="javascript:;" method="post" id="login-form" autoComplete="off">
+                          <form role="form" action="javascript:;" method="post" id="login-form" autoComplete="on">
                               <div className="form-group">
                                   <label htmlFor="email" className="sr-only">Email</label>
                                   <MTextBox type="email" name="email" id="email" className="form-control" placeholder="somebody@example.com" onWrite={(event) => {this.mail = event.target.value}}/>
@@ -61,10 +61,10 @@ class LogIn extends Component {
                                 store.dispatch(actions.login({mail:this.mail, pwd:this.pwd}))
                               }}/>
                           </form>
-                          <button className="forget" data-toggle="modal" data-target=".forget-modal"onClick = {() => {
+                          <a href="#" className="forget" data-toggle="modal" data-target=".forget-modal"onClick = {() => {
                             this.dialog = true
                             store.dispatch(actions.refresh())
-                          }}>Forgot your password?</button>
+                          }}>Forgot your password?</a>
                           <hr></hr>
               	    </div>
           		</div>
@@ -82,7 +82,7 @@ class LogIn extends Component {
         					<span aria-hidden="true">×</span>
         					<span className="sr-only">Close</span>
         				</button>
-        				<h4 className="modal-title">Recovery password</h4>
+        				<h4 className="modal-title">Recover password</h4>
         			</div>
         			<div className="modal-body">
         				<p>Type your email account</p>
@@ -91,6 +91,7 @@ class LogIn extends Component {
         			<div className="modal-footer">
         				<button type="button" className="btn btn-default" data-dismiss="modal" onClick = {() => {
                   this.dialog = false
+                  store.dispatch(actions.refresh())
                 }}>Cancel</button>
                 <MButton type="button" className="btn btn-custom" value="Recovery" onClick = {() => {
                   //store.dispatch(actions.

@@ -67,6 +67,7 @@ class SignIn extends Component {
                                   ownerMail: this.owner
                                 }
                                 store.dispatch(actions.checkCompanyName(data))
+                                this.dialog = true
                               }}/>
                           </form>
               	    </div>
@@ -85,7 +86,8 @@ class SignIn extends Component {
         					<span aria-hidden="true">×</span>
         					<span className="sr-only">Close</span>
         				</button>
-        				<h4 className="modal-title">Company registered! Check your e-mail to login!</h4>
+        				<h4 className="modal-title">Company registered!</h4>
+                <p>Check your e-mail to login!</p>
         			</div>
         			<div className="modal-footer">
                 <MButton type="button" className="btn btn-custom" value="OK" onClick = {() => {

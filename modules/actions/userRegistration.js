@@ -64,7 +64,6 @@ export function userRegistration(data, role) {
 			})
 			.then(function(result) {
 					dispatch(receiveUserRegistration(true, result))
-					dispatch(push('/'))
 				},
 				function(err){
 					dispatch(receiveUserRegistration(false, err))

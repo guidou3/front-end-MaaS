@@ -22,7 +22,7 @@ class Header extends Component {
                 <span className="icon-bar"></span>
             </button>
             <MLink to="/home" className="navbar-brand">
-              <img src="../Immagini/MAAS_white.png" alt="logo MaaS" id="MaaSlogo"/>
+              <img src="../Immagini/MAAS_white.png" alt="logo MaaS" className="MaaSlogo"/>
             </MLink>
           </div>
           <div className="navbar-collapse collapse">
