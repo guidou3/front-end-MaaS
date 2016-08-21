@@ -4,10 +4,10 @@ class MButton extends Component {
 
   render() {
     return (
-      <button
+      <button {...this.props}
         type = "button"
         onClick = {this.props.onClick}>
-        {this.props.label}
+        {this.props.value}
       </button>
     )
   }
