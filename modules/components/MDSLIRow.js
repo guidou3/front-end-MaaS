@@ -18,14 +18,29 @@ class MDSLIRow extends Component {
                 }}/></td>)
     return (
       <tr>
-        <td>{this.props.data.id}</td>
         <td><MLink to="/execdsli">{this.props.data.name}</MLink ></td>
         <td>{this.props.data.lastModifiedDate}</td>
-        <td><MButton label = "Edit"
-          onClick = {() => {
-            store.dispatch(actions.setDSLI(this.props.data))
-            store.dispatch(actions.redirect("/editdsli"))
-        }}/></td>
+        <td>{this.props.data.id}</td>
+        <td>
+          <p data-placement="top" data-toggle="tooltip" title="Edit">
+            <button className="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" onClick = {() => {
+              store.dispatch(actions.setDSLI(this.props.data))
+              store.dispatch(actions.redirect("/editdsli"))
+            }}>
+              <span className="glyphicon glyphicon-pencil"/>
+            </button>
+          </p>
+        </td>
+        <td>
+          <p data-placement="top" data-toggle="tooltip" title="Delete">
+            <button className="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick = {() => {
+              store.dispatch(actions.setDSLI(this.props.data))
+              store.dispatch(actions.redirect("/editdsli"))
+            }}>
+              <span className="glyphicon glyphicon-trash"/>
+            </button>
+          </p>
+        </td>
         {admin}
       </tr>
     )
