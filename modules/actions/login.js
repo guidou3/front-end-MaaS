@@ -33,7 +33,7 @@ export function login(json) {
 				function(result){
 					let res = JSON.parse(result.text);
 					dispatch(receiveLogin(true, {
-						username: res.userId,
+						account: res.accountId,
 						accessLevel: res.user.dutyId,
 						token: res.id,
 						company: res.user.companyId,

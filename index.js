@@ -25,6 +25,7 @@ import PageBuilder from './modules/services/PageBuilder'
 
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
+import {persistStore, autoRehydrate} from 'redux-persist'
 
 const api = 'https://mass-demo.herokuapp.com/api/'
 
@@ -32,8 +33,10 @@ const goto = routerMiddleware(browserHistory)
 const logger = createLogger()
 const store = createStore(
 		rootReducer,
-		applyMiddleware(goto, logger, thunk.withExtraArgument(api))
+		applyMiddleware(goto, logger, thunk.withExtraArgument(api)),
+		autoRehydrate()
 )
+persistStore(store)
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store)
@@ -55,7 +58,7 @@ const routes =
 		<Route path="/managedsli" component={MnDSLI}/>
 		<Route path="/managedata" component={MnData}/>
 		<Route path="/editdsli" component={EditDSLI}/>
-  	<Route path="/execdsli" component={PageBuilder}/>
+		<Route path="/execdsli" component={PageBuilder}/>
 		<Route path="/profile/changepwd" component={ChangePwd}/>
 	</Route>;
 
