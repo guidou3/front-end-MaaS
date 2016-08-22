@@ -1,4 +1,5 @@
 import request from 'superagent'
+import * as actions from './RootAction'
 
 function requestDeleteDSLI() {
 	return {
@@ -23,6 +24,7 @@ export function deleteDSLI(dsliId) {
 			.then(
 				function(){
 					dispatch(receiveDeleteDSLI(true))
+					dispatch(actions.getDSLIList())
 				},
 				function(error){
 					dispatch(receiveDeleteDSLI(false, error))

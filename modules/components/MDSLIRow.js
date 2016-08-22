@@ -11,11 +11,6 @@ class MDSLIRow extends Component {
   render() {
     const { store } = this.context
     let admin = (<td></td>)
-    if(this.props.showPermits)
-      admin = (<td><MButton label = "X"
-                  onClick = {() => {
-                    store.dispatch(actions.deleteDSLI(this.props.data.id))
-                }}/></td>)
     return (
       <tr>
         <td><MLink to="/execdsli">{this.props.data.name}</MLink ></td>
@@ -34,14 +29,23 @@ class MDSLIRow extends Component {
         <td>
           <p data-placement="top" data-toggle="tooltip" title="Delete">
             <button className="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick = {() => {
-              store.dispatch(actions.setDSLI(this.props.data))
-              store.dispatch(actions.redirect("/editdsli"))
+              store.dispatch(actions.deleteDSLI(this.props.data.id))
+              store.dispatch(actions.getDSLIList())
             }}>
               <span className="glyphicon glyphicon-trash"/>
             </button>
           </p>
         </td>
-        {admin}
+        <td>
+          <p data-placement="top" data-toggle="tooltip" title="Clone">
+            <button className="btn btn-primary btn-xs" data-title="Clone" data-toggle="modal" data-target="#share" onClick = {() => {
+              store.dispatch(actions.cloneDSLI(this.props.data))
+              store.dispatch(actions.getDSLIList())
+            }}>
+              <span className="glyphicon glyphicon-share"/>
+            </button>
+          </p>
+        </td>
       </tr>
     )
   }

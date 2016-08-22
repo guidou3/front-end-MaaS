@@ -1,11 +1,43 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
-const {MButton, MDSLIRow} = Components
+const {MButton, MDSLIRow, MTextBox} = Components
+import Modal from 'react-modal'
+
+const customStyles = {
+  overlay : {
+    position          : 'fixed',
+    top               : 0,
+    left              : 0,
+    right             : 0,
+    bottom            : 0,
+    //backgroundColor   : 'rgba(0, 0, 0, 0.5)'
+  },
+  content : {
+    position          : 'absolute',
+    top               : '50%',
+    left              : '50%',
+    right             : 'none',
+    bottom            : 'none',
+    marginRight       : 'none',
+    //background        : 'rgba(0, 0, 0, 0.5)',
+    outline           : 'none',
+    borderRadius      : 'none',
+    transform         : 'translate(-50%, -50%)',
+    border            : 'none',
+    padding           : 'none'
+  }
+};
 
 class Dashboard extends Component {
-
+  constructor(props) {
+      super(props)
+      this.warn = ""
+      this.newDSLI = false
+      this.cloneDSLI = false
+    }
   render() {
+
     const {store} = this.context
     let comp = store.getState().DSLIList
 
@@ -13,35 +45,69 @@ class Dashboard extends Component {
     let i
     let n = comp.length;
     for (i = 0; i < n; i++) {
-      body[i] = <MDSLIRow data = {comp[i]} showPermits = {false}/>
+      body[i] = <MDSLIRow key={comp[i].id} data = {comp[i]} showPermits = {false}/>
     }
     return (
-	  <div>
+	  <div className="home">
         <h2>Welcome to Your Dashboard</h2>
-        <MButton label = "CREATE DSLI"
+        <MButton label = "Create DSLI" className="btn main-btn"
           onClick = {() => {
-            store.dispatch(actions.redirect('/newdsli'))
+            this.newDSLI = true
+            store.dispatch(actions.refresh())
         }}/>
-        <MButton label = "REFRESH"
+        <MButton label = "Refresh list" className="btn main-btn"
           onClick = {() => {
             store.dispatch(actions.getDSLIList())
         }}/>
         <div className="table-responsive">
           <table id="mytable" className="table table-bordred table-striped">
             <thead>
-              <th>Name</th>
-              <th>Last Modified</th>
-              <th>Id</th>
-              <th>Edit</th>
-              <th>Delete</th>
-              <th>Clone</th>
+              <tr>
+                <th>Name</th>
+                <th>Last Modified</th>
+                <th>Id</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>Clone</th>
+              </tr>
             </thead>
             <tbody>
               {body}
             </tbody>
           </table>
         </div>
-
+        <Modal isOpen= {this.newDSLI} style={customStyles} transparent={true}>
+          	<div className="modal-dialog modal-sm">
+          		<div className="modal-content">
+          			<div className="modal-header">
+          				<button type="button" className="close" data-dismiss="modal" onClick = {() => {
+                    this.newDSLI = false
+                    store.dispatch(actions.refresh())
+                  }}>
+          					<span aria-hidden="true">×</span>
+          					<span className="sr-only">Close</span>
+          				</button>
+          				<h4 className="modal-title">Create DSLI</h4>
+          			</div>
+          			<div className="modal-body">
+          				<p>Insert the nome of the DSLI</p>
+                  <MTextBox type="DSLIName" name="DSLIName" id="DSLIName" className="form-control" placeholder="Name" onWrite={(event) => {this.name = event.target.value}}/>
+          			</div>
+          			<div className="modal-footer">
+          				<button type="button" className="btn btn-default" data-dismiss="modal" onClick = {() => {
+                    this.newDSLI = false
+                    store.dispatch(actions.refresh())
+                  }}>Cancel</button>
+                  <MButton type="button" className="btn btn-custom" label="Recovery" onClick = {() => {
+                    store.dispatch(actions.newDSLI({name:this.name, code:"Insert your DSL code here!"}))
+                    this.newDSLI = false
+                    store.dispatch(actions.refresh())
+                    store.dispatch(actions.getDSLIList())
+                  }}/>
+          			</div>
+          		</div>
+          	</div>
+        </Modal>
       {this.warn}
     </div>
   	)
