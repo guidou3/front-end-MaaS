@@ -12,9 +12,10 @@ class ContactSupport extends Component {
 
   render() {
     const { store } = this.context
+    this.account =""
     if(store.getState().loggedUser != 0) {
       this.account = store.getState().loggedUser.account
-      document.getElementById("email").setAttribute("disabled", true)
+      //document.getElementById("email").setAttribute("disabled", true)
     }
 
       return (
@@ -25,6 +26,9 @@ class ContactSupport extends Component {
             <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
+                <script>
+                  document.getElementById("email").setAttribute("disabled", true)
+                </script>
                   <MTextBox type="text" className="form-control" name="Name" autoComplete="off" id="Name" placeholder="Name"
                     onWrite={(event) => {
                       this.name = event.target.value
@@ -34,7 +38,7 @@ class ContactSupport extends Component {
               </div>
               <div className="col-md-6">
                 <div className="form-group">
-                  <MTextBox type="email" className="form-control" name="email" autoComplete="off" id="email" placeholder={this.account}
+                  <MTextBox type="email" className="form-control" name="email" autoComplete="off" id="email" placeholder="Email" value={this.account}
                     onWrite={(event) => {
                       this.account = event.target.value
                     }}
@@ -52,11 +56,12 @@ class ContactSupport extends Component {
             </div>
             <div className="row">
               <div className="col-md-12">
-                <MButton type="submit" className="btn main-btn pull-right" value="Send a message" onClick = {() => {
+                <MButton type="submit" className="btn main-btn pull-right"  onClick = {() => {
                   //store.dispatch(actions.
                   //inserire qui la action per l'invio della mail al supporto
                   store.dispatch(actions.redirect('/'))
-                }}/>
+                }} label ="Send a message">
+                </MButton>
               </div>
             </div>
             </form>

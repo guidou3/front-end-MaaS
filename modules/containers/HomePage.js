@@ -26,11 +26,21 @@ class Dashboard extends Component {
           onClick = {() => {
             store.dispatch(actions.getDSLIList())
         }}/>
-      <table>
-      <tbody>
-        {body}
-      </tbody>
-      </table>
+        <div className="table-responsive">
+          <table id="mytable" className="table table-bordred table-striped">
+            <thead>
+              <th>Name</th>
+              <th>Last Modified</th>
+              <th>Id</th>
+              <th>Edit</th>
+              <th>Delete</th>
+              <th>Clone</th>
+            </thead>
+            <tbody>
+              {body}
+            </tbody>
+          </table>
+        </div>
 
       {this.warn}
     </div>
