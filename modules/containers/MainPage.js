@@ -12,7 +12,7 @@ export default React.createClass({
                 <div className="col-md-12">
                     <span className="head-main">TRY THIS SERVICE!</span>
                     <h2 className="head-sub-main">MaaS lets you access your MongoDB&#39;s databases with simple commands!</h2>
-                    <MLink to="/signIn" className="btn btn-danger btn-lg head-btn-one">SIGN UP YOUR AGENCY NOW !</MLink>
+                    <MLink to="/signIn" className="btn btn-danger btn-lg head-btn-one">SIGN UP YOUR COMPANY NOW !</MLink>
                 </div>
             </div>
         </div>

@@ -61,7 +61,7 @@ class SignIn extends Component {
                                   <MTextBox type="owner" name="owner" id="owner" className="form-control" placeholder="somebody@example.com" onWrite={(event) => {this.owner = event.target.value}}/>
                               </div>
                               {this.warn}
-                              <MButton type="submit" id="btn-login" className="btn btn-custom btn-lg btn-block" value="Sign up" onClick = {() => {
+                              <MButton type="submit" id="btn-login" className="btn btn-custom btn-lg btn-block" label="Sign up" onClick = {() => {
                                 let data = {
                                   companyName: this.name,
                                   ownerMail: this.owner
@@ -90,7 +90,7 @@ class SignIn extends Component {
                 <p>Check your e-mail to login!</p>
         			</div>
         			<div className="modal-footer">
-                <MButton type="button" className="btn btn-custom" value="OK" onClick = {() => {
+                <MButton type="button" className="btn btn-custom" label="OK" onClick = {() => {
                   this.dialog = false
                   store.dispatch(actions.redirect('/'))
                 }}/>

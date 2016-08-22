@@ -57,7 +57,7 @@ class LogIn extends Component {
                                   <MTextBox type="password" name="key" id="key" className="form-control" placeholder="Password" onWrite={(event) => {this.pwd = event.target.value}}/>
                               </div>
                               {this.warn}
-                              <MButton type="submit" id="btn-login" className="btn btn-custom btn-lg btn-block" value="Log in" onClick = {() => {
+                              <MButton type="submit" id="btn-login" className="btn btn-custom btn-lg btn-block" label="Log in" onClick = {() => {
                                 store.dispatch(actions.login({mail:this.mail, pwd:this.pwd}))
                               }}/>
                           </form>

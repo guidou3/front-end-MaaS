@@ -12,7 +12,7 @@ class MDataRow extends Component {
     return (
       <tr>
         <td>{this.props.data.id}</td>
-        <td>{this.props.data.uri}</td>
+        <td>{this.props.data.tag}</td>
         <td><MButton label = "X"
           onClick = {() => {
             store.dispatch(actions.deleteData(this.props.data.id))

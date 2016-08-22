@@ -34,10 +34,10 @@ class Header extends Component {
                     store.dispatch(actions.logout())
                   }}
                 to="/">LogOut</MLink ></li>
-                <li><MLink
+                /*<li><MLink
                   onClick = {() => {
                     store.dispatch(actions.getCompanies(store))
-                  }} to="/manageuser">Users</MLink ></li>
+                  }} to="/manageuser">Users</MLink ></li>*/
                 <li><MLink
                   onClick = {() => {
                     store.dispatch(actions.getDSLIList())

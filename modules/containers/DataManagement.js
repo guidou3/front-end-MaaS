@@ -29,6 +29,12 @@ class MnData extends Component {
           {body}
         </tbody>
         </table>
+        NAME <MTextBox
+          boxType="text"
+          onWrite={(event) => {
+            this.name = event.target.value
+          }}
+        />
         URI <MTextBox
           boxType="text"
           onWrite={(event) => {
@@ -38,8 +44,10 @@ class MnData extends Component {
         <button
           type = "button"
           onClick = {() => {
-            //this.dialog = true
-            store.dispatch(actions.addDatabase(this.uri))
+            if(this.uri == undefined || this.name == undefined)
+              this.warn = "Please compile all data fields";
+            else
+              store.dispatch(actions.addDatabase({uri: this.uri, tag: this.name}))
             //store.dispatch(actions.redirect('/home'))
         }}>
         ADD DATABASE

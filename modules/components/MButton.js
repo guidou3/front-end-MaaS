@@ -7,7 +7,7 @@ class MButton extends Component {
       <button {...this.props}
         type = "button"
         onClick = {this.props.onClick}>
-        {this.props.value}
+        {this.props.label}
       </button>
     )
   }
