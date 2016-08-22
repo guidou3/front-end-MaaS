@@ -40,6 +40,7 @@ switch(action.type) {
 	case 'saveTextDSLI':
 	case 'userRegistration':
 	case 'addDatabase':
+	case 'setAccessLevel':
 	case 'getDatabase':
 		return Object.assign({}, state, {
 				loading: false,

@@ -9,9 +9,11 @@ class MUserRow extends Component {
 
   render() {
     const { store } = this.context
-    let combobox = <td><select name="example">
-                     <option value='1' selected={this.props.user.dutyId==1}>{this.props.user.dutyId==1 ? "Member ♥" : "Member"}</option>
-                     <option value='2' selected={this.props.user.dutyId==2}>{this.props.user.dutyId==2 ? "Admin ♥" : "Admin"}</option>
+    let combobox = <td><select name="example" defaultValue={this.props.user.dutyId} onChange = {(event) => {
+      store.dispatch(actions.setAccessLevel({id:this.props.user.email, level:event.target.value}))
+    }}>
+                     <option value='1'>{this.props.user.dutyId==1 ? "Member ♥" : "Member"}</option>
+                     <option value='2'>{this.props.user.dutyId==2 ? "Admin ♥" : "Admin"}</option>
                    </select></td>
     if(this.props.user.dutyId > 2)
       combobox = <td>Owner</td>
@@ -19,7 +21,6 @@ class MUserRow extends Component {
     return (
       <tr>
         <td>{this.props.user.email}</td>
-        //<td>{this.props.user.dutyId}</td>
         <td><MButton label = "X"
           onClick = {() => {
             store.dispatch(actions.deleteUser(this.props.user.id))

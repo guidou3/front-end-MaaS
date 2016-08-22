@@ -13,6 +13,7 @@ import {getDSLI} from './getDSLI'
 import {getDSLIList} from './getDSLIList'
 import {getUserList} from './getUserList'
 import {login, logout} from './login'
+import {setAccessLevel} from './setAccessLevel'
 import {newDSLI} from './newDSLI'
 import {renameDSLI} from './renameDSLI'
 import {saveTextDSLI} from './saveTextDSLI'
@@ -37,6 +38,7 @@ export {
   getDSLIList,
   getUserList,
   login,
+  setAccessLevel,
   logout,
   newDSLI,
   renameDSLI,
