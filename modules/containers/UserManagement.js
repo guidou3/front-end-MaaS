@@ -38,8 +38,8 @@ class MnUser extends Component {
         <button
           type = "button"
           onClick = {() => {
-            this.dialog = true
-            store.dispatch(actions.userRegistration(this.user,2))
+            //this.dialog = true
+            store.dispatch(actions.userRegistration({ownerMail:this.user, companyName:store.getState().loggedUser.company},2))
             //store.dispatch(actions.redirect('/home'))
         }}>
         SEND INVITE
