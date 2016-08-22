@@ -4,6 +4,7 @@
   "description": "Client dell'applicazione MaaS",
   "main": "index.js",
   "dependencies": {
+    "fs": "0.0.2",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-modal": "^1.4.0",
@@ -16,7 +17,8 @@
     "redux-persist": "^3.5.0",
     "redux-promise-middleware": "^3.0.0",
     "redux-thunk": "^2.1.0",
-    "superagent": "^2.0.0"
+    "superagent": "^2.0.0",
+    "sweet.js": "^2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",

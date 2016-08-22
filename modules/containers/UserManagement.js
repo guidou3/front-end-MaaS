@@ -13,7 +13,7 @@ class MnUser extends Component {
 
   render() {
     const { store } = this.context
-    let comp = JSON.parse(store.getState().companies)
+    let comp = store.getState().userList
 
     let body = []
     let i
@@ -39,7 +39,7 @@ class MnUser extends Component {
           type = "button"
           onClick = {() => {
             this.dialog = true
-            store.dispatch(actions.refresh())
+            store.dispatch(actions.userRegistration(this.user,2))
             //store.dispatch(actions.redirect('/home'))
         }}>
         SEND INVITE

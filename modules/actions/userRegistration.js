@@ -57,7 +57,6 @@ export function userRegistration(data, role) {
 			.send({
 				email: data.ownerMail,
 				password: "asd",
-				companyId: data.companyName,
 				dutyId: role,
 				subscribedAt: Date(),
 				emailVerified: false

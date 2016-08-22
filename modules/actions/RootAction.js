@@ -11,6 +11,7 @@ import {deleteData} from './deleteData'
 import {embodyUser} from './embodyUser'
 import {getDSLI} from './getDSLI'
 import {getDSLIList} from './getDSLIList'
+import {getUserList} from './getUserList'
 import {login, logout} from './login'
 import {newDSLI} from './newDSLI'
 import {renameDSLI} from './renameDSLI'
@@ -34,6 +35,7 @@ export {
   getDatabase,
   getDSLI,
   getDSLIList,
+  getUserList,
   login,
   logout,
   newDSLI,
