@@ -21,7 +21,9 @@ class MUserRow extends Component {
 
     return (
       <tr>
-        <td>{this.props.user.email}</td>
+        <td>
+          {this.props.user.email}
+        </td>
         <td>{this.props.user.dutyId}</td>
         {combobox}
         <td>Profilo</td>

@@ -98,7 +98,7 @@ class Dashboard extends Component {
                     this.newDSLI = false
                     store.dispatch(actions.refresh())
                   }}>Cancel</button>
-                  <MButton type="button" className="btn btn-custom" label="Recovery" onClick = {() => {
+                  <MButton type="button" className="btn btn-custom" label="Create" onClick = {() => {
                     store.dispatch(actions.newDSLI({name:this.name, code:"Insert your DSL code here!"}))
                     this.newDSLI = false
                     store.dispatch(actions.refresh())

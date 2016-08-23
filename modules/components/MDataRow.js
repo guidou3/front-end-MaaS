@@ -13,7 +13,6 @@ class MDataRow extends Component {
       <tr>
         <td>{this.props.data.tag}</td>
         <td>{this.props.data.id}</td>
-        <td>URI</td>
         <td>
           <p data-placement="top" data-toggle="tooltip" title="Delete">
             <button className="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick = {() => {
