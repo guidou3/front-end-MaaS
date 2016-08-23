@@ -65,7 +65,6 @@ class MnData extends Component {
               <tr>
                 <th>Name</th>
                 <th>Id</th>
-                <th>URI</th>
                 <th>Delete</th>
               </tr>
             </thead>

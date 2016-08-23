@@ -10,42 +10,74 @@ class Header extends Component {
     const {store} = this.context
     let list
     if(store.getState().loggedUser != 0){
-      list =
-        <div className="container">
-          <div className="navbar-header">
-            <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-            </button>
-            <MLink to="/home" className="navbar-brand">
-              <img src="../Immagini/MAAS_white.png" alt="logo MaaS" className="MaaSlogo"/>
-            </MLink>
+      if(store.getState().loggedUser.accessLevel >= 2) {
+        list =
+        list =
+          <div className="container">
+            <div className="navbar-header">
+              <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
+              </button>
+              <MLink to="/home" className="navbar-brand">
+                <img src="../Immagini/MAAS_white.png" alt="logo MaaS" className="MaaSlogo"/>
+              </MLink>
+            </div>
+            <div className="navbar-collapse collapse">
+              <ul className="nav navbar-nav navbar-right">
+                  <li><MLink to="/home">Home</MLink></li>
+                  <li>
+                    <MLink onClick = {() => { store.dispatch(actions.getDSLIList()) }} to="/managedsli">
+                      DSLI
+                    </MLink>
+                  </li>
+                  <li>
+                    <MLink onClick = {() => { store.dispatch(actions.getUserList(store)) }} to="/manageuser">
+                      Users
+                    </MLink>
+                  </li>
+                  <li>
+                    <MLink onClick = {() => { store.dispatch(actions.getDatabase()) }} to="/managedata">
+                      Database
+                    </MLink>
+                  </li>
+                  <li><MLink to="/profile">Profile</MLink ></li>
+                  <li><MLink
+                    onClick = {() => {
+                      store.dispatch(actions.logout())
+                    }}
+                  to="/">LogOut</MLink ></li>
+              </ul>
+            </div>
           </div>
-          <div className="navbar-collapse collapse">
-            <ul className="nav navbar-nav navbar-right">
-                <li><MLink to="/home">Home</MLink></li>
-                <li><MLink to="/profile">Profile</MLink ></li>
-                <li><MLink
-                  onClick = {() => {
-                    store.dispatch(actions.logout())
-                  }}
-                to="/">LogOut</MLink ></li>
-                <li><MLink
-                  onClick = {() => {
-                    store.dispatch(actions.getUserList(store))
-                  }} to="/manageuser">Users</MLink ></li>
-                <li><MLink
-                  onClick = {() => {
-                    store.dispatch(actions.getDSLIList())
-                  }} to="/managedsli">DSLI</MLink ></li>
-                <li><MLink
-                  onClick = {() => {
-                    store.dispatch(actions.getDatabase())
-                  }} to="/managedata">Database</MLink ></li>
-            </ul>
+      }
+      else {
+        list =
+          <div className="container">
+            <div className="navbar-header">
+              <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
+              </button>
+              <MLink to="/home" className="navbar-brand">
+                <img src="../Immagini/MAAS_white.png" alt="logo MaaS" className="MaaSlogo"/>
+              </MLink>
+            </div>
+            <div className="navbar-collapse collapse">
+              <ul className="nav navbar-nav navbar-right">
+                  <li><MLink to="/home">Home</MLink></li>
+                  <li><MLink to="/profile">Profile</MLink ></li>
+                  <li><MLink
+                    onClick = {() => {
+                      store.dispatch(actions.logout())
+                    }}
+                  to="/">LogOut</MLink ></li>
+              </ul>
+            </div>
           </div>
-        </div>
+      }
     }
     else{
       list =

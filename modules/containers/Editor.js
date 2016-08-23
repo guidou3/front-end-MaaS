@@ -1,8 +1,33 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
-const {MTextBox, MButton} = Components
+const {MTextBox, MTextArea, MButton} = Components
 import Modal from 'react-modal'
+
+const customStyles = {
+  overlay : {
+    position          : 'fixed',
+    top               : 0,
+    left              : 0,
+    right             : 0,
+    bottom            : 0,
+    //backgroundColor   : 'rgba(0, 0, 0, 0.5)'
+  },
+  content : {
+    position          : 'absolute',
+    top               : '50%',
+    left              : '50%',
+    right             : 'none',
+    bottom            : 'none',
+    marginRight       : 'none',
+    //background        : 'rgba(0, 0, 0, 0.5)',
+    outline           : 'none',
+    borderRadius      : 'none',
+    transform         : 'translate(-50%, -50%)',
+    border            : 'none',
+    padding           : 'none'
+  }
+};
 
 class Editor extends Component {
   constructor(props) {
@@ -17,63 +42,73 @@ class Editor extends Component {
     let dsli = store.getState().currentDSLI
 
     return (
-  	  <div>
-        <div>
-          <h2>{dsli.name}</h2>
-          <MButton label = "RENAME"
+  	  <div className= "Editor">
+        <div className = "DSLITitle">
+          <h2>
+            {dsli.name}
+            <MButton label = "Rename DSLI" className="btn main-btn"
               onClick = {() => {
                 this.dialog = true
                 store.dispatch(actions.refresh())
-          }}/>
+            }}/>
+          </h2>
         </div>
-        <textarea rows="20" cols="20" defaultValue = {dsli.code}
-        onChange={(event) => {
+        <p></p>
+        <MTextArea rows="20" cols="100" value = {dsli.code}
+        onWrite={(event) => {
           dsli.code = event.target.value
           console.log(dsli.code)
         }} />
 
-        <div>
-          <MButton label = "SAVE"
+        <div className = "buttons">
+          <MButton label = "Save" className="btn main-btn"
             onClick = {() => {
               store.dispatch(actions.saveTextDSLI(dsli))
           }}/>
-          <MButton label = "DELETE"
+          <MButton label = "Delete" className="btn main-btn"
             onClick = {() => {
               store.dispatch(actions.deleteDSLI(dsli.id))
           }}/>
-          <MButton label = "CLONE"
+          <MButton label = "Clone" className="btn main-btn"
             onClick = {() => {
               store.dispatch(actions.cloneDSLI(dsli))
           }}/>
         </div>
 
         {this.warn}
-
-        <Modal isOpen= {this.dialog}>
-          <h2>Insert new Name for this DSLI</h2>
-          NEW NAME <MTextBox
-            boxType="text"
-            value={dsli.name}
-            onWrite={(event) => {
-              this.tempname = event.target.value
-            }}
-          />
-          <MButton label = "OK"
-            onClick = {() => {
-              if(this.tempname)
-                dsli.name = this.tempname
-              this.dialog = false
-              store.dispatch(actions.refresh())
-              //store.dispatch(actions.redirect('/home'))
-          }}/>
-          <MButton label = "CANCEL"
-            onClick = {() => {
-              this.dialog = false
-              store.dispatch(actions.refresh())
-              //store.dispatch(actions.redirect('/home'))
-          }}/>
+        <Modal isOpen= {this.dialog} style={customStyles} transparent={true}>
+          	<div className="modal-dialog modal-sm">
+          		<div className="modal-content">
+          			<div className="modal-header">
+          				<button type="button" className="close" data-dismiss="modal" onClick = {() => {
+                    this.dialog = false
+                    store.dispatch(actions.refresh())
+                  }}>
+          					<span aria-hidden="true">×</span>
+          					<span className="sr-only">Close</span>
+          				</button>
+          				<h4 className="modal-title">Insert a new Name for this DSLI</h4>
+          			</div>
+          			<div className="modal-body">
+          				<p>Insert the nome of the DSLI</p>
+                  <MTextBox type="DSLIName" name="DSLIName" id="DSLIName" className="form-control" placeholder="Name" onWrite={(event) => {this.name = event.target.value}}/>
+          			</div>
+          			<div className="modal-footer">
+          				<button type="button" className="btn btn-default" data-dismiss="modal" onClick = {() => {
+                    this.dialog = false
+                    store.dispatch(actions.refresh())
+                  }}>Cancel</button>
+                  <MButton type="button" className="btn btn-custom" label="Rename" onClick = {() => {
+                    if(this.name)
+                      dsli.name = this.name
+                    //store.dispatch(actions.renameDSLI())
+                    this.dialog = false
+                    store.dispatch(actions.refresh())
+                  }}/>
+          			</div>
+          		</div>
+          	</div>
         </Modal>
-
       </div>
   	)
   }
