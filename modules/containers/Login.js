@@ -36,7 +36,6 @@ class LogIn extends Component {
     this.warn = ""
     this.dialog = false
   }
-
   render() {
     const { store } = this.context
     return (

@@ -17,9 +17,6 @@ class Header extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
             </button>
             <MLink to="/home" className="navbar-brand">
               <img src="../Immagini/MAAS_white.png" alt="logo MaaS" className="MaaSlogo"/>

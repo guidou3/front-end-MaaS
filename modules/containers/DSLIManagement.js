@@ -23,11 +23,23 @@ class DSLIManagment extends Component {
     return (
   	  <div>
         <h2>DSLI Managment</h2>
-        <table>
-        <tbody>
-          {body}
-        </tbody>
-        </table>
+        <div className="table-responsive">
+          <table id="mytable" className="table table-bordred table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Last Modified</th>
+                <th>Id</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>Clone</th>
+              </tr>
+            </thead>
+            <tbody>
+              {body}
+            </tbody>
+          </table>
+        </div>
 
         {this.warn}
       </div>
