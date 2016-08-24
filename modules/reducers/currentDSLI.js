@@ -1,13 +1,6 @@
 export default function currentDSLIReducer(state = 0, action) {
 	switch(action.type) {
-		case 'renameDSLI':
-			return Object.assign({}, state, {
-					name: action.newName
-			})
-		case 'saveTextDSLI':
-			return Object.assign({}, state, {
-					code: action.newText
-			})
+
 		case 'setDSLI':
 			return {
 				id: action.dsli.id,
@@ -27,23 +20,34 @@ export default function currentDSLIReducer(state = 0, action) {
 			return Object.assign({}, state, {
 					result: action.result
 			})
-		case 'newDSLI':
-			return {
-				id: action.DSLI.id, // o faccio una query per ottenere l'id oppure uso getDSLI
-				name: action.DSLI.name,
-				code: action.DSLI.code,
-				permit: action.DSLI.permit
-			}
-		case 'cloneDSLI':
-			return {
-				id: action.DSLI.id,
-				name: action.DSLI.name,
-				code: action.DSLI.code,
-				permit: action.DSLI.permit
-			}
+
 		case 'logout':
 			return 0
 		default:
 			return state
 	}
 }
+
+/*case 'newDSLI':
+	return {
+		id: action.DSLI.id, // o faccio una query per ottenere l'id oppure uso getDSLI
+		name: action.DSLI.name,
+		code: action.DSLI.code,
+		permit: action.DSLI.permit
+	}
+case 'cloneDSLI':
+	return {
+		id: action.DSLI.id,
+		name: action.DSLI.name,
+		code: action.DSLI.code,
+		permit: action.DSLI.permit
+	}*/
+
+	/*case 'renameDSLI':
+		return Object.assign({}, state, {
+				name: action.newName
+		})
+	case 'saveTextDSLI':
+		return Object.assign({}, state, {
+				code: action.newText
+		})*/

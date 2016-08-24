@@ -1,3 +1,5 @@
+import request from 'superagent'
+
 export function requestDeleteUser() {
 	return {
 		type: 'waiting',
@@ -13,11 +15,11 @@ export function receiveDeleteUser(bool, text) {
 	}
 }
 
-export function deleteUser() {
-	return function(dispatch){
+export function deleteUser(email) {
+	return function(dispatch, getState, api){
 		dispatch(requestDeleteUser())
 		return request
-			.del(url)
+			.del(api + 'companies/'+ getState().loggedUser.company + '/users/' + email + '?access_token=' + getState().loggedUser.token)
 			.then(
 				function(){
 					dispatch(receiveDeleteUser(true))

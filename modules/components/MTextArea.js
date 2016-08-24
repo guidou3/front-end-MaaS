@@ -4,7 +4,7 @@ class MTextArea extends Component {
 
   render() {
     return (
-      <textarea {...this.props}  onChange={this.props.onWrite} defaultValue={this.props.value}/>
+      <textarea {...this.props}  onChange={this.props.onWrite} defaultValue={this.props.dfvalue}/>
     )
   }
 }

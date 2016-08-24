@@ -29,8 +29,7 @@ class MDSLIRow extends Component {
         <td>
           <p data-placement="top" data-toggle="tooltip" title="Delete">
             <button className="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick = {() => {
-              store.dispatch(actions.deleteDSLI(this.props.data.id))
-              store.dispatch(actions.getDSLIList())
+              store.dispatch(actions.deleteDSLI(this.props.data.id)).then(() => (store.dispatch(actions.getDSLIList())))
             }}>
               <span className="glyphicon glyphicon-trash"/>
             </button>
@@ -40,7 +39,6 @@ class MDSLIRow extends Component {
           <p data-placement="top" data-toggle="tooltip" title="Clone">
             <button className="btn btn-primary btn-xs" data-title="Clone" data-toggle="modal" data-target="#share" onClick = {() => {
               store.dispatch(actions.cloneDSLI(this.props.data))
-              store.dispatch(actions.getDSLIList())
             }}>
               <span className="glyphicon glyphicon-share"/>
             </button>

@@ -54,7 +54,7 @@ class Editor extends Component {
           </h2>
         </div>
         <p></p>
-        <MTextArea rows="20" cols="100" value = {dsli.code}
+        <MTextArea rows="20" cols="100" dfvalue = {dsli.code}
         onWrite={(event) => {
           dsli.code = event.target.value
           console.log(dsli.code)
@@ -63,11 +63,11 @@ class Editor extends Component {
         <div className = "buttons">
           <MButton label = "Save" className="btn main-btn"
             onClick = {() => {
-              store.dispatch(actions.saveTextDSLI(dsli))
+              store.dispatch(actions.saveTextDSLI(dsli)).then(() => (store.dispatch(actions.getDSLIList())))
           }}/>
           <MButton label = "Delete" className="btn main-btn"
             onClick = {() => {
-              store.dispatch(actions.deleteDSLI(dsli.id))
+              store.dispatch(actions.deleteDSLI(dsli.id)).then(() => (store.dispatch(actions.getDSLIList()))).then(() => (store.dispatch(actions.redirect('/home'))))
           }}/>
           <MButton label = "Clone" className="btn main-btn"
             onClick = {() => {

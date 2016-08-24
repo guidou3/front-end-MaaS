@@ -55,10 +55,6 @@ class Dashboard extends Component {
             this.newDSLI = true
             store.dispatch(actions.refresh())
         }}/>
-        <MButton label = "Refresh list" className="btn main-btn"
-          onClick = {() => {
-            store.dispatch(actions.getDSLIList())
-        }}/>
         <div className="table-responsive">
           <table id="mytable" className="table table-bordred table-striped">
             <thead>
@@ -99,10 +95,9 @@ class Dashboard extends Component {
                     store.dispatch(actions.refresh())
                   }}>Cancel</button>
                   <MButton type="button" className="btn btn-custom" label="Create" onClick = {() => {
-                    store.dispatch(actions.newDSLI({name:this.name, code:"Insert your DSL code here!"}))
+                    store.dispatch(actions.newDSLI({name:this.name, code:"Insert your DSL code here!"})).then(() => (store.dispatch(actions.getDSLIList())))
                     this.newDSLI = false
                     store.dispatch(actions.refresh())
-                    store.dispatch(actions.getDSLIList())
                   }}/>
           			</div>
           		</div>

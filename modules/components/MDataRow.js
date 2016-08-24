@@ -16,8 +16,7 @@ class MDataRow extends Component {
         <td>
           <p data-placement="top" data-toggle="tooltip" title="Delete">
             <button className="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick = {() => {
-              store.dispatch(actions.deleteData(this.props.data.id))
-              store.dispatch(actions.getDatabase())
+              store.dispatch(actions.deleteData(this.props.data.id)).then(() => (store.dispatch(actions.getDatabase())))
             }}>
               <span className="glyphicon glyphicon-trash"/>
             </button>

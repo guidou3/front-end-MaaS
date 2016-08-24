@@ -1,9 +1,10 @@
 import {newDSLI} from './newDSLI'
+import {getDSLIList} from './getDSLIList'
 
 export function cloneDSLI(dsli) {
 	return function(dispatch){
-		dsli.name = "Clone of "+ dsli.name
-		dispatch(newDSLI(dsli))
+		let n = Object.assign({}, dsli, {name:"Clone of "+ dsli.name})
+		dispatch(newDSLI(n)).then(() => (dispatch(getDSLIList())))
 	}
 /*
 export function requestCloneDSLI() {

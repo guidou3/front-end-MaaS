@@ -35,7 +35,7 @@ export function newDSLI(data) {
 			})
 			.then(
 				function(result){
-					dispatch(receiveNewDSLI(true, result)).then(() => (dispatch(push('/home'))))
+					dispatch(receiveNewDSLI(true, result))
 				},
 				function(error){
 					dispatch(receiveNewDSLI(false, error))
