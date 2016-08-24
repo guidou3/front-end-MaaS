@@ -13,7 +13,13 @@ class MDSLIRow extends Component {
     let admin = (<td></td>)
     return (
       <tr>
-        <td><MLink to="/execdsli">{this.props.data.name}</MLink ></td>
+        <td>
+          <MLink to="/execdsli" onClick = {() => {
+            store.dispatch(actions.setDSLI(this.props.data))
+          }}>
+            {this.props.data.name}
+          </MLink>
+        </td>
         <td>{this.props.data.lastModifiedDate}</td>
         <td>{this.props.data.id}</td>
         <td>
