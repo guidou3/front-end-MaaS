@@ -30,7 +30,8 @@ export function newDSLI(data) {
 				lastModifiedDate: Date(),
 				accountId: getState().loggedUser.username,
 				databseId: data.db,
-				permits: 0
+				public: true,
+				permits: 3
 			})
 			.then(
 				function(result){
