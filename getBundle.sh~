@@ -1,3 +1,0 @@
-#!/bin/sh
-webpack-dev-server --output-public-path /assets/ --content-base . --history-api-fallback
-wget http://localhost:8080/assets/bundle.js
