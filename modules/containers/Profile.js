@@ -11,7 +11,7 @@ class Profile extends Component {
 
   render() {
     const { store } = this.context
-    this.image = store.getState().profile.image
+    this.image = store.getState().loggedUser.image
     if(this.image == undefined) {
       this.image = 'http://i.stack.imgur.com/HQwHI.jpg'
     }
@@ -19,8 +19,7 @@ class Profile extends Component {
 
   	  <div>
         <h2>Profile</h2>
-        <p>{store.getState().profile.email}</p>
-        <p>{store.getState().profile.name}</p>
+        <p>{store.getState().loggedUser.accout}</p>
 
         <div>
           <img src={this.image} alt="Profile image" className="img-responsive"/>
