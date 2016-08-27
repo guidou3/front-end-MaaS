@@ -22,6 +22,8 @@ function receiveNewDSLI(bool, data) {
 export function newDSLI(data) {
 	return function(dispatch, getState, api){
 		dispatch(requestNewDSLI())
+    if(data.permits == undefined)
+      data.permits = 0
 		return request
 			.post(api + 'companies/'+ getState().loggedUser.company + '/dsls?access_token=' + getState().loggedUser.token)
 			.send({
@@ -30,7 +32,7 @@ export function newDSLI(data) {
 				lastModifiedDate: Date(),
 				accountId: getState().loggedUser.username,
 				databseId: data.db,
-				permits: 0
+				permits: data.permits
 			})
 			.then(
 				function(result){

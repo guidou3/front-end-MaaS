@@ -72,6 +72,7 @@ class Editor extends Component {
           <MButton label = "Clone" className="btn main-btn"
             onClick = {() => {
               store.dispatch(actions.cloneDSLI(dsli))
+              store.dispatch(actions.redirect('/home'))
           }}/>
         </div>
 

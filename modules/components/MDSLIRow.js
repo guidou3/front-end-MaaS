@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import MButton from './MButton'
 import MLink from './MLink'
+import { Button, Glyphicon} from 'react-bootstrap'
 
 class MDSLIRow extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class MDSLIRow extends Component {
       <tr>
         <td>
           <MLink to="/execdsli" onClick = {() => {
-            store.dispatch(actions.setDSLI(this.props.data))
+            store.dispatch(actions.getDSLI(this.props.data.id)).then(() => (store.dispatch(actions.redirect("/editdsli"))))
           }}>
             {this.props.data.name}
           </MLink>
@@ -23,32 +24,25 @@ class MDSLIRow extends Component {
         <td>{this.props.data.lastModifiedDate}</td>
         <td>{this.props.data.id}</td>
         <td>
-          <p data-placement="top" data-toggle="tooltip" title="Edit">
-            <button className="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" onClick = {() => {
-              store.dispatch(actions.setDSLI(this.props.data))
-              store.dispatch(actions.redirect("/editdsli"))
-            }}>
-              <span className="glyphicon glyphicon-pencil"/>
-            </button>
-          </p>
+          <Button bsSize="xs" bsStyle="primary"  onClick = {() => {
+            store.dispatch(actions.getDSLI(this.props.data.id)).then(() => (store.dispatch(actions.redirect("/editdsli"))))
+          }}>
+            <Glyphicon glyph="pencil"/>
+          </Button>
         </td>
         <td>
-          <p data-placement="top" data-toggle="tooltip" title="Delete">
-            <button className="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick = {() => {
-              store.dispatch(actions.deleteDSLI(this.props.data.id)).then(() => (store.dispatch(actions.getDSLIList())))
-            }}>
-              <span className="glyphicon glyphicon-trash"/>
-            </button>
-          </p>
+          <Button bsSize="xs" bsStyle="danger"  onClick = {() => {
+            store.dispatch(actions.deleteDSLI(this.props.data.id)).then(() => (store.dispatch(actions.getDSLIList())))
+          }}>
+            <Glyphicon glyph="trash"/>
+          </Button>
         </td>
         <td>
-          <p data-placement="top" data-toggle="tooltip" title="Clone">
-            <button className="btn btn-primary btn-xs" data-title="Clone" data-toggle="modal" data-target="#share" onClick = {() => {
-              store.dispatch(actions.cloneDSLI(this.props.data))
-            }}>
-              <span className="glyphicon glyphicon-share"/>
-            </button>
-          </p>
+          <Button bsSize="xs" bsStyle="primary"  onClick = {() => {
+            store.dispatch(actions.getDSLI(this.props.data.id)).then(() => (store.dispatch(actions.cloneDSLI(store.getState().currentDSLI))))
+          }}>
+            <Glyphicon glyph="share"/>
+          </Button>
         </td>
       </tr>
     )

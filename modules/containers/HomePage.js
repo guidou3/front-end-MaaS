@@ -45,7 +45,8 @@ class Dashboard extends Component {
     let i
     let n = comp.length;
     for (i = 0; i < n; i++) {
-      body[i] = <MDSLIRow key={comp[i].id} data = {comp[i]} showPermits = {false}/>
+      if(comp[i].permits > 0 || comp[i].accountId == store.getState().loggedUser.email)
+        body[i] = <MDSLIRow key={comp[i].id} data = {comp[i]} showPermits = {false}/>
     }
     return (
 	  <div className="home">

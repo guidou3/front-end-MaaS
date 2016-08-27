@@ -1,3 +1,5 @@
+import request from 'superagent'
+
 function requestDSLI() {
 	return {
 		type: 'waiting',
@@ -16,14 +18,15 @@ function receiveDSLI(bool, data) {
 	}
 }
 
-export function getDSLI() {
-	return function(dispatch){
+export function getDSLI(id) {
+	return function(dispatch, getState, api){
 		dispatch(requestDSLI())
 		return request
-			.get('url1')
+			.get(api + 'companies/'+getState().loggedUser.company+'/dsls/'+id+'?access_token='+getState().loggedUser.token)
 			.then(
 				function(result){
-					dispatch(receiveDSLI(true, result))
+					let res = JSON.parse(result.text)
+					dispatch(receiveDSLI(true, res))
 				},
 				function(error){
 					dispatch(receiveDSLI(false, error))
