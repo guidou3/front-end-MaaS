@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Modal from 'react-modal'
 import Components from '../components'
-const {MTextBox, MButton, MDSLIRow} = Components
+const {MTextBox, MButton, MAdminDSLIRow} = Components
 
 class DSLIManagment extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class DSLIManagment extends Component {
     let i
     let n = comp.length;
     for (i = 0; i < n; i++) {
-      body[i] = <MDSLIRow data = {comp[i]} showPermits = {true}/>
+      body[i] = <MAdminDSLIRow data = {comp[i]} showPermits = {true}/>
     }
     return (
   	  <div>
@@ -30,9 +30,10 @@ class DSLIManagment extends Component {
                 <th>Name</th>
                 <th>Last Modified</th>
                 <th>Id</th>
+                <th>Access level</th>
                 <th>Edit</th>
+                <th>Publish</th>
                 <th>Delete</th>
-                <th>Clone</th>
               </tr>
             </thead>
             <tbody>

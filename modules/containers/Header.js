@@ -21,7 +21,7 @@ class Header extends Component {
                 <img src="../Immagini/MAAS_white.png" alt="logo MaaS" className="MaaSlogo"/>
               </MLink>
             </Navbar.Brand>
-            <Navbar.Toggle />
+            <Navbar.Toggle/>
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight>

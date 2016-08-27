@@ -7,6 +7,7 @@
     "fs": "0.0.2",
     "react": "^0.14.7",
     "react-bootstrap": "^0.30.3",
+    "react-bootstrap-select": "^0.14.0",
     "react-dom": "^0.14.7",
     "react-modal": "^1.4.0",
     "react-redux": "^4.4.5",

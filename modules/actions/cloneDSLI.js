@@ -1,9 +1,12 @@
 import {newDSLI} from './newDSLI'
 import {getDSLIList} from './getDSLIList'
 
-export function cloneDSLI(dsli) {
+export function cloneDSLI(dsli, level =0) {
 	return function(dispatch){
-		let n = Object.assign({}, dsli, {name:"Clone of "+ dsli.name})
+		let publicc = false;
+		if(level > 0) publicc = true
+		let n = Object.assign({}, dsli, {name:"Clone of "+ dsli.name, public: publicc, permits: level})
+		console.log(n)
 		dispatch(newDSLI(n)).then(() => (dispatch(getDSLIList())))
 	}
 /*
