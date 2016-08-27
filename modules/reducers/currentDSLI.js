@@ -15,7 +15,7 @@ export default function currentDSLIReducer(state = 0, action) {
 				id: action.selected.id,
 				name: action.selected.name,
 				code: action.selected.DSLcode,
-				permit: action.selected.permit
+				permits: action.selected.permits
 			}
 		case 'execDSLI':
 			return Object.assign({}, state, {

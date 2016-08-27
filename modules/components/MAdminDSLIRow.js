@@ -17,8 +17,7 @@ class MAdminDSLIRow extends Component {
                   <td>
                    <div className="form-group">
                     <select className="form-control" defaultValue={access} onChange = {(event) => {
-                       store.dispatch(actions.changeDSLIPermits(this.props.data, event.target.value).then(() => (store.dispatch(actions.getDSLIList()))))}}>
-                     <option value='0'>{access==0 ? "Private \u2713" : "Private"}</option>
+                       store.dispatch(actions.changeDSLIPermits(this.props.data, event.target.value)).then(() => (store.dispatch(actions.getDSLIList())))}}>
                      <option value='1'>{access==1 ? "Executable \u2713" : "Executable"}</option>
                      <option value='2'>{access==2 ? "Readable \u2713" : "Readable"}</option>
                      <option value='3'>{access==3 ? "Modificable \u2713" : "Modificable"}</option>
@@ -31,15 +30,16 @@ class MAdminDSLIRow extends Component {
       combobox = null
     return (
       <tr>
+        <td>{this.props.data.id}</td>
         <td>
           <MLink to="/execdsli" onClick = {() => {
-            store.dispatch(actions.setDSLI(this.props.data))
+            store.dispatch(actions.getDSLI(this.props.data.id))
           }}>
             {this.props.data.name}
           </MLink>
         </td>
         <td>{this.props.data.lastModifiedDate}</td>
-        <td>{this.props.data.id}</td>
+        <td>{this.props.data.accountId}</td>
         {combobox}
         <td>
           <Button bsSize="xs" bsStyle="primary" onClick = {() => {

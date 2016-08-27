@@ -56,45 +56,31 @@ class Header extends Component {
       }
       else {
         list =
-          <div className="container">
-            <div className="navbar-header">
-              <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-              </button>
+        <Navbar inverse>
+          <Navbar.Header>
+            <Navbar.Brand>
               <MLink to="/home" className="navbar-brand">
                 <img src="../Immagini/MAAS_white.png" alt="logo MaaS" className="MaaSlogo"/>
               </MLink>
-            </div>
-            <div className="navbar-collapse collapse">
-              <ul className="nav navbar-nav navbar-right">
-                  <li><MLink to="/home">Home</MLink></li>
-                  <li className="dropdown">
-          				    <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          						  Profilo
-          							<span className="caret"/>
-          						</a>
-          					<ul className="dropdown-menu" id="dropdown">
-          					<li>
-          						 <a href="/profile">Profile</a>
-          					</li>
-          					<li>
-          						<a href="/logout">
-          							LogOut
-          						</a >
-          					</li>
-          				  </ul>
-          				</li>
-                  <li><MLink to="/profile">Profile</MLink ></li>
-                  <li><MLink
-                    onClick = {() => {
-                      store.dispatch(actions.logout())
-                    }}
-                  to="/">LogOut</MLink ></li>
-              </ul>
-            </div>
-          </div>
+            </Navbar.Brand>
+            <Navbar.Toggle/>
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              <LinkContainer to='/home'>
+                <NavItem eventKey={1}>Home</NavItem>
+              </LinkContainer>
+              <NavDropdown eventKey={2} title={store.getState().loggedUser.account} id="basic-nav-dropdown">
+                <LinkContainer to='/profile'>
+                  <MenuItem eventKey={2.1}>Profile</MenuItem>
+                </LinkContainer>
+                <LinkContainer to='/' onClick = {() => { store.dispatch(actions.logout()) }}>
+                  <MenuItem eventKey={2.2}>Logout</MenuItem>
+                </LinkContainer>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
       }
     }
     else{

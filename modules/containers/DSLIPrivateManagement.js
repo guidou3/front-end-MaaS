@@ -28,9 +28,10 @@ class DSLIManagment extends Component {
           <table id="mytable" className="table table-bordred table-striped">
             <thead>
               <tr>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Last Modified</th>
-                <th>Id</th>
+                <th>Author</th>
                 <th>Edit</th>
                 <th>Publish</th>
                 <th>Delete</th>
