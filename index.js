@@ -61,7 +61,7 @@ const routes =
 		<Route path="/managepvtdsli" component={MnPvtDSLI}/>
 		<Route path="/managedata" component={MnData}/>
 		<Route path="/editdsli" component={EditDSLI}/>
-		<Route path="/execdsli" component={Simule}/> /*PageBuilder  */
+		<Route path="/execdsli" component={PageBuilder}/> /*PageBuilder  */
 		<Route path="/profile/changepwd" component={ChangePwd}/>
 	</Route>;
 
