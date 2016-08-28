@@ -39,7 +39,12 @@ export function login(json) {
 						company: res.user.companyId,
 						DSLIList: [{id: "prova"}]
 					}))
-					dispatch(getDSLIList()).then(() => (dispatch(push('/home'))))
+					if(res.user.dutyId == 9) {
+						dispatch(push('/homeDeveloper'))
+					}
+					else {
+						dispatch(getDSLIList()).then(() => (dispatch(push('/home'))))
+					}
 				},
 				function(error){
 					dispatch(receiveLogin(false, error))

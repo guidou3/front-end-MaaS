@@ -21,6 +21,7 @@ export default function currentDSLIReducer(state = 0, action) {
 					result: action.result
 			})
 
+		case 'embodyUser':
 		case 'logout':
 			return 0
 		default:

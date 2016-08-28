@@ -6,6 +6,8 @@ export default function DSLIListReducer(state = 0, action) {
 		case 'getDSLIList':
 			console.log(action);
 			return action.listDSLI
+
+		case 'embodyUser':
 		case 'logout':
 			return 0
 		default:
