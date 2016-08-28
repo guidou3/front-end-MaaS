@@ -38,7 +38,7 @@ const store = createStore(
 		applyMiddleware(goto, logger, thunk.withExtraArgument(api)),
 		autoRehydrate()
 )
-persistStore(store)
+persistStore(store).purge(['routing'])
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store)
