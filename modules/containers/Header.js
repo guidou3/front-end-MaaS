@@ -96,8 +96,8 @@ class Header extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <LinkContainer to='/signIn'>
-              <NavItem eventKey={1}>Sign in</NavItem>
+            <LinkContainer to='/signUp'>
+              <NavItem eventKey={1}>Sign up</NavItem>
             </LinkContainer>
             <LinkContainer to='/login'>
               <NavItem eventKey={1}>Login</NavItem>

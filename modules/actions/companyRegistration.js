@@ -21,27 +21,44 @@ function receiveCheckCompanyName(bool, step) {
 		return { type: 'checkCompanyName' }
 }
 
+function receiveError(error) {
+		return {
+			type: 'error',
+			error: error
+		}
+}
+
 export function checkCompanyName(data) {
 	return function(dispatch, getState, api){
 		dispatch(requestCheckCompanyName())
 		return request
-			.head(api + 'companies/' + data.companyName)
+			.get(api + 'companies/' + data.companyName + '/exists')
 			.then(
-				function(){
-					dispatch(receiveCheckCompanyName(true, 0))
+				function(res){
+					if(res.exists) {
+						dispatch(receiveCheckCompanyName(true, 0))
+					}
+					else {
+						return request
+							.get(api + 'accounts/' + data.ownerMail + '/exists')
+							.then(
+								function(res){
+									if(res.exists) {
+										dispatch(receiveCheckCompanyName(true, 1))
+									}
+									else {
+										dispatch(receiveCheckCompanyName(false, 2))
+										dispatch(companyRegistration(data))
+									}
+								},
+								function(err){
+									dispatch(receiveError(err))
+								}
+							)
+					}
 				},
-				function(){
-					return request
-						.head(api + 'accounts/' + data.ownerMail)
-						.then(
-							function(){
-								dispatch(receiveCheckCompanyName(true, 1))
-							},
-							function(){
-								dispatch(receiveCheckCompanyName(false, 2))
-								dispatch(companyRegistration(data))
-							}
-						)
+				function(err){
+					dispatch(receiveError(err))
 				}
 			)
 	}

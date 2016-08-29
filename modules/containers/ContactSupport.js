@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MTextBox, MButton} = Components
+import {Alert} from 'react-bootstrap';
 
 class ContactSupport extends Component {
   constructor(props) {
@@ -16,6 +17,13 @@ class ContactSupport extends Component {
     if(store.getState().loggedUser != 0) {
       this.account = store.getState().loggedUser.account
       //document.getElementById("email").setAttribute("disabled", true)
+    }
+
+    if(store.getState().status.result == "error") {
+      this.warn =
+        <Alert bsStyle="danger">
+          <p>There was a problem sending the message, retry later.</p>
+        </Alert>
     }
 
       return (
@@ -38,11 +46,10 @@ class ContactSupport extends Component {
               </div>
               <div className="col-md-6">
                 <div className="form-group">
-                  <MTextBox type="email" className="form-control" name="email" autoComplete="off" id="email" placeholder="Email" value={this.account}
+                  <MTextBox type="email" className="form-control" name="email" autoComplete="off" id="email" placeholder="Email" defaultLabel={this.account}
                     onWrite={(event) => {
                       this.account = event.target.value
                     }}
-
                   />
                 </div>
               </div>
@@ -54,9 +61,11 @@ class ContactSupport extends Component {
                 </div>
               </div>
             </div>
+            {this.warn}
             <div className="row">
               <div className="col-md-12">
                 <MButton type="submit" className="btn main-btn pull-right"  onClick = {() => {
+                  if(this.account, this.name, this.message != undefined)
                   //store.dispatch(actions.
                   //inserire qui la action per l'invio della mail al supporto
                   store.dispatch(actions.redirect('/'))

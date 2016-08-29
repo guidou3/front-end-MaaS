@@ -31,7 +31,7 @@ const customStyles = {
   }
 };
 
-class SignIn extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
@@ -41,8 +41,37 @@ class SignIn extends Component {
   render() {
     const { store } = this.context
 
-    if(store.getState().status.validity != undefined && store.getState().status.validity.username == true)
-      this.dialog = true
+    if(store.getState().status.companyNameValidity != undefined) {
+      if(store.getState().status.companyNameValidity == true && store.getState().status.usernameValidity == true) {
+        this.dialog = true
+      }
+      else if(store.getState().status.companyNameValidity == false) {
+        this.warn =
+          <Alert bsStyle="danger">
+            <p>Company name already taken.</p>
+          </Alert>
+      }
+      else if(store.getState().status.usernameValidity == false) {
+        this.warn =
+          <Alert bsStyle="danger">
+            <p>Username already taken.</p>
+          </Alert>
+      }
+    }
+    if(store.getState().status.result == "error") {
+      if(store.getState().status.error.response.body.error.status == 422) {
+        this.warn =
+          <Alert bsStyle="danger">
+            <p>Error in registering the owner.</p>
+          </Alert>
+      }
+      else {
+        this.warn =
+          <Alert bsStyle="danger">
+            <p>Network error.</p>
+          </Alert>
+      }
+    }
 
     return (
       <div>
@@ -51,7 +80,7 @@ class SignIn extends Component {
           	<div className="row">
           	    <div className="col-xs-12">
               	    <div className="form-wrap">
-                      <h1>Sign in</h1>
+                      <h1>Sign up</h1>
                           <form role="form" action="javascript:;" method="post" id="signin-form" autoComplete="off">
                               <div className="form-group">
                                   <label htmlFor="companyName" className="sr-only">Company name</label>
@@ -63,49 +92,25 @@ class SignIn extends Component {
                               </div>
                               {this.warn}
                               <MButton type="submit" id="btn-login" className="btn btn-custom btn-lg btn-block" label="Sign up" onClick = {() => {
+                                this.warn =""
+                                store.dispatch(actions.refresh())
                                 if(this.name != undefined && this.owner != undefined) {
                                   let data = {
                                     companyName: this.name,
                                     ownerMail: this.owner
                                   }
-                                  store.dispatch(actions.checkCompanyName(data)).then()
-                                  if(store.getState().status.companyNameValidity == true && store.getState().status.usernameValidity == true) {
-                                    this.dialog = true
-                                  }
-                                  else if(store.getState().status.companyNameValidity == false) {
-                                    this.warn =
-                                      <Alert bsStyle="danger">
-                                        <p>Company name already taken.</p>
-                                      </Alert>
-                                  }
-                                  else if(store.getState().status.usernameValidity == false) {
-                                    this.warn =
-                                      <Alert bsStyle="danger">
-                                        <p>Username already taken.</p>
-                                      </Alert>
-                                  }
-                                  else {
-                                    if(store.getState().status.error.response.body.error.status == 422) {
-                                      this.warn =
-                                        <Alert bsStyle="danger">
-                                          <p>Network error.</p>
-                                        </Alert>
-                                    }
-                                    else {
-                                      this.warn =
-                                        <Alert bsStyle="danger">
-                                          <p>Network error.</p>
-                                        </Alert>
-                                    }
-                                  }
+                                  console.log(this.name)
+                                  console.log(this.owner)
+                                  console.log(data)
+                                  store.dispatch(actions.checkCompanyName(data))
+                                  store.dispatch(actions.refresh())
                                 }
                                 else {
                                   this.warn =
                                     <Alert bsStyle="danger">
-                                      <p>Every field has to be completed.</p>
+                                      <p>Every field has to be compiled.</p>
                                     </Alert>
                                 }
-                                store.dispatch(actions.refresh())
                               }}/>
                           </form>
               	    </div>
@@ -141,8 +146,8 @@ class SignIn extends Component {
   }
 }
 
-SignIn.contextTypes = {
+SignUp.contextTypes = {
   store : React.PropTypes.object
 }
 
-export default SignIn
+export default SignUp

@@ -6,7 +6,7 @@ import { syncHistoryWithStore, routerReducer, routerMiddleware, push } from 'rea
 
 import Header from './modules/containers/Header'
 import Login from './modules/containers/Login'
-import SignIn from './modules/containers/SignIn'
+import SignUp from './modules/containers/SignUp'
 import ReAcc from './modules/containers/RecoverAccount'
 import RePwd from './modules/containers/RecoverPassword'
 import ChangePwd from './modules/containers/ResetPassword'
@@ -51,7 +51,7 @@ const routes =
 		<IndexRoute component={MainPage}/>
 		<Route path="/home" component={HomePage}/>
 		<Route path="/homeDeveloper" component={HomeDeveloper}/>
-		<Route path="/signIn" component={SignIn}/>
+		<Route path="/signUp" component={SignUp}/>
 		<Route path="/login" component={Login}/>
 		<Route path="/login/reacc" component={ReAcc}/>
 		<Route path="/login/repwd" component={RePwd}/>
