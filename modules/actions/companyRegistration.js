@@ -15,7 +15,7 @@ function receiveCheckCompanyName(bool, step) {
 	  if(step > 0)
 			return { type: 'failedCheckUsername'}
 		else
-			return { type: 'failedcheckCompanyName' }
+			return { type: 'failedCheckCompanyName' }
 	}
 	else
 		return { type: 'checkCompanyName' }
@@ -28,17 +28,17 @@ export function checkCompanyName(data) {
 			.head(api + 'companies/' + data.companyName)
 			.then(
 				function(){
-					dispatch(receiveCheckCompanyName(true), 0)
+					dispatch(receiveCheckCompanyName(true, 0))
 				},
 				function(){
 					return request
 						.head(api + 'accounts/' + data.ownerMail)
 						.then(
-							function(res){
-								dispatch(receiveCheckCompanyName(true), 1)
+							function(){
+								dispatch(receiveCheckCompanyName(true, 1))
 							},
 							function(){
-								dispatch(receiveCheckCompanyName(false), 2)
+								dispatch(receiveCheckCompanyName(false, 2))
 								dispatch(companyRegistration(data))
 							}
 						)

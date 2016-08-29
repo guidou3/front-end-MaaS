@@ -4,6 +4,7 @@ import Components from '../components'
 const {MTextBox, MButton, MLink} = Components
 import * as actions from '../actions/RootAction'
 import { routerMiddleware, push } from 'react-router-redux'
+import {Alert} from 'react-bootstrap';
 
 const customStyles = {
   overlay : {
@@ -62,12 +63,49 @@ class SignIn extends Component {
                               </div>
                               {this.warn}
                               <MButton type="submit" id="btn-login" className="btn btn-custom btn-lg btn-block" label="Sign up" onClick = {() => {
-                                let data = {
-                                  companyName: this.name,
-                                  ownerMail: this.owner
+                                if(this.name != undefined && this.owner != undefined) {
+                                  let data = {
+                                    companyName: this.name,
+                                    ownerMail: this.owner
+                                  }
+                                  store.dispatch(actions.checkCompanyName(data)).then()
+                                  if(store.getState().status.companyNameValidity == true && store.getState().status.usernameValidity == true) {
+                                    this.dialog = true
+                                  }
+                                  else if(store.getState().status.companyNameValidity == false) {
+                                    this.warn =
+                                      <Alert bsStyle="danger">
+                                        <p>Company name already taken.</p>
+                                      </Alert>
+                                  }
+                                  else if(store.getState().status.usernameValidity == false) {
+                                    this.warn =
+                                      <Alert bsStyle="danger">
+                                        <p>Username already taken.</p>
+                                      </Alert>
+                                  }
+                                  else {
+                                    if(store.getState().status.error.response.body.error.status == 422) {
+                                      this.warn =
+                                        <Alert bsStyle="danger">
+                                          <p>Network error.</p>
+                                        </Alert>
+                                    }
+                                    else {
+                                      this.warn =
+                                        <Alert bsStyle="danger">
+                                          <p>Network error.</p>
+                                        </Alert>
+                                    }
+                                  }
                                 }
-                                store.dispatch(actions.checkCompanyName(data))
-                                this.dialog = true
+                                else {
+                                  this.warn =
+                                    <Alert bsStyle="danger">
+                                      <p>Every field has to be completed.</p>
+                                    </Alert>
+                                }
+                                store.dispatch(actions.refresh())
                               }}/>
                           </form>
               	    </div>

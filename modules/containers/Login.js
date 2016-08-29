@@ -3,6 +3,7 @@ import * as actions from '../actions/RootAction'
 import Modal from 'react-modal'
 import Components from '../components'
 const {MTextBox, MButton, MLink} = Components
+import {Alert} from 'react-bootstrap';
 
 const customStyles = {
   overlay : {
@@ -34,10 +35,32 @@ class LogIn extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
+    this.recoveryWarn =""
     this.dialog = false
   }
   render() {
     const { store } = this.context
+    if(store.getState().status.result == "error") {
+      if(store.getState().status.error.response.body.error.status == 401) {
+        if(this.dialog == true) {
+          this.recoveryWarn =
+            <Alert bsStyle="danger">
+              <p>Dati errati</p>
+            </Alert>
+        }
+        else {
+          this.warn =
+            <Alert bsStyle="danger">
+              <p>Dati errati</p>
+            </Alert>
+        }
+      }
+
+    }
+    else {
+      this.warn = ""
+      this.recoveryWarn = ""
+    }
     return (
       <div>
       <section id="login">
@@ -62,6 +85,7 @@ class LogIn extends Component {
                           </form>
                           <a href="#" className="forget" data-toggle="modal" data-target=".forget-modal"onClick = {() => {
                             this.dialog = true
+                            store.dispatch({type: "initialize"})
                             store.dispatch(actions.refresh())
                           }}>Forgot your password?</a>
                           <hr></hr>
@@ -86,17 +110,23 @@ class LogIn extends Component {
         			<div className="modal-body">
         				<p>Type your email account</p>
                 <MTextBox type="email" name="recovery-email" id="recovery-email" className="form-control" placeholder="somebody@example.com" onWrite={(event) => {this.mail = event.target.value}}/>
-        			</div>
+                {this.recoveryWarn}
+              </div>
         			<div className="modal-footer">
         				<button type="button" className="btn btn-default" data-dismiss="modal" onClick = {() => {
                   this.dialog = false
+                  store.dispatch({type: "initialize"})
                   store.dispatch(actions.refresh())
                 }}>Cancel</button>
-                <MButton type="button" className="btn btn-custom" value="Recovery" onClick = {() => {
-                  //store.dispatch(actions.
-                  //inserire qui la action per l'invio della mail per il reset della pw
-                  this.dialog = false
+                <MButton type="button" className="btn btn-custom" label="Recovery" onClick = {() => {
+                  store.dispatch(actions.login({mail:"ciccia", pwd:"ciccia"})).then() //then is used to wait for the result of the action
+                  if(store.getState().status != undefined && store.getState().status.result == "success")
+                    this.dialog = false
                   store.dispatch(actions.refresh())
+
+
+                  //inserire qui la action per l'invio della mail per il reset della pw
+
                 }}/>
         			</div>
         		</div>
