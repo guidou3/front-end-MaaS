@@ -45,7 +45,8 @@ class Dashboard extends Component {
     let i
     let n = comp.length;
     for (i = 0; i < n; i++) {
-      body[i] = <MDSLIRow key={comp[i].id} data = {comp[i]} showPermits = {false}/>
+      if(comp[i].permits > 0 || comp[i].accountId == store.getState().loggedUser.account)
+        body[i] = <MDSLIRow key={comp[i].id} data = {comp[i]} showPermits = {false}/>
     }
     return (
 	  <div className="home">
@@ -59,12 +60,13 @@ class Dashboard extends Component {
           <table id="mytable" className="table table-bordred table-striped">
             <thead>
               <tr>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Last Modified</th>
-                <th>Id</th>
+                <th>Author</th>
                 <th>Edit</th>
-                <th>Delete</th>
                 <th>Clone</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>

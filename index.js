@@ -19,6 +19,7 @@ import HomePage from './modules/containers/HomePage'
 import HomeDeveloper from './modules/containers/HomeDeveloper'
 import MnUser from './modules/containers/UserManagement'
 import MnDSLI from './modules/containers/DSLIManagement'
+import MnPvtDSLI from './modules/containers/DSLIPrivateManagement'
 import MnData from './modules/containers/DataManagement'
 import Simule from './modules/containers/simule'
 import Provider from './modules/containers/Provider'
@@ -30,7 +31,7 @@ import thunk from 'redux-thunk'
 import {persistStore, autoRehydrate} from 'redux-persist'
 
 const api = 'https://mass-demo.herokuapp.com/api/'
-
+//const api = 'http://0.0.0.0:3000/api/'
 const goto = routerMiddleware(browserHistory)
 const logger = createLogger()
 const store = createStore(
@@ -38,7 +39,7 @@ const store = createStore(
 		applyMiddleware(goto, logger, thunk.withExtraArgument(api)),
 		autoRehydrate()
 )
-persistStore(store)
+persistStore(store).purge(['routing'])
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store)
@@ -59,9 +60,10 @@ const routes =
 		<Route path="/newdsli" component={NewDSLI}/>
 		<Route path="/manageuser" component={MnUser}/>
 		<Route path="/managedsli" component={MnDSLI}/>
+		<Route path="/managepvtdsli" component={MnPvtDSLI}/>
 		<Route path="/managedata" component={MnData}/>
 		<Route path="/editdsli" component={EditDSLI}/>
-		<Route path="/execdsli" component={Simule}/> /*PageBuilder  */
+		<Route path="/execdsli" component={PageBuilder}/> /*PageBuilder  */
 		<Route path="/profile/changepwd" component={ChangePwd}/>
 	</Route>;
 

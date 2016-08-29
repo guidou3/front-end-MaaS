@@ -18,12 +18,12 @@ class DSLIManagment extends Component {
     let i
     let n = comp.length;
     for (i = 0; i < n; i++) {
-      if(comp[i].permits > 0)
-        body[i] = <MAdminDSLIRow data = {comp[i]} showPermits = {true}/>
+      if(comp[i].permits == 0)
+        body[i] = <MAdminDSLIRow data = {comp[i]} showPermits = {false}/>
     }
     return (
   	  <div>
-        <h2>DSLI Managment</h2>
+        <h2>DSLI Private Managment</h2>
         <div className="table-responsive">
           <table id="mytable" className="table table-bordred table-striped">
             <thead>
@@ -32,7 +32,6 @@ class DSLIManagment extends Component {
                 <th>Name</th>
                 <th>Last Modified</th>
                 <th>Author</th>
-                <th>Access level</th>
                 <th>Edit</th>
                 <th>Publish</th>
                 <th>Delete</th>

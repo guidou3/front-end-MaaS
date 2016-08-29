@@ -32,7 +32,7 @@ class Header extends Component {
                 <LinkContainer to='/managedsli' onClick = {() => { store.dispatch(actions.getDSLIList()) }}>
                   <MenuItem eventKey={2.1}>Public DSLI</MenuItem>
                 </LinkContainer>
-                <LinkContainer to='/managedsli' onClick = {() => { store.dispatch(actions.getDSLIList()) }}>
+                <LinkContainer to='/managepvtdsli' onClick = {() => { store.dispatch(actions.getDSLIList()) }}>
                   <MenuItem eventKey={2.2}>Private DSLI</MenuItem>
                 </LinkContainer>
               </NavDropdown>

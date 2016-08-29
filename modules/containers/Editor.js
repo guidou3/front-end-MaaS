@@ -41,6 +41,19 @@ class Editor extends Component {
     const { store } = this.context
     let dsli = store.getState().currentDSLI
 
+    let save = (<MButton label = "Save" className="btn main-btn"
+                onClick = {() => {
+                  store.dispatch(actions.saveTextDSLI(dsli)).then(() => (store.dispatch(actions.getDSLIList())))
+              }}/>)
+
+    let del = (<MButton label = "Delete" className="btn main-btn"
+                onClick = {() => {
+                  store.dispatch(actions.deleteDSLI(dsli.id)).then(() => (store.dispatch(actions.getDSLIList()))).then(() => (store.dispatch(actions.redirect('/home'))))
+              }}/>)
+    if(dsli.permits < 3 && dsli.permits != 0 && store.getState().loggedUser.accessLevel < 2){
+      save = null
+      del = null
+    }
     return (
   	  <div className= "Editor">
         <div className = "DSLITitle">
@@ -61,17 +74,12 @@ class Editor extends Component {
         }} />
 
         <div className = "buttons">
-          <MButton label = "Save" className="btn main-btn"
-            onClick = {() => {
-              store.dispatch(actions.saveTextDSLI(dsli)).then(() => (store.dispatch(actions.getDSLIList())))
-          }}/>
-          <MButton label = "Delete" className="btn main-btn"
-            onClick = {() => {
-              store.dispatch(actions.deleteDSLI(dsli.id)).then(() => (store.dispatch(actions.getDSLIList()))).then(() => (store.dispatch(actions.redirect('/home'))))
-          }}/>
+          {save}
+          {del}
           <MButton label = "Clone" className="btn main-btn"
             onClick = {() => {
               store.dispatch(actions.cloneDSLI(dsli))
+              store.dispatch(actions.redirect('/home'))
           }}/>
         </div>
 
