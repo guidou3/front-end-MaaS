@@ -80,6 +80,7 @@ switch(action.type) {
 				error: null,
 				usernameValidity: false
 		})
+	case 'embodyUser':
 	case 'logout':
 		return 0
 	default:

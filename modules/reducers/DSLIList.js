@@ -1,11 +1,10 @@
 export default function DSLIListReducer(state = 0, action) {
 	switch(action.type) {
-    case 'login':
-		  return action.user.DSLIList
-			//se questo non va si può chiamare dalla action getDSLIList
 		case 'getDSLIList':
 			console.log(action);
 			return action.listDSLI
+
+		case 'embodyUser':
 		case 'logout':
 			return 0
 		default:

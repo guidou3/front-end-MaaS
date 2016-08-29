@@ -16,6 +16,7 @@ import NewDSLI from './modules/containers/NewDSLI'
 import EditDSLI from './modules/containers/Editor'
 import MainPage from './modules/containers/MainPage'
 import HomePage from './modules/containers/HomePage'
+import HomeDeveloper from './modules/containers/HomeDeveloper'
 import MnUser from './modules/containers/UserManagement'
 import MnDSLI from './modules/containers/DSLIManagement'
 import MnPvtDSLI from './modules/containers/DSLIPrivateManagement'
@@ -49,6 +50,7 @@ const routes =
 	<Route path="/" component={Header}>
 		<IndexRoute component={MainPage}/>
 		<Route path="/home" component={HomePage}/>
+		<Route path="/homeDeveloper" component={HomeDeveloper}/>
 		<Route path="/signIn" component={SignIn}/>
 		<Route path="/login" component={Login}/>
 		<Route path="/login/reacc" component={ReAcc}/>

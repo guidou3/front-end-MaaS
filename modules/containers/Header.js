@@ -70,12 +70,12 @@ class Header extends Component {
               <LinkContainer to='/home'>
                 <NavItem eventKey={1}>Home</NavItem>
               </LinkContainer>
-              <NavDropdown eventKey={2} title={store.getState().loggedUser.account} id="basic-nav-dropdown">
+              <NavDropdown eventKey={5} title={store.getState().loggedUser.account} id="basic-nav-dropdown">
                 <LinkContainer to='/profile'>
-                  <MenuItem eventKey={2.1}>Profile</MenuItem>
+                  <MenuItem eventKey={5.1}>Profile</MenuItem>
                 </LinkContainer>
                 <LinkContainer to='/' onClick = {() => { store.dispatch(actions.logout()) }}>
-                  <MenuItem eventKey={2.2}>Logout</MenuItem>
+                  <MenuItem eventKey={5.2}>Logout</MenuItem>
                 </LinkContainer>
               </NavDropdown>
             </Nav>
@@ -85,39 +85,34 @@ class Header extends Component {
     }
     else{
       list =
-        <div className="container">
-          <div className="navbar-header">
-            <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-            </button>
-            <MLink to="/" className="navbar-brand">
+      <Navbar inverse>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <MLink to="/home" className="navbar-brand">
               <img src="../Immagini/MAAS_white.png" alt="logo MaaS" className="MaaSlogo"/>
             </MLink>
-          </div>
-          <div className="navbar-collapse collapse">
-            <ul className="nav navbar-nav navbar-right">
-            <li><MLink to="/signIn">Sign in</MLink ></li>
-            <li><MLink to="/login">Login</MLink ></li>
-            </ul>
-          </div>
-        </div>
+          </Navbar.Brand>
+          <Navbar.Toggle/>
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav pullRight>
+            <LinkContainer to='/signIn'>
+              <NavItem eventKey={1}>Sign in</NavItem>
+            </LinkContainer>
+            <LinkContainer to='/login'>
+              <NavItem eventKey={1}>Login</NavItem>
+            </LinkContainer>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     }
 
     return (
         <div id="wrapper">
           <div id="header">
-
-            <p>MaaS: MongoDB as an admin Service</p>
-
             <div className="navbar navbar-inverse navbar-fixed-top">
               {list}
             </div>
-
-            <div id="errors">
-              <MError/>
-            </div>
-
           </div>
 
           <div id="bodyImage">
