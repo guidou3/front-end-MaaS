@@ -40,6 +40,7 @@ switch(action.type) {
 	case 'newDSLI':
 	case 'renameDSLI':
 	case 'saveTextDSLI':
+	case 'sendResetMail':
 	case 'userRegistration':
 	case 'addDatabase':
 	case 'setAccessLevel':

@@ -8,7 +8,7 @@ import {checkCompanyName, companyRegistration} from './companyRegistration'
 import {deleteDSLI} from './deleteDSLI'
 import {deleteUser} from './deleteUser'
 import {deleteData} from './deleteData'
-//import {embodyUser} from './embodyUser'
+import {sendResetMail} from './emailResetPassword'
 import {getDSLI} from './getDSLI'
 import {getDSLIList} from './getDSLIList'
 import {getUserList} from './getUserList'
@@ -39,6 +39,7 @@ export {
   getUserList,
   login,
   setAccessLevel,
+  sendResetMail,
   logout,
   newDSLI,
   renameDSLI,

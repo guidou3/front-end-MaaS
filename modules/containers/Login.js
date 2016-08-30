@@ -119,7 +119,7 @@ class LogIn extends Component {
                   store.dispatch(actions.refresh())
                 }}>Cancel</button>
                 <MButton type="button" className="btn btn-custom" label="Recovery" onClick = {() => {
-                  store.dispatch(actions.login({mail:"ciccia", pwd:"ciccia"})).then() //then is used to wait for the result of the action
+                  store.dispatch(actions.sendResetMail(this.mail)).then() //then is used to wait for the result of the action
                   if(store.getState().status != undefined && store.getState().status.result == "success")
                     this.dialog = false
                   store.dispatch(actions.refresh())

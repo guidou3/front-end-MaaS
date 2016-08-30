@@ -53,8 +53,7 @@ const routes =
 		<Route path="/homeDeveloper" component={HomeDeveloper}/>
 		<Route path="/signIn" component={SignIn}/>
 		<Route path="/login" component={Login}/>
-		<Route path="/login/reacc" component={ReAcc}/>
-		<Route path="/login/repwd" component={RePwd}/>
+		<Route path="/repwd" component={RePwd}/>
 		<Route path="/profile" component={Profile}/>
 		<Route path="/support" component={Contact}/>
 		<Route path="/newdsli" component={NewDSLI}/>

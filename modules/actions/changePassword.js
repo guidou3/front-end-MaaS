@@ -1,11 +1,13 @@
-export function requestChangePassword() {
+import request from 'superagent'
+
+function requestChangePassword() {
 	return {
 		type: 'waiting',
 		operation: 'changePassword'
 	}
 }
 
-export function receiveChangePassword(bool, text) {
+function receiveChangePassword(bool, text) {
 	if(bool) return { type: 'changePassword' }
 	else return {
 		type: 'error',
@@ -13,13 +15,14 @@ export function receiveChangePassword(bool, text) {
 	}
 }
 
-export function changePassword(newPassword) {
-	return function(dispatch){
+export function changePassword(newPassword, token) {
+	return function(dispatch, getState, api){
 		dispatch(requestChangePassword())
 		return request
-			.put('url1')
+			.post(api + 'accounts/newpwd')
 			.send({
-				password: newPassword
+				pass: newPassword,
+				resetToken: token
 			})
 			.then(
 				function(){
