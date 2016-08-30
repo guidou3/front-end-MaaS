@@ -7,9 +7,7 @@ import { syncHistoryWithStore, routerReducer, routerMiddleware, push } from 'rea
 import Header from './modules/containers/Header'
 import Login from './modules/containers/Login'
 import SignIn from './modules/containers/SignIn'
-import ReAcc from './modules/containers/RecoverAccount'
 import RePwd from './modules/containers/RecoverPassword'
-import ChangePwd from './modules/containers/ResetPassword'
 import Contact from './modules/containers/ContactSupport'
 import Profile from './modules/containers/Profile'
 import NewDSLI from './modules/containers/NewDSLI'
@@ -63,7 +61,6 @@ const routes =
 		<Route path="/managedata" component={MnData}/>
 		<Route path="/editdsli" component={EditDSLI}/>
 		<Route path="/execdsli" component={PageBuilder}/> /*PageBuilder  */
-		<Route path="/profile/changepwd" component={ChangePwd}/>
 	</Route>;
 
 function render() {
