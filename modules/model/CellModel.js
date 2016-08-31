@@ -15,9 +15,9 @@
 
  /*jshint esversion: 6 */
  import React, { Component, PropTypes } from 'react'
- var AttributeReader = require('./utils/AttributeReader');
+ var AttributeReader = require('../utils/AttributeReader');
  //var typeError = require("/utils/TypeError");
- class cell extends Component{
+ class CellModel extends Component{
    constructor(params){
      super()
      this.label = undefined;
@@ -90,4 +90,4 @@
        }
      }
    };
-export default cell
+export default CellModel

@@ -3,7 +3,7 @@ import {parse, expand, compile} from 'sweet.js'
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 var macro = require('includes!../../macro.sjs');
-import cell from '../../model/cell';
+import cell from '../model/CellModel';
 var vm = require('vm');
 
 class PageBuilder extends Component {
