@@ -23,7 +23,8 @@ export function addDatabase(data) {
 		return request
 		  .post(api + 'companies/'+ getState().loggedUser.company+'/databases?access_token='+getState().loggedUser.token)
 			.send({
-				uri: data
+				uri: data.uri,
+				tag: data.tag
 			})
 			.then(function() {
 					dispatch(receiveAddDatabase(true))

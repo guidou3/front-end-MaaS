@@ -11,21 +11,24 @@ class Profile extends Component {
 
   render() {
     const { store } = this.context
+    this.image = store.getState().loggedUser.image
+    if(this.image == undefined) {
+      this.image = 'http://i.stack.imgur.com/HQwHI.jpg'
+    }
     return (
 
   	  <div>
         <h2>Profile</h2>
-        <p>{store.getState().profile.email}</p>
-        <p>{store.getState().profile.name}</p>
+        <p>{store.getState().loggedUser.accout}</p>
 
         <div>
-          <img src={'https://s-media-cache-ak0.pinimg.com/564x/d7/6c/1a/d76c1a251031aa7e8a99660f056ac689.jpg'} alt="boohoo" className="img-responsive"/>
+          <img src={this.image} alt="Profile image" className="img-responsive"/>
         </div>
 
-        <MButton label = "CAMBIA IMMAGINE" onClick = {() => {
+        <MButton label = "Change image" onClick = {() => {
           store.dispatch(actions.refresh())
         }}/>
-        <MButton label = "CAMBIA PASSWORD" onClick = {() => {
+        <MButton label = "Change password" onClick = {() => {
           store.dispatch(actions.redirect('/profile/changepwd'))
         }}/>
       </div>

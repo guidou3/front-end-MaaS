@@ -183,48 +183,15 @@ syntax cell = function(ctx) {
   for (let stx of params) {
     // eat ':'
     params.next();
-    /*if(stx.isIdentifier('value'))
-    {
 
-      let paramsData = params.next('expr').value;
-      return #`${paramsData}`;
-      if(paramsData.isStringLiteral()){
-        dataReturn = dataReturn.concat(#`{${stx}: ${paramsData}}`);
-      }
-      else if(paramsData.isNumericLiteral()) {
-        dataReturn = dataReturn.concat(#`${stx}: ${paramsData}`);
-      }
-      else {
-       let dataValue =#``;
-        let paramsValue = paramsData.inner();
-        for(let ctx of paramsValue)
-        {
-        // eat ':'
-          paramsValue.next();
-          let paramValue = paramsValue.next('expr').value;
-          dataValue = dataValue.concat(#`${ctx}: ${paramValue}`);
-          // eat ','
-          paramsValue.next();
-        }
-      dataReturn= dataReturn.concat(#`${stx}: {${dataValue}}`);
-      }
-    }
-    else
-    {*/
       let param = params.next('expr').value;
       dataReturn = dataReturn.concat(#`${stx}: ${param}`);
-   // }
+  
     // eat ','
     params.next();
   }
   return #`insert(new cell({${dataReturn}}));`;
 }
 
-cell(
-type : "string",
-value : { collection : "scarpe",
-query : "{size : {$gt 38}}",
-sortby : "size",
-order : "asc" }
-)
+
 

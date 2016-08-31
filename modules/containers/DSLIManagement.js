@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Modal from 'react-modal'
 import Components from '../components'
-const {MTextBox, MButton, MDSLIRow} = Components
+const {MTextBox, MButton, MAdminDSLIRow} = Components
 
 class DSLIManagment extends Component {
   constructor(props) {
@@ -18,16 +18,31 @@ class DSLIManagment extends Component {
     let i
     let n = comp.length;
     for (i = 0; i < n; i++) {
-      body[i] = <MDSLIRow data = {comp[i]} showPermits = {true}/>
+      if(comp[i].permits > 0)
+        body[i] = <MAdminDSLIRow data = {comp[i]} showPermits = {true}/>
     }
     return (
   	  <div>
         <h2>DSLI Managment</h2>
-        <table>
-        <tbody>
-          {body}
-        </tbody>
-        </table>
+        <div className="table-responsive">
+          <table id="mytable" className="table table-bordred table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Last Modified</th>
+                <th>Author</th>
+                <th>Access level</th>
+                <th>Edit</th>
+                <th>Publish</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {body}
+            </tbody>
+          </table>
+        </div>
 
         {this.warn}
       </div>

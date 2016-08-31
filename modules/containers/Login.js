@@ -3,6 +3,7 @@ import * as actions from '../actions/RootAction'
 import Modal from 'react-modal'
 import Components from '../components'
 const {MTextBox, MButton, MLink} = Components
+import {Alert} from 'react-bootstrap';
 
 const customStyles = {
   overlay : {
@@ -34,11 +35,32 @@ class LogIn extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
+    this.recoveryWarn =""
     this.dialog = false
   }
-
   render() {
     const { store } = this.context
+    if(store.getState().status.result == "error") {
+      if(store.getState().status.error.response.body.error.status == 401) {
+        if(this.dialog == true) {
+          this.recoveryWarn =
+            <Alert bsStyle="danger">
+              <p>Dati errati</p>
+            </Alert>
+        }
+        else {
+          this.warn =
+            <Alert bsStyle="danger">
+              <p>Dati errati</p>
+            </Alert>
+        }
+      }
+
+    }
+    else {
+      this.warn = ""
+      this.recoveryWarn = ""
+    }
     return (
       <div>
       <section id="login">
@@ -47,7 +69,7 @@ class LogIn extends Component {
           	    <div className="col-xs-12">
               	    <div className="form-wrap">
                       <h1>Log in with your email account</h1>
-                          <form role="form" action="javascript:;" method="post" id="login-form" autoComplete="off">
+                          <form role="form" action="javascript:;" method="post" id="login-form" autoComplete="on">
                               <div className="form-group">
                                   <label htmlFor="email" className="sr-only">Email</label>
                                   <MTextBox type="email" name="email" id="email" className="form-control" placeholder="somebody@example.com" onWrite={(event) => {this.mail = event.target.value}}/>
@@ -57,14 +79,15 @@ class LogIn extends Component {
                                   <MTextBox type="password" name="key" id="key" className="form-control" placeholder="Password" onWrite={(event) => {this.pwd = event.target.value}}/>
                               </div>
                               {this.warn}
-                              <MButton type="submit" id="btn-login" className="btn btn-custom btn-lg btn-block" value="Log in" onClick = {() => {
+                              <MButton type="submit" id="btn-login" className="btn btn-custom btn-lg btn-block" label="Log in" onClick = {() => {
                                 store.dispatch(actions.login({mail:this.mail, pwd:this.pwd}))
                               }}/>
                           </form>
-                          <button className="forget" data-toggle="modal" data-target=".forget-modal"onClick = {() => {
+                          <a href="#" className="forget" data-toggle="modal" data-target=".forget-modal"onClick = {() => {
                             this.dialog = true
+                            store.dispatch({type: "initialize"})
                             store.dispatch(actions.refresh())
-                          }}>Forgot your password?</button>
+                          }}>Forgot your password?</a>
                           <hr></hr>
               	    </div>
           		</div>
@@ -82,21 +105,28 @@ class LogIn extends Component {
         					<span aria-hidden="true">×</span>
         					<span className="sr-only">Close</span>
         				</button>
-        				<h4 className="modal-title">Recovery password</h4>
+        				<h4 className="modal-title">Recover password</h4>
         			</div>
         			<div className="modal-body">
         				<p>Type your email account</p>
                 <MTextBox type="email" name="recovery-email" id="recovery-email" className="form-control" placeholder="somebody@example.com" onWrite={(event) => {this.mail = event.target.value}}/>
-        			</div>
+                {this.recoveryWarn}
+              </div>
         			<div className="modal-footer">
         				<button type="button" className="btn btn-default" data-dismiss="modal" onClick = {() => {
                   this.dialog = false
-                }}>Cancel</button>
-                <MButton type="button" className="btn btn-custom" value="Recovery" onClick = {() => {
-                  //store.dispatch(actions.
-                  //inserire qui la action per l'invio della mail per il reset della pw
-                  this.dialog = false
+                  store.dispatch({type: "initialize"})
                   store.dispatch(actions.refresh())
+                }}>Cancel</button>
+                <MButton type="button" className="btn btn-custom" label="Recovery" onClick = {() => {
+                  store.dispatch(actions.sendResetMail(this.mail)).then() //then is used to wait for the result of the action
+                  /*if(store.getState().status != undefined && store.getState().status.result == "success")*/
+                    this.dialog = false
+                  store.dispatch(actions.refresh())
+
+
+                  //inserire qui la action per l'invio della mail per il reset della pw
+
                 }}/>
         			</div>
         		</div>

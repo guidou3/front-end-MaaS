@@ -17,5 +17,5 @@ export default combineReducers({
 	currentDSLI: currentDSLIReducer,
 	currentUser: currentUserReducer,
 	status: statusReducer,
-	routing: routerReducer,
-	})
+	routing: routerReducer
+})

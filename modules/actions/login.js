@@ -31,18 +31,60 @@ export function login(json) {
 			})
 			.then(
 				function(result){
-					let res = JSON.parse(result.text);
-					dispatch(receiveLogin(true, {
-						username: res.userId,
-						accessLevel: res.user.dutyId,
-						token: res.id,
-						company: res.user.companyId,
-						DSLIList: [{id: "prova"}]
-					}))
-					dispatch(getDSLIList()).then(() => (dispatch(push('/home'))))
-				},
+					welcomeUser(result, dispatch)},
 				function(error){
 					dispatch(receiveLogin(false, error))
 				})
+	}
+}
+
+function requestEmbodyUser() {
+	return {
+		type: 'waiting',
+		operation: 'embodyUser'
+	}
+}
+
+function failedEmbodyUser(data) {
+	return {
+		type: 'error',
+		error: data
+	}
+}
+
+export function embodyUser(email) {
+	return function(dispatch, getState, api){
+		dispatch(requestEmbodyUser())
+		return request
+			.post(api + 'accounts/'+ email + '/impersonate?include=user&access_token=' + getState().loggedUser.token)
+			.then(
+				function(result){
+					welcomeUser(result, dispatch)},
+				function(err){
+					dispatch(failedEmbodyUser(err))
+				}
+			)
+	}
+}
+
+export function logout() {
+	return {
+		type: 'logout'
+	}
+}
+
+function welcomeUser(result, dispatch) {
+	let res = JSON.parse(result.text);
+	dispatch(receiveLogin(true, {
+		account: res.accountId,
+		accessLevel: res.user.dutyId,
+		token: res.id,
+		company: res.user.companyId
+	}))
+	if(res.user.dutyId == 9) {
+		dispatch(push('/homeDeveloper'))
+	}
+	else {
+		dispatch(getDSLIList()).then(() => (dispatch(push('/home'))))
 	}
 }

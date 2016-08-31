@@ -57,14 +57,12 @@ export function userRegistration(data, role) {
 			.send({
 				email: data.ownerMail,
 				password: "asd",
-				companyId: data.companyName,
 				dutyId: role,
 				subscribedAt: Date(),
 				emailVerified: false
 			})
 			.then(function(result) {
 					dispatch(receiveUserRegistration(true, result))
-					dispatch(push('/'))
 				},
 				function(err){
 					dispatch(receiveUserRegistration(false, err))

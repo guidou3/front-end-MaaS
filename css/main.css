@@ -19,6 +19,7 @@ html, body {
     font-family:'Open Sans', sans-serif;
     font-size:14px;
     background-image:url(../img/sativa.png);
+    margin-top: 2.5%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -78,6 +79,32 @@ p {
 .form-control {
         background-color: rgba(255, 255, 255, 0);
 }
+
+.userManagement > .form-group > .form-control {
+  margin-left: 1%;
+  width: 28%;
+  float: left;
+}
+
+.userManagement > .btn {
+  margin-left: 2%;
+}
+
+.Editor {
+  margin-left: 4%;
+  text-align: center;
+}
+
+.Editor > .buttons > .btn{
+  margin: 1%;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+.DSLITitle > h2 > .btn {
+  margin-left: 4%;
+}
+
 /*=======================================
     HOME SECTION STYLES
 ==================================================*/
@@ -96,6 +123,11 @@ p {
     padding-bottom:15%;
     color:#fff;
 }
+
+.home > .btn {
+  margin-left: 30px;
+}
+
 .head-main {
     font-size:80px ;
     font-weight:900;
@@ -118,38 +150,38 @@ border-radius: 0px;
 /* ===========================================================
    NAVBAR CHANGES
    ============================================================*/
-.navbar {
-	font-size: 14px;
-}
+   .navbar {
+   	font-size: 14px;
+    margin-bottom: 0px;
+   }
 
-.navbar-inverse {
-	background: #000000;
 
-}
 
-.navbar-inverse .navbar-nav > .active > a {
-	background: #ffffff;
-}
+   .navbar-inverse .navbar-brand {
+   	color: #ffffff;
+   	font-weight: bolder;
+   	font-size: 25px;
+       font-weight:900;
+   	letter-spacing: 2px;
+   }
+   .navbar-inverse :hover .navbar-brand:hover {
+   	color: #ffffff;
+   }
+   .navbar-inverse .navbar-nav > li > a {
+   color: #FFFFFF;
+   }
 
-.navbar-inverse .navbar-brand {
-	color: #ffffff;
-	font-weight: bolder;
-	font-size: 25px;
-    font-weight:900;
-	letter-spacing: 2px;
-}
-.navbar-inverse :hover .navbar-brand:hover {
-	color: #ffffff;
-}
-.navbar-inverse .navbar-nav > li > a {
-color: #FFFFFF;
-}
 
-.MaaSlogo{
-  padding: 5%;
-  float: left;
-  width: 100px; height: auto;
-}
+  .navbar-brand {
+    padding: 0px;
+  }
+
+  .navbar-brand>img {
+    width: 150px;
+    height: 100%;
+    padding: 10px;
+    width: auto;
+  }
 
 /*=======================================
     PRICE SECTION STYLES
@@ -396,4 +428,21 @@ body {
   background-color:#000;
   color:#fff;
   text-align:right;
+}
+
+/*    --------------------------------------------------
+	:: Contact Support
+	-------------------------------------------------- */
+
+.contact-form{ margin-top:15px;}
+.contact-form .textarea{ min-height:220px; resize:none;}
+.contact-title{ text-transform: none; text-align: center; padding-bottom: 7%;}
+.form-control{ box-shadow:none; border-color:#eee; height:49px;}
+.form-control:focus{ box-shadow:none; border-color:#00b09c;}
+.form-control-feedback{ line-height:50px;}
+.main-btn{ background:#00b09c; border-color:#00b09c; color:#fff;}
+.main-btn:hover{ background:#00a491;color:#fff;}
+.form-control-feedback {
+line-height: 50px;
+top: 0px;
 }

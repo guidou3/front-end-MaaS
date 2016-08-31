@@ -7,31 +7,69 @@ class ContactSupport extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
+    this.account = "E-mail"
   }
 
   render() {
     const { store } = this.context
-    return (
-  	  <div>
-        <h2>LogIn</h2>
-        EMAIL <MTextBox
-          boxType="text"
-          onWrite={(event) => {
-            this.user = event.target.value
-          }}
-        />
-        {this.warn}
-        <div>
-          <textarea rows="20" cols="20">
+    this.account =""
+    if(store.getState().loggedUser != 0) {
+      this.account = store.getState().loggedUser.account
+      //document.getElementById("email").setAttribute("disabled", true)
+    }
 
-          </textarea>
+      return (
+        <div className="container">
+  	     <div className="row">
+          <form role="form" id="contact-form" className="contact-form">
+            <h1 className="contact-title">Contact Us</h1>
+            <div className="row">
+              <div className="col-md-6">
+                <div className="form-group">
+                <script>
+                  document.getElementById("email").setAttribute("disabled", true)
+                </script>
+                  <MTextBox type="text" className="form-control" name="Name" autoComplete="off" id="Name" placeholder="Name"
+                    onWrite={(event) => {
+                      this.name = event.target.value
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <MTextBox type="email" className="form-control" name="email" autoComplete="off" id="email" placeholder="Email" value={this.account}
+                    onWrite={(event) => {
+                      this.account = event.target.value
+                    }}
+
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12">
+                <div className="form-group">
+                  <textarea className="form-control textarea" rows="3" name="Message" id="Message" placeholder="Message"></textarea>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12">
+                <MButton type="submit" className="btn main-btn pull-right"  onClick = {() => {
+                  //store.dispatch(actions.
+                  //inserire qui la action per l'invio della mail al supporto
+                  store.dispatch(actions.redirect('/'))
+                }} label ="Send a message">
+                </MButton>
+              </div>
+            </div>
+            </form>
+          </div>
         </div>
-        <MButton label = "INVIA"
-          onClick = {() => {
-            store.dispatch(actions.changePassword('prova'))
-        }}/>
-      </div>
-  	)
+      )
+
+
   }
 }
 

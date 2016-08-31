@@ -1,6 +1,8 @@
 export default function statusReducer(state = 0, action) {
 switch(action.type) {
 	case 'initialize':
+	case '@@router/LOCATION_CHANGE':
+	case 'persist/REHYDRATE':
 		return {
 			loading: false,
 			waitingFor: null,
@@ -14,7 +16,7 @@ switch(action.type) {
 			result: null,
 			error: null
 		})
-    	case 'error':
+  case 'error':
 		return Object.assign({}, state, {
 				loading: false,
 				waitingFor: null,
@@ -38,8 +40,10 @@ switch(action.type) {
 	case 'newDSLI':
 	case 'renameDSLI':
 	case 'saveTextDSLI':
+	case 'sendResetMail':
 	case 'userRegistration':
 	case 'addDatabase':
+	case 'setAccessLevel':
 	case 'getDatabase':
 		return Object.assign({}, state, {
 				loading: false,
@@ -63,7 +67,7 @@ switch(action.type) {
 				error: null,
 				companyNameValidity: true
 		})
-	case 'failedcheckCompanyName':
+	case 'failedCheckCompanyName':
 		return Object.assign({}, state, {
 				loading: false,
 				waitingFor: null,
@@ -79,6 +83,15 @@ switch(action.type) {
 				error: null,
 				usernameValidity: false
 		})
+	case 'failedLogin':
+		return {
+				loading: false,
+				waitingFor: '',
+				result: 'error',
+				error: action.error
+		}
+
+	case 'embodyUser':
 	case 'logout':
 		return 0
 	default:

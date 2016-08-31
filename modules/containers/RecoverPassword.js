@@ -32,10 +32,8 @@ class RePwd extends Component {
           type = "button"
           onClick = {() => {
             if(this.p1 == this.p2)
-              store.dispatch(actions.emailResetPassword("asd"))
+              store.dispatch(actions.changePassword(this.p1, this.props.location.query.pwd)).then(() => (store.dispatch(actions.redirect('/'))))
             else{
-              console.log(this.p1);
-              console.log(this.p2);
               this.warn = "Le password non coincidono!";
               store.dispatch(actions.refresh())
             }
