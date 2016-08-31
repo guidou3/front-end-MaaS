@@ -6,7 +6,7 @@ import { syncHistoryWithStore, routerReducer, routerMiddleware, push } from 'rea
 
 import Header from './modules/containers/Header'
 import Login from './modules/containers/Login'
-import SignIn from './modules/containers/SignIn'
+import SignUp from './modules/containers/SignUp'
 import RePwd from './modules/containers/RecoverPassword'
 import Contact from './modules/containers/ContactSupport'
 import Profile from './modules/containers/Profile'
@@ -28,8 +28,8 @@ import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 import {persistStore, autoRehydrate} from 'redux-persist'
 
-//const api = 'https://mass-demo.herokuapp.com/api/'
-const api = 'http://0.0.0.0:3000/api/'
+const api = 'https://mass-demo.herokuapp.com/api/'
+//const api = 'http://0.0.0.0:3000/api/'
 const goto = routerMiddleware(browserHistory)
 const logger = createLogger()
 const store = createStore(
@@ -49,7 +49,7 @@ const routes =
 		<IndexRoute component={MainPage}/>
 		<Route path="/home" component={HomePage}/>
 		<Route path="/homeDeveloper" component={HomeDeveloper}/>
-		<Route path="/signIn" component={SignIn}/>
+		<Route path="/signUp" component={SignUp}/>
 		<Route path="/login" component={Login}/>
 		<Route path="/repwd" component={RePwd}/>
 		<Route path="/profile" component={Profile}/>
