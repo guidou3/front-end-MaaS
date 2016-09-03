@@ -16,7 +16,7 @@ class PageBuilder extends Component {
     let preCompileFile = macro + x;
 
     let compiledDSLI = compile(preCompileFile); //compilazione del preCompiledFile
-
+/*
     console.log("FILE PRECOMPILATO: ");
     console.log(preCompileFile);
     console.log("DSLI COMPILATA: ");

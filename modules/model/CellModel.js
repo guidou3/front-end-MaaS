@@ -63,6 +63,21 @@
        this.label = label;
      }
 
+     execQuery(){
+       request
+   			.post(api + 'dsl/'+id+'/execute?access_token='+getState().loggedUser.token)
+        .send({query: data})
+   			.then(
+   				function(result){
+   					let res = JSON.parse(result.text)
+   					console.log("RESULT");
+   					console.log(res);
+   				},
+   				function(error){
+   				}
+   			)
+     }
+
      getType(){
        return this.type;
      }
