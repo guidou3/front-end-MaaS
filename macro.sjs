@@ -37,7 +37,7 @@ syntax dashboard = function(ctx){
   let paramsValue = #`{${name}}`;
 
   let bodyValue = #`rowsDashboard ${body}`;
-return #`insert(new dashboard(${paramsValue}, ${bodyValue}))`;
+return #`insert(new dashboardModel(${paramsValue}, ${bodyValue}))`;
 }
 
 //--------------------Collection--------------------------------------
@@ -120,12 +120,12 @@ if(show.isIdentifier('show')){
      showB.next();
   }
   rows = #`rows:[${b}]`;
-  showObject=#`{ show :{${populateShow}, ${rows}}}`;
+  showObject=#`{${populateShow}, ${rows}}`;
 
 
 }
 
-return #`insert(new collection(${paramValue},${columnObject}, ${showObject}));`;
+return #`insert(new collectionModel(${paramValue},${columnObject}, ${showObject}));`;
 }
 
 //------------------- Document----------------------------------------
@@ -172,7 +172,7 @@ syntax document = function(ctx){
    }
    rows = #`[${rowl}]`;
  }
-  return #`insert(new document(${dataParams},${populate},${rows}));`;
+  return #`insert(new documentModel(${dataParams},${populate},${rows}));`;
 }
 
 
@@ -190,7 +190,7 @@ syntax cell = function(ctx) {
     // eat ','
     params.next();
   }
-  return #`insert(new cell({${dataReturn}}));`;
+  return #`insert(new cellModel({${dataReturn}}));`;
 }
 
 

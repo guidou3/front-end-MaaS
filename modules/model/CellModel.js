@@ -15,6 +15,7 @@
 
  /*jshint esversion: 6 */
  import React, { Component, PropTypes } from 'react'
+ import request from 'superagent'
  var AttributeReader = require('../utils/AttributeReader');
  //var typeError = require("/utils/TypeError");
  class CellModel extends Component{
@@ -22,7 +23,7 @@
      super()
      this.label = undefined;
      AttributeReader.assertEmptyAttributes(params, function() {}); // da inserire l'errore
-     AttributeReader.readRequiredAttributes(params, this, ["type",
+     AttributeReader.readRequiredAttributes(params, this, ["label","type",
        "value"
      ], function(param)
      {
@@ -35,13 +36,14 @@
          //throw a value error
        }
      });
+     
      if (typeof this.value == "object")
      {
        AttributeReader.assertEmptyAttributes(this.value, function() {});
        AttributeReader.readRequiredAttributes(this.value, this, [
          "collection"
        ], function() {}); //da inserire l'errore
-       this.sortby = "id";
+       this.sortby = "{'_id': 1}";
        this.order = "asc";
        AttributeReader.readOptionalAttributes(this.value, this, [
          "query", "sortby", "order"
@@ -59,50 +61,48 @@
        return this.label;
      }
 
-     setLabel(label){
-       this.label = label;
-     }
-
-     execQuery(){
-       request
-   			.post(api + 'dsl/'+id+'/execute?access_token='+getState().loggedUser.token)
-        .send({query: data})
-   			.then(
-   				function(result){
-   					let res = JSON.parse(result.text)
-   					console.log("RESULT");
-   					console.log(res);
-   				},
-   				function(error){
-   				}
-   			)
-     }
-
      getType(){
        return this.type;
      }
 
-     returnData(){
+     buildQuery(){
        if (typeof this.value == "string" || typeof this.value ==
          "number")
        {
+         console.log(this.value);
          return this.value;
        }
        else
        {
          if (typeof this.value == "object")
          {
-           var findQuery = "db."+this.collection+".find("+ this.query +").limit(1).skip(0)";
-           if(this.order == "asc")
+           var findQuery = "db.collection('"+this.collection+"').find("+ this.query +")";
+           if(this.order == "desc")
            {
-             return findQuery + ".sort(" + this.sortby + ")";
+             return findQuery + ".sort(-" + this.sortby + ").limit(1)";
            }
-           else if(this.order == "desc")
+           else 
            {
-             return findQuery + ".sort(-" + this.sortby + ")";
+             return findQuery + ".sort(" + this.sortby + ").limit(1)";
            }
          }
        }
      }
+     DSLType(){
+       return "cell";
+     }
+     JSONbuild(queryResult){
+       return { "properties":{"label":this.label, "dsl": this.DSLType(), "returnType":this.getType()}, "data":{"result":queryResult}};
+     }
+     valueIsQuery(){
+       if(typeof this.value == "object"){
+          return true;
+       }
+       else{
+          return false;
+       }
+     }
+
+
    };
 export default CellModel
