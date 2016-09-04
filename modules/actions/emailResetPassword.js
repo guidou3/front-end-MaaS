@@ -3,7 +3,7 @@ import request from 'superagent'
 function requestResetMail() {
 	return {
 		type: 'waiting',
-		operation: 'addDatabase'
+		operation: 'resetMail'
 	}
 }
 
