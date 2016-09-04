@@ -1,5 +1,4 @@
 import request from 'superagent'
-import {push} from 'react-router-redux'
 
 function requestNewDSLI() {
 	return {

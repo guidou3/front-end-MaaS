@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
-const {MTextBox, MButton} = Components
+const {MTextBox, MButton, MTextArea} = Components
 import {Alert} from 'react-bootstrap';
 
 class ContactSupport extends Component {
@@ -57,7 +57,10 @@ class ContactSupport extends Component {
             <div className="row">
               <div className="col-md-12">
                 <div className="form-group">
-                  <textarea className="form-control textarea" rows="3" name="Message" id="Message" placeholder="Message"></textarea>
+                  <MTextArea className="form-control textarea" rows="3" name="Message" id="Message" placeholder="Message" onWrite={(event) => {
+                      this.message = event.target.value
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -65,10 +68,11 @@ class ContactSupport extends Component {
             <div className="row">
               <div className="col-md-12">
                 <MButton type="submit" className="btn main-btn pull-right"  onClick = {() => {
-                  if(this.account, this.name, this.message != undefined)
-                  //store.dispatch(actions.
-                  //inserire qui la action per l'invio della mail al supporto
-                  store.dispatch(actions.redirect('/'))
+                  if(this.account, this.name, this.message != undefined){
+                    this.message = "Sender: "+this.account+"\nName: "+this.name+"\nMessage: \n"+this.message
+                    store.dispatch(actions.contactSupport({email:this.account, text:this.message}))
+                  }
+                  console.log("Ebbene?");
                 }} label ="Send a message">
                 </MButton>
               </div>

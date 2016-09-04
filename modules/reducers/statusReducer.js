@@ -29,6 +29,7 @@ switch(action.type) {
 	case 'changeImage':
 	case 'changePassword':
 	case 'cloneDSLI':
+	case 'support':
 	case 'companyRegistration':
 	case 'deleteDSLI':
 	case 'deleteUser':

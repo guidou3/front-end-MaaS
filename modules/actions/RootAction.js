@@ -4,6 +4,7 @@ import {changeDSLIPermits} from './changeDSLIPermits'
 import {changeImage} from './changeImage'
 import {changePassword} from './changePassword'
 import {cloneDSLI} from './cloneDSLI'
+import {contactSupport} from './contactSupport'
 import {checkCompanyName, companyRegistration} from './companyRegistration'
 import {deleteDSLI} from './deleteDSLI'
 import {deleteUser} from './deleteUser'
@@ -29,6 +30,7 @@ export {
   changePassword,
   cloneDSLI,
   checkCompanyName,
+  contactSupport,
   companyRegistration,
   deleteDSLI,
   deleteUser,
