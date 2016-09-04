@@ -1,4 +1,4 @@
-export default function DSLIListReducer(state = 0, action) {
+export default function dataListReducer(state = 0, action) {
 	switch(action.type) {
 		case 'getDatabase':
 			console.log(action);

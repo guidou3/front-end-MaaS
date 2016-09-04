@@ -5,13 +5,6 @@ export default function loggedUserReducer(state = 0, action) {
 					image: action.image
 			})
 		case 'login':
-			return {
-				account: action.user.account,
-				accessLevel: action.user.accessLevel,
-				company: action.user.company,
-				token: action.user.token,
-				image: action.user.image
-			}
 		case 'embodyUser':
 			return {
 				account: action.user.account,
