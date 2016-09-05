@@ -99,6 +99,15 @@ p {
   text-align: left;
 }
 
+.Editor .form-control {
+  width: 80%;
+}
+
+.data-label {
+  float: left;
+  margin-right: 10px;
+}
+
 .Editor > .buttons > .btn{
   margin: 1%;
   padding-left: 3%;

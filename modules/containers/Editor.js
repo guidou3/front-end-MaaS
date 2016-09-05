@@ -35,7 +35,14 @@ const customStyles = {
 };
 
 class EditorAce extends Component {
+  constructor(props) {
+    super(props)
+  }
   render() {
+    function onWrite(newValue) {
+      dsli.code = newValue
+    }
+    let dsli = this.props.data;
     return (
       <AceEditor
         mode="javascript"
@@ -47,6 +54,9 @@ class EditorAce extends Component {
         enableBasicAutocompletion
         enableSnippets
         enableLiveAutocompletion
+        editorProps={{$blockScrolling: true}}
+        value={dsli.code}
+        onChange={onWrite}
       />
     )
   }
@@ -63,6 +73,24 @@ class Editor extends Component {
   render() {
     const { store } = this.context
     let dsli = store.getState().currentDSLI
+    let combobox = ""
+    if(store.getState()!=0)
+    {
+      combobox =
+         <div className="form-group">
+          <div className="data-label">
+            <h3> Database:   </h3>
+          </div>
+          <select className="form-control" defaultValue={dsli.permits} onChange = {(event) => {
+             dsli.permits = event.target.value;
+             console.log(dsli.permits)
+           }}>
+           <option value='1'>{dsli.permits==1 ? "Executable \u2713" : "Executable"}</option>
+           <option value='2'>{dsli.permits==2 ? "Readable \u2713" : "Readable"}</option>
+           <option value='3'>{dsli.permits==3 ? "Modificable \u2713" : "Modificable"}</option>
+         </select>
+        </div>
+    }
 
     let save = (<MButton label = "Save" className="btn main-btn"
                 onClick = {() => {
@@ -87,9 +115,10 @@ class Editor extends Component {
                 this.dialog = true
                 store.dispatch(actions.refresh())
             }}/>
+            {combobox}
           </h2>
         </div>
-        <EditorAce/>
+        <EditorAce data={dsli}/>
 
         <div className = "buttons">
           {save}
