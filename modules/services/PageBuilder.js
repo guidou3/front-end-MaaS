@@ -16,8 +16,6 @@ class PageBuilder extends Component {
     this.flag = true;
     this.flag1 =true;
     this.storageResult = [];
-    this.sq = [];
-    //this.x = this.deepCopy(this.storageResult);
     this.JSON;
     //let x="cell(label: 'prova', type : 'string', value : { collection : 'Account' , query : '{dutyId:{$gt: 2}},{password: 1}', sortby:'{subscribedAt: 1}' ,order:'asc' })";
     //let x="dashboard(  name: 'dragonball'){row{cell:'goku',collection:'saiyan',document:'mondi di Daragonball'},row{cell:'saiyan viventi'}}";
@@ -57,120 +55,40 @@ let x="collection(name:'DSL',label:'persone di età >=30/anzienda';id:'persona/a
       }
     }
     if(DSLType == "collection"){
+      function deepCopy(oldObj) {
+        var newObj = oldObj;
+        if (oldObj && typeof oldObj === 'object') {
+            newObj = Object.prototype.toString.call(oldObj) === "[object Array]" ? [] : {};
+            for (var i in oldObj) {
+              newObj[i] = deepCopy(oldObj[i]);
+            }
+          }
+          return newObj;
+        }
+
       var query = this.object.buildIndexQuery();
       console.log(query);
       var populate = this.object.getPopulateIndex();
-      /*var obj = { a: 1 };
-      var copia = Object.assign({}, obj);
-      console.log(obj, copia); // { a: 1 }, { a: 1 }
-      obj.a = 2;
-      console.log(obj, copia); // { a: 2 }, { a: 1 }*/
-      // recursive function to clone an object. If a non object parameter
-// is passed in, that parameter is returned and no recursion occur
-function deepCopy(oldObj) {
-  var newObj = oldObj;
-  if (oldObj && typeof oldObj === 'object') {
-      newObj = Object.prototype.toString.call(oldObj) === "[object Array]" ? [] : {};
-      for (var i in oldObj) {
-          newObj[i] = deepCopy(oldObj[i]);
-      }
-  }
-  return newObj;
-}
+
 
       if(this.flag){
-            this.flag = false;
+          this.flag = false;
           store.dispatch(actions.execDSLI(dsli.id, "db.collection('DSL').find()"));
-           //this.storageResult= this.deepCopy(dsli.result);
-           /*for(var i=dsli.result.length; i>0 ; i--){
-             this.storageResult.push(dsli.result[i]);
-             delete dsli.result[i];
-           }
-            dsl.result = [];*/
-           //this.x=this.deepCopy(this.storageResult);
-           this.storageResult=dsli.result;
-            console.log(this.storageResult);
+          this.storageResult=dsli.result;
+          console.log(this.storageResult);
 
       }
        if(this.flag1){
          this.flag1=false;
-      var collection = populate[0].model;
-      var attribute = populate[0].path;
-      var populateQuery = "db.collection('"+ collection +"').find()";
-      console.log("populatelenght: "+populate.length, "populateQuery: "+populateQuery, "attribute: "+attribute);
-      console.log("Egyey", this.storageResult);
-      store.dispatch(actions.execDSLI(dsli.id, populateQuery));
-      this.secondQuery=dsli.result;
-      //for (var j=0; j<dsli.result.lenght; j++){
-      //this.secondQuery = dsli.result[j];
-    //}/
-      console.log("secondQuery: ",this.secondQuery,"PP", this.storageResult);}
-      /* if(this.flag1){
-      if(populate){
-      for(var i=0; i<populate.length; i++){
-          var collection = populate[i].model;
-          var attribute = populate[i].path;
+          var collection = populate[0].model;
+          var attribute = populate[0].path;
           var populateQuery = "db.collection('"+ collection +"').find()";
           console.log("populatelenght: "+populate.length, "populateQuery: "+populateQuery, "attribute: "+attribute);
+          console.log("principalQuery", this.storageResult);
           store.dispatch(actions.execDSLI(dsli.id, populateQuery));
-          var secondQuery = dsli.result;
-          console.log("secondQuery: "+secondQuery);
-          console.log("PP",this.storageResult, this.storageResult.length);
-          /*for(var i=0; i<principalQuery.length; i++){
-              var id = principalQuery[i][attribute];
-              for(var j=0; j<secondQuery.length; j++){
-                if(secondQuery[j]._id == id){
-                  principalQuery[i][attribute] = secondQuery[j];
-                  console.log("ppp: "+principalQuery[i][attribute], "scd: "+secondQuery[i]);
-                  console.log("CCC", principalQuery);
-                }
-              }
-            }
-        }
-        //this.JSON=this.object.JSONbuild(principalQuery);
-      }
-      else{
-        //this.JSON=this.object.JSONbuild(principalQuery);
-      }
-      this.flag1=false;
-    }*/
-    //console.log("QQ",principalQuery)
-
-      /*console.log("1",principalQuery,populate.length,this.flag1);
-      var flag2 = true;
-      if(populate){
-          for(var i=0; i<populate.length; i++){
-            flag2=true;
-            var collection = populate[i].model;
-            var attribute = populate[i].path;
-            var queryPopulate = "db.collection('"+ collection +"').find()";
-            console.log("2",collection,attribute,queryPopulate);
-            store.dispatch(actions.execDSLI(dsli.id, query));
-            var secondQuery = dsli.result;
-            console.log("3",secondQuery,principalQuery.length,secondQuery.length);
-            for(var i=0; i<principalQuery.length; i++){
-                var id = principalQuery[i][attribute];
-                for(var j=0; j<secondQuery.length; j++){
-                  if(secondQuery[j]._id == id){
-                    principalQuery[i][attribute] = secondQuery[j];
-                  }
-                  console.log("y",j,secondQuery[j]);
-                }
-              }
-              console.log("22",principalQuery);
-            }
-            this.flag1=false;
-          }*/
-          //this.JSON = this.object.JSONbuild(principalQuery);
-        //}
-        //var JSON = this.object.JSONbuild(principalQuery);
-        //console.log("BBBBBBBBBBBBBBBBBBBB",principalQuery);
-        //console.log("EEEEEEEEEEEEE",this.JSON);
-      //MAnca lo showModel
-    }
-
-
-
+          this.secondQuery=dsli.result;
+          }
+      console.log("secondQuery: ",this.secondQuery,"principalQuery", this.storageResult);}
  if(this.storageResult == undefined){
       return (
         <div>
@@ -187,9 +105,7 @@ function deepCopy(oldObj) {
     	)
     }
   }
-  xxxg(c){
-    return c;
-  }
+
 
 
 }
