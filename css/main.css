@@ -19,7 +19,7 @@ html, body {
     font-family:'Open Sans', sans-serif;
     font-size:14px;
     background-image:url(../img/sativa.png);
-    padding-top: 3.5%;
+    padding-top: 2%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -86,7 +86,7 @@ p {
   float: left;
 }
 
-.userManagement > .btn {
+.userManagement > .form-group > .btn {
   margin-left: 2%;
 }
 
@@ -118,6 +118,14 @@ p {
 
 .DSLITitle > h2 > .btn {
   margin-left: 4%;
+}
+
+tbody > tr > td > .form-group {
+  margin: 0;
+}
+
+table {
+  clear:both;
 }
 
 /*=======================================

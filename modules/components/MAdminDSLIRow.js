@@ -16,7 +16,7 @@ class MAdminDSLIRow extends Component {
     let combobox =
                   <td>
                    <div className="form-group">
-                    <select className="form-control" defaultValue={access} onChange = {(event) => {
+                    <select className="form-control input-sm" defaultValue={access} onChange = {(event) => {
                        store.dispatch(actions.changeDSLIPermits(this.props.data, event.target.value)).then(() => (store.dispatch(actions.getDSLIList())))}}>
                      <option value='1'>{access==1 ? "Executable \u2713" : "Executable"}</option>
                      <option value='2'>{access==2 ? "Readable \u2713" : "Readable"}</option>

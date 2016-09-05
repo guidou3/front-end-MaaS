@@ -12,33 +12,15 @@ class MDSLIRow extends Component {
   render() {
     const { store } = this.context
     let admin = (<td></td>)
-    let edit = (<td>
-                  <Button bsSize="xs" bsStyle="primary"  onClick = {() => {
-                    store.dispatch(actions.getDSLI(this.props.data.id)).then(() => (store.dispatch(actions.redirect("/editdsli"))))
-                  }}>
-                    <Glyphicon glyph="pencil"/>
-                  </Button>
-                </td>)
-    let del = (<td>
-                 <Button bsSize="xs" bsStyle="danger"  onClick = {() => {
-                   store.dispatch(actions.deleteDSLI(this.props.data.id)).then(() => (store.dispatch(actions.getDSLIList())))
-                 }}>
-                   <Glyphicon glyph="trash"/>
-                 </Button>
-               </td>)
-    let clone = (<td>
-                   <Button bsSize="xs" bsStyle="primary"  onClick = {() => {
-                     store.dispatch(actions.getDSLI(this.props.data.id)).then(() => (store.dispatch(actions.cloneDSLI(store.getState().currentDSLI))))
-                   }}>
-                     <Glyphicon glyph="share"/>
-                   </Button>
-                 </td>)
+    let edit = "false"
+    let del = "false"
+    let clone = "false"
 
     if(this.props.data.permits < 3 && this.props.data.permits != 0 && store.getState().loggedUser.accessLevel < 2)
-      del = admin
+      del = "true"
     if(this.props.data.permits < 2 && this.props.data.permits != 0 && store.getState().loggedUser.accessLevel < 2 ){
-      clone = admin
-      edit = admin
+      clone = "true"
+      edit = "true"
     }
 
     return (
@@ -53,9 +35,27 @@ class MDSLIRow extends Component {
         </td>
         <td>{this.props.data.lastModifiedDate}</td>
         <td>{this.props.data.accountId}</td>
-        {edit}
-        {clone}
-        {del}
+        <td>
+          <Button bsSize="xs" bsStyle="primary"  onClick = {() => {
+            store.dispatch(actions.getDSLI(this.props.data.id)).then(() => (store.dispatch(actions.redirect("/editdsli"))))
+          }}>
+            <Glyphicon glyph="pencil"/>
+          </Button>
+        </td>
+        <td>
+         <Button bsSize="xs" bsStyle="primary"  onClick = {() => {
+           store.dispatch(actions.getDSLI(this.props.data.id)).then(() => (store.dispatch(actions.cloneDSLI(store.getState().currentDSLI))))
+         }}>
+           <Glyphicon glyph="share"/>
+         </Button>
+       </td>
+        <td>
+         <Button bsSize="xs" bsStyle="danger"  onClick = {() => {
+           store.dispatch(actions.deleteDSLI(this.props.data.id)).then(() => (store.dispatch(actions.getDSLIList())))
+         }}>
+           <Glyphicon glyph="trash"/>
+         </Button>
+       </td>
       </tr>
     )
   }
