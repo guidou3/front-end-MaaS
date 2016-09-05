@@ -7,6 +7,7 @@
     "fs": "0.0.2",
     "includes-loader": "^0.1.0",
     "react": "^0.14.7",
+    "react-ace": "^3.5.0",
     "react-bootstrap": "^0.30.3",
     "react-bootstrap-select": "^0.14.0",
     "react-dom": "^0.14.7",

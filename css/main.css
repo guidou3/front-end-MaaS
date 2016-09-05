@@ -95,6 +95,10 @@ p {
   text-align: center;
 }
 
+#EditorAce {
+  text-align: left;
+}
+
 .Editor > .buttons > .btn{
   margin: 1%;
   padding-left: 3%;

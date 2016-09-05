@@ -3,6 +3,11 @@ import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MTextBox, MTextArea, MButton} = Components
 import Modal from 'react-modal'
+import brace from 'brace';
+import AceEditor from 'react-ace';
+
+import 'brace/mode/javascript';
+import 'brace/theme/monokai';
 
 const customStyles = {
   overlay : {
@@ -28,6 +33,24 @@ const customStyles = {
     padding           : 'none'
   }
 };
+
+class EditorAce extends Component {
+  render() {
+    return (
+      <AceEditor
+        mode="javascript"
+        theme="monokai"
+        name="EditorAce"
+        fontSize={14}
+        height="30em"
+        width="60em"
+        enableBasicAutocompletion
+        enableSnippets
+        enableLiveAutocompletion
+      />
+    )
+  }
+}
 
 class Editor extends Component {
   constructor(props) {
@@ -66,12 +89,7 @@ class Editor extends Component {
             }}/>
           </h2>
         </div>
-        <p></p>
-        <MTextArea rows="20" cols="100" dfvalue = {dsli.code}
-        onWrite={(event) => {
-          dsli.code = event.target.value
-          console.log(dsli.code)
-        }} />
+        <EditorAce/>
 
         <div className = "buttons">
           {save}
