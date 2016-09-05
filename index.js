@@ -10,7 +10,6 @@ import SignUp from './modules/containers/SignUp'
 import RePwd from './modules/containers/RecoverPassword'
 import Contact from './modules/containers/ContactSupport'
 import Profile from './modules/containers/Profile'
-import NewDSLI from './modules/containers/NewDSLI'
 import EditDSLI from './modules/containers/Editor'
 import MainPage from './modules/containers/MainPage'
 import HomePage from './modules/containers/HomePage'
@@ -54,7 +53,6 @@ const routes =
 		<Route path="/repwd" component={RePwd}/>
 		<Route path="/profile" component={Profile}/>
 		<Route path="/support" component={Contact}/>
-		<Route path="/newdsli" component={NewDSLI}/>
 		<Route path="/manageuser" component={MnUser}/>
 		<Route path="/managedsli" component={MnDSLI}/>
 		<Route path="/managepvtdsli" component={MnPvtDSLI}/>

@@ -13,7 +13,7 @@
 * Codifica modulo
 * =================================================
 */
-var AttributeReader = require("../../utils/AttributeReader");
+var AttributeReader = require("../utils/AttributeReader");
 //var showModel = require("./showModel");
 class DocumentModel{
   constructor(params,populate,bodyRows){

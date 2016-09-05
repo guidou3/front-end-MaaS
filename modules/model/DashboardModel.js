@@ -12,7 +12,7 @@
 * Codifica modulo
 * =================================================
 */
-var AttributeReader = require("../../utils/AttributeReader");
+var AttributeReader = require("../utils/AttributeReader");
 class DashboardModel {
   constructor(params,body){
   AttributeReader.assertEmptyAttributes(params,function(){});//da inserire l'errore
