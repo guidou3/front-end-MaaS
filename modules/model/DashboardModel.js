@@ -12,12 +12,16 @@
 * Codifica modulo
 * =================================================
 */
+
+import React, { Component, PropTypes } from 'react'
 var AttributeReader = require("../utils/AttributeReader");
-class DashboardModel {
+class DashboardModel extends Component {
   constructor(params,body){
+  super()
   AttributeReader.assertEmptyAttributes(params,function(){});//da inserire l'errore
   AttributeReader.readRequiredAttributes(params,this,["name"],function(){});//lancio errore
   this.rows = [];
+  console.log(body);
   for (var i=0; i<body.length; i++){
     var bodyRow = body[i];
     var dashboardRow =  this.createColumn(bodyRow);
@@ -34,12 +38,12 @@ createColumn(bodyRow){ //Serve solamente al costruttore
   return row;
 }
 
-getQuery(labelName) { //cerca la label nella dashboard e se la trova restituisce una query
+buildQuery(labelName) { //cerca la label nella dashboard e se la trova restituisce una query
   for(var i=0; i<this.rows.length; i++){
     for(var j=0; j<this.rows[i].length; j++){
       for(var key in this.rows[i][j]){
         if(this.rows[i][j][key] == labelName && key == "label"){
-           return "db.collection.find{label:" + labelName +"}";
+           return "db.collection().find{label:" + labelName +"}";
         }
       }
     }
@@ -51,20 +55,29 @@ getLabel(){
    return this.name;
 }
 //metodo che ritorna le righe
-labelmatrix() {
+matrix() {
   var labelRows = [];
+  var typeRows = [];
   for(var i=0; i<this.rows.length; i++){
     var labelColumn = [];
+    var typeColumn = [];
     for(var j=0; j<this.rows[i].length; j++){
+      found=false;
       for(var key in this.rows[i][j]){
+        if(found) {
+         typeColumn.push(this.rows[i][j][key]);
+         found = false;
+        }
         if(key == "label"){
           labelColumn.push(this.rows[i][j][key]);
+          found = true;
         }
       }
     }
     labelRows.push(labelColumn);
+    typeRows.push(typeColumn);
   }
-  return labelRows;
+  return {"labelRows":labelRows,"typeRows":typeRows};
 }
 //motodo che ritorna il tipo in base alle dato
 getType(labelName) {
@@ -83,5 +96,14 @@ getType(labelName) {
   }
   //lancio l'errore
 }
+DSLType(){
+       return "dashboard";
+     }
+JSONbuild(){
+ return {
+  "properties":{"DSLType": this.DSLType() /*"Matrix":this.matrix()*/},
+  "data":{}
+ }
 }
-module.exports = DashboardModel;
+}
+export default DashboardModel

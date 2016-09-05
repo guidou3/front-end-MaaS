@@ -13,38 +13,46 @@
 * Codifica modulo
 * =================================================
 */
-var AttributeReader = require("../utils/AttributeReader");
-//var showModel = require("./showModel");
-class DocumentModel{
-  constructor(params,populate,bodyRows){
-   AttributeReader.assertEmptyAttributes(params,function(){});//da inserire l'errore
-   AttributeReader.readRequiredAttributes(params,this,["collection","name"],function(){});//lancio errore
+
+ //import React, { Component, PropTypes } from 'react'
+var AttributeReader = require('../utils/AttributeReader');
+
+class DocumentModel /*extends Component*/{
+  constructor(params, populate, bodyRows){
+   //super()
+   AttributeReader.assertEmptyAttributes(params,function(param){});//da inserire l'errore
+   AttributeReader.readRequiredAttributes(params,this,["collection","name"],function(param){});//lancio errore
+   this.populate = [];
+   AttributeReader.readOptionalAttributes(populate,this,["populate"]);
    this.rows = bodyRows;
-   this.LabelRows = [];
-   this.NameRows = [];
-   this.createRows();
-   console.log(this.LabelRows,this.NameRows);
 }
+//Manca la parte di join
 buildQuery(){
-  return "db." + this.collection + ".find({label:" + this.name + "}";
+  return "db.collection(" + this.collection + ").find({label:" + this.name + "})";
 }
-createRows(){
-  for(var i =0; i<this.rows.length; i++){
-    console.log(this.rows[i]);
-    var x = [];
-    AttributeReader.readRequiredAttributes(this.rows[i],x,["label","name"],function(){});
-    console.log(x.name);
-    //this.LabelRows.push(x.label);
-    //this.NameRows.push(x.name);
 
+getCollection(){
+  return this.collection;
+}
+getName(){
+ return this.name;
+}
+getPopulate(){
+  return this.populate;
+}
+getRows(){
+  return this.rows;
+}
 
-  }
+DSLType(){
+       return "document";
 }
-getName() {
-  return this.name;
+JSONbuild(){
+  return {
+    "proprierties":{"DSLType": this.DSLType(), "rows":this.rows},
+    "data":{}
+  };
 }
-getShow(){
-  return this.show;
-}
-}
-module.exports = DocumentModel;
+};
+//export default DocumentModel
+module.exports = DocumentModel
