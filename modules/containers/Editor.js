@@ -50,7 +50,7 @@ class EditorAce extends Component {
         name="EditorAce"
         fontSize={14}
         height="30em"
-        width="60em"
+        width="90%"
         enableBasicAutocompletion
         enableSnippets
         enableLiveAutocompletion
@@ -61,6 +61,22 @@ class EditorAce extends Component {
     )
   }
 }
+
+class MSelectData extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    const { store } = this.context
+    return (
+      <option value={this.props.data.tag}>
+        {this.props.databaseId== this.props.data.tag ? this.props.data.tag+ "\u2713" : this.props.data.tag}
+      </option>
+    )
+  }
+}
+
 
 class Editor extends Component {
   constructor(props) {
@@ -73,24 +89,26 @@ class Editor extends Component {
   render() {
     const { store } = this.context
     let dsli = store.getState().currentDSLI
-    let combobox = ""
-    if(store.getState()!=0)
-    {
-      combobox =
+    let comp = store.getState().dataList
+    let rows = "";
+
+    let i
+    let n = comp.length;
+    for (i = 0; i < n; i++) {
+      rows += <MSelectData data = {comp[0]} dsli = {dsli}/>
+    }
+    let combobox =
          <div className="form-group">
           <div className="data-label">
             <h3> Database:   </h3>
           </div>
-          <select className="form-control" defaultValue={dsli.permits} onChange = {(event) => {
-             dsli.permits = event.target.value;
-             console.log(dsli.permits)
+          <select className="form-control" defaultValue={dsli.databaseId} onChange = {(event) => {
+             dsli.databaseId = event.target.value;
+             console.log(dsli.databaseId)
            }}>
-           <option value='1'>{dsli.permits==1 ? "Executable \u2713" : "Executable"}</option>
-           <option value='2'>{dsli.permits==2 ? "Readable \u2713" : "Readable"}</option>
-           <option value='3'>{dsli.permits==3 ? "Modificable \u2713" : "Modificable"}</option>
+           {rows}
          </select>
         </div>
-    }
 
     let save = (<MButton label = "Save" className="btn main-btn"
                 onClick = {() => {

@@ -96,6 +96,8 @@ p {
 }
 
 #EditorAce {
+  clear:both;
+  align-self: center;
   text-align: left;
 }
 
