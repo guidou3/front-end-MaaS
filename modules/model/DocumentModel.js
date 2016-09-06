@@ -14,7 +14,7 @@
  * =================================================
  */
 
-//import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 var AttributeReader = require('../utils/AttributeReader');
 
 class DocumentModel /*extends Component*/

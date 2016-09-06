@@ -1,7 +1,6 @@
 import request from 'superagent'
 import {push} from 'react-router-redux'
 import {changeDSLIPermits} from './changeDSLIPermits'
-import {changeImage} from './changeImage'
 import {changePassword} from './changePassword'
 import {cloneDSLI} from './cloneDSLI'
 import {contactSupport} from './contactSupport'
@@ -17,7 +16,6 @@ import {getUserList} from './getUserList'
 import {login, logout, embodyUser} from './login'
 import {setAccessLevel} from './setAccessLevel'
 import {newDSLI} from './newDSLI'
-import {renameDSLI} from './renameDSLI'
 import {saveTextDSLI} from './saveTextDSLI'
 import {getDatabase} from './getDatabase'
 import {addDatabase} from './addDatabase'
@@ -26,7 +24,6 @@ import {checkUsername, userRegistration} from './userRegistration'
 export {
   addDatabase,
   changeDSLIPermits,
-  changeImage,
   changePassword,
   cloneDSLI,
   checkCompanyName,
@@ -46,7 +43,6 @@ export {
   sendResetMail,
   logout,
   newDSLI,
-  renameDSLI,
   saveTextDSLI,
   checkUsername,
   userRegistration
