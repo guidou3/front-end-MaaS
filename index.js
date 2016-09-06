@@ -1,8 +1,23 @@
+/*
+ * Name : index.js
+ * Module : Front-end::index
+ * Location : /model/
+ *
+ * History :
+ *
+ * Version         Date           Programmer
+ * =================================================
+ * 0.0.1           2016-08-03     D'Amico Roberto
+ * -------------------------------------------------
+ * Codifica iniziale
+ * =================================================
+ */
+
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
-import { syncHistoryWithStore, routerReducer, routerMiddleware, push } from 'react-router-redux'
+import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux'
 
 import Header from './modules/containers/Header'
 import Login from './modules/containers/Login'
@@ -64,7 +79,7 @@ const routes =
 function render() {
 	ReactDOM.render(
 		<Provider store = {store}>
-			<Router history={history}>
+			<Router history = {history}>
 				{routes}
 			</Router>
 		</Provider>,
