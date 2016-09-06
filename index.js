@@ -18,7 +18,7 @@ import MnUser from './modules/containers/UserManagement'
 import MnDSLI from './modules/containers/DSLIManagement'
 import MnPvtDSLI from './modules/containers/DSLIPrivateManagement'
 import MnData from './modules/containers/DataManagement'
-import Simule from './modules/containers/simule'
+import CollectionVisualize from './modules/containers/CollectionVisualize'
 import Provider from './modules/containers/Provider'
 import rootReducer from './modules/reducers/RootReducer'
 import PageBuilder from './modules/services/PageBuilder'
@@ -58,7 +58,7 @@ const routes =
 		<Route path="/managepvtdsli" component={MnPvtDSLI}/>
 		<Route path="/managedata" component={MnData}/>
 		<Route path="/editdsli" component={EditDSLI}/>
-		<Route path="/execdsli" component={PageBuilder}/> /*PageBuilder  */
+		<Route path="/execdsli" component={CollectionVisualize}/> /*PageBuilder  */
 	</Route>;
 
 function render() {
