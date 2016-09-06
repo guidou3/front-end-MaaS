@@ -30,7 +30,7 @@ class CollectionModel /*extends Component*/{
   getShowRows(){
     return this.rows;
   }
-  buildIndexQuery(){ //non sono sicuro di come funzioni page ma teoricamente serve per indicare in che pagina si è spostati
+  buildQuery(){ //non sono sicuro di come funzioni page ma teoricamente serve per indicare in che pagina si è spostati
     var query = "db.collection('" + this.name + "')";
     if(this.query){
       query = query + ".find(" + this.query + ")";
@@ -48,7 +48,7 @@ class CollectionModel /*extends Component*/{
     }
     return query;
   }
-  getPopulateIndex(){
+  getPopulate(){
      return this.indexPopulate;
    }
   getPopulateShow(){

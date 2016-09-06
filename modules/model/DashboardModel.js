@@ -25,7 +25,7 @@ class DashboardModel extends Component {
   this.dsliRows = [];
   for (var i=0; i<body.length; i++){
     var bodyRow = body[i];
-    console.log(bodyRow);
+    //console.log(bodyRow);
     var dashboardRow =  this.createColumn(bodyRow);
     this.rows.push(dashboardRow);
   }

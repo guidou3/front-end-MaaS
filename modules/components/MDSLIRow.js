@@ -45,9 +45,7 @@ class MDSLIRow extends Component {
       <tr>
         <td>{this.props.data.id}</td>
         <td>
-          <MLink to="/execdsli" onClick = {() => {
-            store.dispatch(actions.getDSLI(this.props.data.id))
-          }}>
+          <MLink to={"/execdsli?ID="+this.props.data.id}>
             {this.props.data.name}
           </MLink>
         </td>

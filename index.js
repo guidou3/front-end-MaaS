@@ -22,7 +22,7 @@ import MnData from './modules/containers/DataManagement'
 import Simule from './modules/containers/simule'
 import Provider from './modules/containers/Provider'
 import rootReducer from './modules/reducers/RootReducer'
-import PageBuilder from './modules/services/PageBuilder'
+import Loading from './modules/containers/Loading'
 
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
@@ -60,7 +60,7 @@ const routes =
 		<Route path="/managepvtdsli" component={MnPvtDSLI}/>
 		<Route path="/managedata" component={MnData}/>
 		<Route path="/editdsli" component={EditDSLI}/>
-		<Route path="/execdsli" component={PageBuilder}/> /*PageBuilder  */
+		<Route path="/execdsli" component={Loading}/> /*PageBuilder  */
 	</Route>;
 
 function render() {

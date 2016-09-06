@@ -70,7 +70,7 @@
        if (typeof this.value == "string" || typeof this.value ==
          "number")
        {
-         console.log(this.value);
+         //console.log(this.value);
          return this.value;
        }
        else
