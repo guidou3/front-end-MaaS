@@ -3,6 +3,26 @@ import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MTextBox, MTextArea, MButton} = Components
 
+class CollectionRow extends Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    const { store } = this.context
+    let body = []
+    let dsli = this.props.dsli
+    let header = this.props.header
+    for (let i = 0; i < header.length; i++) {
+      body[i] = <td>{dsli[header[i].name]}</td>
+    }
+    return (
+      <tr>
+        {body}
+      </tr>
+    )
+  }
+}
+
 class CollectionVisualize extends Component {
   constructor(props) {
     super(props)
@@ -42,6 +62,16 @@ class CollectionVisualize extends Component {
         ]
       }
 
+      let prop = data.properties
+      let header = []
+      let n = prop.length
+      for (let i = 0; i < n; i++) {
+        header[i] = <th>{prop[i].name}</th>
+      }
+      let body = []
+      for (let i = 0; i < data.data.length; i++) {
+        body[i] = <CollectionRow header={prop} dsli={data.data[i]}/>
+      }
       return (
     	  <div>
           <div className = "DSLITitle">
@@ -52,25 +82,9 @@ class CollectionVisualize extends Component {
           <div className="table-responsive">
             <table id="mytable" className="table table-bordred table-striped">
                 <tr>
-                  <th>{data.properties[0].name}</th>
-                  <th>{data.properties[1].name}</th>
-                  <th>{data.properties[2].name}</th>
+                  {header}
                 </tr>
-                <tr>
-                  <td>{data.data[0][data.properties[0].name]}</td>
-                  <td>{data.data[0][data.properties[1].name]}</td>
-                  <td>{data.data[0][data.properties[2].name]}</td>
-                </tr>
-                <tr>
-                  <td>{data.data[1][data.properties[0].name]}</td>
-                  <td>{data.data[1][data.properties[1].name]}</td>
-                  <td>{data.data[1][data.properties[2].name]}</td>
-                </tr>
-                <tr>
-                  <td>{data.data[2][data.properties[0].name]}</td>
-                  <td>{data.data[2][data.properties[1].name]}</td>
-                  <td>{data.data[2][data.properties[2].name]}</td>
-                </tr>
+                {body}
             </table>
           </div>
         </div>
