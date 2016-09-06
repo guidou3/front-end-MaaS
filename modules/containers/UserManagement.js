@@ -52,12 +52,12 @@ class MnUser extends Component {
         <div className="form-group">
             <label htmlFor="email" className="sr-only">Email</label>
             <MTextBox boxType="text" name="email" id="email" className="form-control" placeholder="somebody@example.com" onWrite={(event) => {this.user = event.target.value}}/>
+            <MButton label = "Send Invite" className="btn-lg btn main-btn "
+              onClick = {() => {
+                this.dialog = true
+                store.dispatch(actions.userRegistration({ownerMail:this.user, companyName:store.getState().loggedUser.company},2)).then(() => (store.dispatch(actions.getUserList())))
+            }}/>
         </div>
-        <MButton label = "Send Invite" className="btn main-btn"
-          onClick = {() => {
-            this.dialog = true
-            store.dispatch(actions.userRegistration({ownerMail:this.user, companyName:store.getState().loggedUser.company},2)).then(() => (store.dispatch(actions.getUserList())))
-        }}/>
         <div className="table-responsive">
           <table id="mytable" className="table table-bordred table-striped">
             <thead>

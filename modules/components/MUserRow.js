@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
-import MButton from './MButton'
+import { Button, Glyphicon} from 'react-bootstrap'
 
 class MUserRow extends Component {
   constructor(props) {
@@ -10,15 +10,19 @@ class MUserRow extends Component {
   render() {
     const { store } = this.context
     let combobox = <td>
-                     <select name="example" defaultValue={this.props.user.dutyId} onChange = {(event) => {
+                     <select name="example" className="form-control" defaultValue={this.props.user.dutyId} onChange = {(event) => {
                         store.dispatch(actions.setAccessLevel({id:this.props.user.email, level:event.target.value})).then(() => (store.dispatch(actions.getUserList())))}}>
                       <option value='1'>{this.props.user.dutyId==1 ? "Member \u2713" : "Member"}</option>
                       <option value='2'>{this.props.user.dutyId==2 ? "Admin \u2713" : "Admin"}</option>
                     </select>
                   </td>
-
-    if(this.props.user.dutyId > 2)
+    let del = "false"
+    if(this.props.user.dutyId > 2) {
         combobox = <td>Owner</td>
+      }
+    else {
+      del = "true"
+    }
 
     return (
       <tr>
@@ -26,13 +30,11 @@ class MUserRow extends Component {
         {combobox}
         <td>Profilo</td>
         <td>
-          <p data-placement="top" data-toggle="tooltip" title="Delete">
-            <button className="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick = {() => {
-              store.dispatch(actions.deleteUser(this.props.user.email)).then(() => (store.dispatch(actions.getUserList())))
-            }}>
-              <span className="glyphicon glyphicon-trash"/>
-            </button>
-          </p>
+          <Button bsSize="xs" bsStyle="danger" disabled={del} onClick = {() => {
+            store.dispatch(actions.deleteUser(this.props.user.email)).then(() => (store.dispatch(actions.getUserList())))
+          }} >
+            <Glyphicon glyph="trash"/>
+          </Button>
         </td>
       </tr>
     )

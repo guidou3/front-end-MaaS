@@ -1,4 +1,5 @@
 import request from 'superagent'
+import {getDatabase} from './getDatabase'
 
 function requestAddDatabase() {
 	return {
@@ -27,7 +28,7 @@ export function addDatabase(data) {
 				tag: data.tag
 			})
 			.then(function() {
-					dispatch(receiveAddDatabase(true))
+					dispatch(receiveAddDatabase(true)).then(() => (dispatch(getDatabase())))
 				},
 				function(err){
 					dispatch(receiveAddDatabase(false, err))

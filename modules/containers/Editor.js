@@ -3,6 +3,11 @@ import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MTextBox, MTextArea, MButton} = Components
 import Modal from 'react-modal'
+import brace from 'brace';
+import AceEditor from 'react-ace';
+
+import 'brace/mode/javascript';
+import 'brace/theme/monokai';
 
 const customStyles = {
   overlay : {
@@ -29,6 +34,50 @@ const customStyles = {
   }
 };
 
+class EditorAce extends Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    function onWrite(newValue) {
+      dsli.code = newValue
+    }
+    let dsli = this.props.data;
+    return (
+      <AceEditor
+        mode="javascript"
+        theme="monokai"
+        name="EditorAce"
+        fontSize={14}
+        height="30em"
+        width="90%"
+        enableBasicAutocompletion
+        enableSnippets
+        enableLiveAutocompletion
+        editorProps={{$blockScrolling: true}}
+        value={dsli.code}
+        onChange={onWrite}
+      />
+    )
+  }
+}
+
+class MSelectData extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    const { store } = this.context
+    return (
+      <option value={this.props.data.tag}>
+        {this.props.databaseId== this.props.data.tag ? this.props.data.tag+ "\u2713" : this.props.data.tag}
+      </option>
+    )
+  }
+}
+
+
 class Editor extends Component {
   constructor(props) {
     super(props)
@@ -40,6 +89,26 @@ class Editor extends Component {
   render() {
     const { store } = this.context
     let dsli = store.getState().currentDSLI
+    let comp = store.getState().dataList
+    let rows = "";
+
+    let i
+    let n = comp.length;
+    for (i = 0; i < n; i++) {
+      rows += <MSelectData data = {comp[0]} dsli = {dsli}/>
+    }
+    let combobox =
+         <div className="form-group">
+          <div className="data-label">
+            <h3> Database:   </h3>
+          </div>
+          <select className="form-control" defaultValue={dsli.databaseId} onChange = {(event) => {
+             dsli.databaseId = event.target.value;
+             console.log(dsli.databaseId)
+           }}>
+           {rows}
+         </select>
+        </div>
 
     let save = (<MButton label = "Save" className="btn main-btn"
                 onClick = {() => {
@@ -64,14 +133,10 @@ class Editor extends Component {
                 this.dialog = true
                 store.dispatch(actions.refresh())
             }}/>
+            {combobox}
           </h2>
         </div>
-        <p></p>
-        <MTextArea rows="20" cols="100" dfvalue = {dsli.code}
-        onWrite={(event) => {
-          dsli.code = event.target.value
-          console.log(dsli.code)
-        }} />
+        <EditorAce data={dsli}/>
 
         <div className = "buttons">
           {save}
