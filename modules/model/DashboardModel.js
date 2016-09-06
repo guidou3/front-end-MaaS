@@ -12,18 +12,20 @@
 * Codifica modulo
 * =================================================
 */
-
 import React, { Component, PropTypes } from 'react'
 var AttributeReader = require("../utils/AttributeReader");
 class DashboardModel extends Component {
   constructor(params,body){
   super()
   AttributeReader.assertEmptyAttributes(params,function(){});//da inserire l'errore
-  AttributeReader.readRequiredAttributes(params,this,["name"],function(){});//lancio errore
+  AttributeReader.readRequiredAttributes(params,this,["label"],function(){});//lancio errore
   this.rows = [];
-  console.log(body);
+  this.labelRows = [];
+  this.typeRows = [];
+  this.dsliRows = [];
   for (var i=0; i<body.length; i++){
     var bodyRow = body[i];
+    console.log(bodyRow);
     var dashboardRow =  this.createColumn(bodyRow);
     this.rows.push(dashboardRow);
   }
@@ -32,77 +34,44 @@ class DashboardModel extends Component {
 createColumn(bodyRow){ //Serve solamente al costruttore
   var row = [];
   for(var key in bodyRow){
-    var column= {label:bodyRow[key], type:key};
+    var br={};
+    AttributeReader.assertEmptyAttributes(bodyRow[key],function(){});
+    AttributeReader.readRequiredAttributes(bodyRow[key],br,["label","dsl"],function(){});
+
+    var column= {label:br.label, type:key, dsl:br.dsl};
     row.push(column);
   }
   return row;
 }
 
-buildQuery(labelName) { //cerca la label nella dashboard e se la trova restituisce una query
-  for(var i=0; i<this.rows.length; i++){
-    for(var j=0; j<this.rows[i].length; j++){
-      for(var key in this.rows[i][j]){
-        if(this.rows[i][j][key] == labelName && key == "label"){
-           return "db.collection().find{label:" + labelName +"}";
-        }
-      }
-    }
-  }
-  //lancio un errore
-
-}
 getLabel(){
-   return this.name;
+   return this.label;
 }
 //metodo che ritorna le righe
 matrix() {
-  var labelRows = [];
-  var typeRows = [];
   for(var i=0; i<this.rows.length; i++){
     var labelColumn = [];
     var typeColumn = [];
+    var dsliColumn = [];
     for(var j=0; j<this.rows[i].length; j++){
-      found=false;
-      for(var key in this.rows[i][j]){
-        if(found) {
-         typeColumn.push(this.rows[i][j][key]);
-         found = false;
-        }
-        if(key == "label"){
-          labelColumn.push(this.rows[i][j][key]);
-          found = true;
-        }
-      }
+      labelColumn.push(this.rows[i][j].label);
+      typeColumn.push(this.rows[i][j].type);
+      dsliColumn.push(this.rows[i][j].dsl);
     }
-    labelRows.push(labelColumn);
-    typeRows.push(typeColumn);
-  }
-  return {"labelRows":labelRows,"typeRows":typeRows};
+    this.labelRows.push(labelColumn);
+    this.typeRows.push(typeColumn);
+    this.dsliRows.push(dsliColumn);
+   }
+  return {"labelRows":this.labelRows,"typeRows":this.typeRows, "dslRows":this.dsliRows};
 }
-//motodo che ritorna il tipo in base alle dato
-getType(labelName) {
-  for(var i=0; i<this.rows.length; i++){
-    for(var j=0; j<this.rows[i].length; j++){
-      var found=false;
-      for(var key in this.rows[i][j]){
-        if(found){
-          return this.rows[i][j][key];
-        }
-        if(this.rows[i][j][key] == labelName && key == "label"){
-           found=true;
-        }
-      }
-    }
-  }
-  //lancio l'errore
-}
+
 DSLType(){
-       return "dashboard";
-     }
+  return "dashboard";
+}
+
 JSONbuild(){
  return {
-  "properties":{"DSLType": this.DSLType() /*"Matrix":this.matrix()*/},
-  "data":{}
+  "properties":{"DSLType": this.DSLType(), "rows": this.rows}
  }
 }
 }
