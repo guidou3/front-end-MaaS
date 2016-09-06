@@ -36,7 +36,7 @@
          //throw a value error
        }
      });
-     
+
      if (typeof this.value == "object")
      {
        AttributeReader.assertEmptyAttributes(this.value, function() {});
@@ -45,8 +45,9 @@
        ], function() {}); //da inserire l'errore
        this.sortby = "{'_id': 1}";
        this.order = "asc";
+       this.count = false;
        AttributeReader.readOptionalAttributes(this.value, this, [
-         "query", "sortby", "order"
+         "query", "sortby", "order", "count"
        ]);
      }
      if (typeof this.value != "string" && typeof this.value !=
@@ -76,14 +77,27 @@
        {
          if (typeof this.value == "object")
          {
-           var findQuery = "db.collection('"+this.collection+"').find("+ this.query +")";
+           var findQuery = "db.collection('"+this.collection+"')";
+           if(this.query){
+             findQuery=findQuery + ".find(" + this.query +")";
+           }
+           else{
+             findQuery=findQuery + ".find()";
+           }
            if(this.order == "desc")
            {
-             return findQuery + ".sort(-" + this.sortby + ").limit(1)";
+             var completeQuery = findQuery + ".sort(-" + this.sortby + ").limit(1)";
            }
-           else 
+           else
            {
-             return findQuery + ".sort(" + this.sortby + ").limit(1)";
+             var completeQuery =  findQuery + ".sort(" + this.sortby + ").limit(1)";
+           }
+           if(this.count == true && typeof this.count == "boolean")
+           {
+              return "db.collection('"+this.collection+"').aggregate([{ $match:"+this.query+" },{ $group: { _id: null, count: { $sum: 1 } } }])";
+           }
+           else {
+             return completeQuery;
            }
          }
        }

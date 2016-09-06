@@ -26,15 +26,21 @@ class DocumentModel /*extends Component*/
     AttributeReader.readRequiredAttributes(params, this, [
       "collection", "name"
     ], function(param) {}); //lancio errore
+    this.query = "{}";
+    AttributeReader.readOptionalAttributes(params, this, [
+        "query"
+      ], function(param) {}) // lancio errore
     this.populate = [];
     AttributeReader.readOptionalAttributes(populate, this, [
       "populate"
     ]);
     this.rows = bodyRows;
   }
+
   buildQuery()
   {
-    return "db.collection(" + this.collection + ").find()";
+    return "db.collection('" + this.collection + "').find(" + this.query +
+      ")";
   }
 
   getCollection()
@@ -58,8 +64,7 @@ class DocumentModel /*extends Component*/
   {
     return "document";
   }
-  JSONbuild(
-    return)
+  JSONbuild(result)
   {
     return {
       "proprierties":
@@ -69,7 +74,7 @@ class DocumentModel /*extends Component*/
       },
       "data":
       {
-        "return": return
+        "result": result
       }
     };
   }

@@ -52,10 +52,10 @@ class CollectionModel /*extends Component*/{
      return this.indexPopulate;
    }
   getPopulateShow(){
-    return this.show;
+    return this.populate;
   }
   buildShowQuery(id){
-    var query = "db.collection(" + this.name + ").find(_id:" + id + ")";
+    var query = "db.collection(" + this.name + ").find({_id:" + id + "})";
     return query;
   }
   DSLType(){
@@ -63,7 +63,7 @@ class CollectionModel /*extends Component*/{
      }
   JSONbuild(result){
     return {
-      "properties":{"DSLType":this.DSLType(), "indexColumns":this.getIndexColumns(), "showRows":this.getShowRows(), "showPopulate":this.getPopulateShow(), /*"showQuery":*/},
+      "properties":{"DSLType":this.DSLType(), "indexColumns":this.getIndexColumns(), "showRows":this.getShowRows(), "showPopulate":this.getPopulateShow()},
       "data":{"result":result}
     };
   }
