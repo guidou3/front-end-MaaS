@@ -102,7 +102,8 @@ class MnData extends Component {
                       this.warn = "Please compile all data fields";
                     }
                     else {
-                      store.dispatch(actions.addDatabase({uri: this.uri, tag: this.name})).then(() => (store.dispatch(actions.getDatabase())))
+                      store.dispatch(actions.addDatabase({uri: this.uri, tag: this.name}))
+                        .then(() => (store.dispatch(actions.getDatabase())))
                     }
                     this.dialog = false
                     store.dispatch(actions.refresh())

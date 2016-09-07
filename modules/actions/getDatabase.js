@@ -18,7 +18,7 @@ function receiveDatabase(bool, data) {
 	}
 }
 
-export function getDatabase(token) {
+export function getDatabase() {
 	return function(dispatch, getState, api){
 		dispatch(requestDatabase())
 		return request

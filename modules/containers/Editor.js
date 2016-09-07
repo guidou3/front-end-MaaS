@@ -71,7 +71,7 @@ class MSelectData extends Component {
     const { store } = this.context
     return (
       <option value={this.props.data.tag}>
-        {this.props.databaseId== this.props.data.tag ? this.props.data.tag+ "\u2713" : this.props.data.tag}
+        {this.props.db == this.props.data.tag ? this.props.data.tag+ "\u2713" : this.props.data.tag}
       </option>
     )
   }
@@ -90,12 +90,12 @@ class Editor extends Component {
     const { store } = this.context
     let dsli = store.getState().currentDSLI
     let comp = store.getState().dataList
-    let rows = "";
+    let rows = [];
 
     let i
     let n = comp.length;
     for (i = 0; i < n; i++) {
-      rows += <MSelectData data = {comp[0]} dsli = {dsli}/>
+      rows[i] = <MSelectData data = {comp[i]} db = {dsli.databaseId}/>
     }
     let combobox =
          <div className="form-group">
@@ -104,7 +104,6 @@ class Editor extends Component {
           </div>
           <select className="form-control" defaultValue={dsli.databaseId} onChange = {(event) => {
              dsli.databaseId = event.target.value;
-             console.log(dsli.databaseId)
            }}>
            {rows}
          </select>
@@ -113,6 +112,7 @@ class Editor extends Component {
     let save = (<MButton label = "Save" className="btn main-btn"
                 onClick = {() => {
                   store.dispatch(actions.saveTextDSLI(dsli)).then(() => (store.dispatch(actions.getDSLIList())))
+                  console.log(dsli);
               }}/>)
 
     let del = (<MButton label = "Delete" className="btn main-btn"
