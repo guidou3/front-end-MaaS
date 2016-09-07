@@ -35,7 +35,7 @@ export function checkCompanyName(data) {
 			.get(api + 'companies/' + data.companyName + '/exists')
 			.then(
 				function(res){
-					if(res.exists) {
+					if(res.body.exists) {
 						dispatch(receiveCheckCompanyName(true, 0))
 					}
 					else {
@@ -43,7 +43,7 @@ export function checkCompanyName(data) {
 							.get(api + 'accounts/' + data.ownerMail + '/exists')
 							.then(
 								function(res){
-									if(res.exists) {
+									if(res.body.exists) {
 										dispatch(receiveCheckCompanyName(true, 1))
 									}
 									else {
@@ -58,7 +58,7 @@ export function checkCompanyName(data) {
 					}
 				},
 				function(err){
-					dispatch(receiveError(err))
+					dispatch(receiveError(err.status))
 				}
 			)
 	}

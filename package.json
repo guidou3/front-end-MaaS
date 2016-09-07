@@ -42,11 +42,16 @@
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1"
   },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
   "scripts": {
     "heroku": "webpack-dev-server --output-public-path /assets/ --content-base . --history-api-fallback",
     "start": "webpack-dev-server --inline --content-base . --history-api-fallback",
-    "test": "mocha",
-    "test:watch": "npm test --watch"
+    "test": "mocha --compilers js:babel-register --recursive",
+    "test:watch": "npm test -- --watch"
   },
   "repository": {
     "type": "git",

@@ -39,7 +39,6 @@ switch(action.type) {
 	case 'getDSLIList':
 	case 'login':
 	case 'newDSLI':
-	case 'renameDSLI':
 	case 'saveTextDSLI':
 	case 'sendResetMail':
 	case 'userRegistration':
@@ -55,7 +54,7 @@ switch(action.type) {
 	case 'checkUsername':
 		return Object.assign({}, state, {
 				loading: false,
-				waitingFor: '',
+				waitingFor: null,
 				result: 'success',
 				error: null, //potenzialmente non vero
 				usernameValidity: true
@@ -79,18 +78,11 @@ switch(action.type) {
 	case 'failedCheckUsername':
 		return Object.assign({}, state, {
 				loading: false,
-				waitingFor: '',
+				waitingFor: null,
 				result: 'failed',
 				error: null,
 				usernameValidity: false
 		})
-	case 'failedLogin':
-		return {
-				loading: false,
-				waitingFor: '',
-				result: 'error',
-				error: action.error
-		}
 
 	case 'embodyUser':
 	case 'logout':

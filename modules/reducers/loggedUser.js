@@ -1,17 +1,12 @@
 export default function loggedUserReducer(state = 0, action) {
 	switch(action.type) {
-		case 'changeImage':
-			return Object.assign({}, state, {
-					image: action.image
-			})
 		case 'login':
 		case 'embodyUser':
 			return {
 				account: action.user.account,
 				accessLevel: action.user.accessLevel,
 				company: action.user.company,
-				token: action.user.token,
-				image: action.user.image
+				token: action.user.token
 			}
 		case 'changeAccessLevel':
 			return Object.assign({}, state, {

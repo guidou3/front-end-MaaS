@@ -2,21 +2,14 @@ export default function currentDSLIReducer(state = 0, action) {
 	switch(action.type) {
 
 		case 'setDSLI':
+		case 'getDSLI':
 			return {
 				id: action.dsli.id,
 				name: action.dsli.name,
 				code: action.dsli.code,
 				lastModifiedDate: action.dsli.lastModifiedDate,
+				permits: action.dsli.permits,
 				databaseId: action.dsli.databaseId
-			}
-		case 'getDSLI':
-			console.log(action.selected);
-			return {
-				id: action.selected.id,
-				name: action.selected.name,
-				code: action.selected.DSLcode,
-				permits: action.selected.permits,
-				databaseId: action.selected.databaseId
 			}
 		case 'execDSLI':
 			return Object.assign({}, state, {

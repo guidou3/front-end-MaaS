@@ -1,7 +1,6 @@
 export default function DSLIListReducer(state = 0, action) {
 	switch(action.type) {
 		case 'getDSLIList':
-			console.log(action);
 			return action.listDSLI
 
 		case 'embodyUser':

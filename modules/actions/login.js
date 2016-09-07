@@ -15,7 +15,7 @@ function receiveLogin(bool, data) {
 		user: data
 	}
 	else return {
-		type: 'failedLogin',
+		type: 'error',
 		error: data
 	}
 }

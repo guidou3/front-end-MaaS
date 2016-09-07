@@ -10,7 +10,7 @@ function requestDSLI() {
 function receiveDSLI(bool, data) {
 	if(bool) return {
 		type: 'getDSLI',
-		selected: data
+		dsli: data
 	}
 	else return {
 		type: 'error',
