@@ -11,9 +11,9 @@ class MDataRow extends Component {
     const { store } = this.context
     return (
       <tr>
-        <td>{this.props.data.tag}</td>
-        <td>{this.props.data.id}</td>
-        <td>
+        <td className="col1">{this.props.data.tag}</td>
+        <td className="col2">{this.props.data.id}</td>
+        <td className="col3">
           <Button bsSize="xs" bsStyle="danger"  onClick = {() => {
             store.dispatch(actions.deleteData(this.props.data.id)).then(() => (store.dispatch(actions.getDatabase())))
           }}>
