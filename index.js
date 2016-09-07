@@ -73,7 +73,7 @@ const routes =
 		<Route path="/managepvtdsli" component={MnPvtDSLI}/>
 		<Route path="/managedata" component={MnData}/>
 		<Route path="/editdsli" component={EditDSLI}/>
-		//<Route path="/execdsli" component={CollectionVisualize}/> /*PageBuilder  */
+		<Route path="/execdsli" component={Loading}/> /*PageBuilder  */
 	</Route>;
 
 function render() {

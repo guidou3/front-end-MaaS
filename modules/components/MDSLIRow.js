@@ -35,7 +35,9 @@ class MDSLIRow extends Component {
         <td>{this.props.data.accountId}</td>
         <td>
           <Button bsSize="xs" bsStyle="primary"  onClick = {() => {
-            store.dispatch(actions.getDSLI(this.props.data.id)).then(() => (store.dispatch(actions.redirect("/editdsli"))))
+            store.dispatch(actions.getDSLI(this.props.data.id))
+              .then(() => (store.dispatch(actions.getDatabase())))
+              .then(() => (store.dispatch(actions.redirect("/editdsli"))))
           }}>
             <Glyphicon glyph="pencil"/>
           </Button>

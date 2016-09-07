@@ -28,7 +28,7 @@ export function saveTextDSLI(dsli) {
 				name: dsli.name,
 				code: dsli.code,
 				lastModifiedDate: Date(),
-				databseId: dsli.db
+				databaseId: dsli.databaseId
 			})
 			.then(function() {
 					dispatch(receiveSaveTextDSLI(true, dsli)) //il reducer deve modificare state.currentDSLI.DSLI

@@ -28,7 +28,7 @@ export function addDatabase(data) {
 				tag: data.tag
 			})
 			.then(function() {
-					dispatch(receiveAddDatabase(true)).then(() => (dispatch(getDatabase())))
+					dispatch(receiveAddDatabase(true))
 				},
 				function(err){
 					dispatch(receiveAddDatabase(false, err))
