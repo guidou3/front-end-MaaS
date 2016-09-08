@@ -106,7 +106,7 @@
        return "cell";
      }
      JSONbuild(queryResult){
-       return { "properties":{"label":this.label, "dsl": this.DSLType(), "returnType":this.getType()}, "data":{"result":queryResult}};
+       return { "properties":{"label":this.label, "DSLType": this.DSLType(), "returnType":this.getType()}, "data":{"result":queryResult}};
      }
      valueIsQuery(){
        if(typeof this.value == "object"){

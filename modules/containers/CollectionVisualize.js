@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
+import PageBuilder from '../services/PageBuilder'
 const {MTextBox, MTextArea, MButton} = Components
 
 class CollectionRow extends Component {
@@ -30,30 +31,114 @@ class CollectionVisualize extends Component {
     this.name = "SampleDSLI"
  this.flag =true;
   }
+  buildCellFromJSON(JSON){
+    let header,body;
+    if (JSON.properties.DSLType == "cell"){
+      let prop = JSON.properties;
+      let data = JSON.data;
+      console.log("HBUBUBUBYU",prop,data);
+      header = < th >{prop.label} < /th>;
 
+      if (typeof data.result == "number" || typeof data.result =="string"){
+        body = < td >{data.result} < /td>;
+      }
+      console.log("HEADER",header,body);
+      //Lanciare errore nel caso il risultato sia array oppure object
+      //
+      if (typeof data.result == "object"){
+        let firstProp
+        for (var key in data.result){
+          if (data.result.hasOwnProperty(key)){
+            firstProp = data.result[key];
+            break;
+          }
+        }
+        if (typeof firstProp == "object" || typeof firstProp =="array"){}
+          // Si dovrebbe lanciare un errore che riguarda il fatto che è
+          // un array oppure un oggetto e che quindi non può essere mostrato
+        else{
+            body = < td >{firstProp} < /td>;
+        }
+      }
+      return (<div className="table-responsive">
+        <table id="mytable" className="table table-bordred table-striped">
+        <tbody><tr>{header}{body}</tr> </tbody>
+            </table>
+            </div>
+
+          );
+  }
+}
   render() {
     const { store } = this.context
     let dsli = store.getState().currentDSLI
     //let data = store.getState().currentDSLI.result
-    //////DASHBOARD
-    /*let JSON = { "DSLType":'dashboard', "rows":[[{"label":"Gigi","type":"cell","dsl":"cell(label:\"nome\", type:\"link\" value:21)"},{"label":"Gigi","type":"cell","dsl":"cell(label:\"nome\", type:\"link\" value:\"ciao\")"}],[{"label":"Gigi","type":"cell","dsl":"cell(label:\"nome\", type:\"link\" value:43)"},{"label":"Gigi","type":"cell","dsl":"cell(label:\"nome\", type:\"link\" value:\"ciao1\")"}]]}
-    if(JSON.properties.DSLType == "dashboard"){
+    ////collection
+    /*let JSON ={
+      "properties":{
+        "DSLType":"collection",
+        "indexColumns":[{"label":"Id", "name":"_id", "sortable":true, "selectable":true, "transformation":{}},{"label":"Scarpe", "name":"Scarpe.nome", "sortable":true, "selectable":true, "transformation":{}}],
+        "showRows":[{"label":"Nome Scarpe", "name":'Scarpe.nome'}], "showPopulate":[{"path":"azienda","model":"azienda"}]},
+    "data":{
+      "result":[{"_id":"doeiioj","Scarpe":{"_id":"iofijfo","nome":"nike"}},{"_id":"doeiyystsfj","Scarpe":{"_id":"sssds","nome":"addidas"}}]}
+  };
+    if(JSON.properties.DSLType == "collection"){
+      //Parte index
+      let prop = JSON.properties;
       let data = JSON.data;
+      let rows = [];
       let x = [];
+      let y = [];
+      //console.log(data.result.length,prop.rows.length)
+      //Manca sortable, selectable,transofrmation
+      if(this.flag){
+        this.flag=false;
+        for(let k=0; k<prop.indexColumns.length; k++){
+          y.push(<th>{prop.indexColumns[k].name}</th>)
+        }
+      for(let j =0; j<data.result.length; j++){
+        for(let i=0; i<prop.indexColumns.length; i++){
+
+          var r = prop.indexColumns[i].name.split('.');
+          console.log(r);
+          if(typeof data.result[j][r[0]] == "object"){
+            console.log(r);
+            x[i+j*2] = <td>{data.result[j][r[0]][r[1]]}</td>;
+          }
+          else{
+            x[i+j*2] = <td>{data.result[j][r[0]]}</td>;
+          }
+        }
+          //dimenticati gli array e gli object
+        rows.push(<tr>{Object.assign([],x)}</tr>);
+        x = [];
+      }
+      return (<div><table><thead><tr>{y}</tr></thead><tbody>{rows}</tbody></table></div>)
+    }
+  }*/
+    //////DASHBOARD
+    let JSON = { "properties":{"DSLType":'dashboard', "rows":[[{"label":"Gigi","type":"cell","dsl":"cell(label:'nome', type:'link', value : { collection : 'Account'})"},{"label":"Gigi","type":"cell","dsl":"cell(label:\"nome\", type:\"link\", value:\"ciao\")"}],[{"label":"Gigi","type":"cell","dsl":"cell(label:\"nome\", type:\"link\", value:43)"},{"label":"Gigi","type":"cell","dsl":"cell(label:\"nome\", type:\"link\", value:\"ciao1\")"}]]}}
+    if(JSON.properties.DSLType == "dashboard" && this.flag){
+      this.flag=false;
+      let data = JSON.properties.rows;
+      let x = [], y=[], z=[];
       let row = [];
       for(let j=0; j<data.length; j++){
         for(let i=0; i<data[j].length; i++){
           //lancio la dsl al PageBuilder
-          //let x=new PageBuilder(data[j][i].dsl);
-          //inserisco il JSON ritorno del pagebuilder nel visualize apposito
-          //inserisco il dato ritornato nel valore
-          x[i]= <th>{data[i][j].label}<td>{/*valore}</td>;
+          y[i]=new PageBuilder(data[j][i].dsl);
+          if(data[i][j].type == "cell"){
+            z[i]=y[i].getJSONcell();
+
+          }
+          x[i]=this.buildCellFromJSON(z[i]);
+          //x[i]= [<th>{data[i][j].label}</th>,<td>{z[i].data.result}</td>];
         }
         row.push(<tr>{Object.assign([],x)}</tr>);
         x = [];
       }
       return (<div><table><tbody>{row}</tbody></table></div>);
-    }*/
+    }
 
       ////////CELLA
       /*let JSON={"properties":{"label":"prova1", "DSLType": "cell", "returnType":"String"}, "data":{"result":{"_id":"hufhuihiuh"}}};
@@ -102,7 +187,7 @@ class CollectionVisualize extends Component {
       }*/
 
       //////DOCUMENT
-      let JSON = {
+      /*let JSON = {
         "properties":{"DSLType": "document","rows":[{"label":"Nome", "name":"name"},{"label":"MarcaScarpe", "name":"scarpe.marca"}]
         },
         "data":{
@@ -136,7 +221,7 @@ class CollectionVisualize extends Component {
       }
 
         return (<div>{table}</div>);
-      }
+      }*/
 
   }
 }
