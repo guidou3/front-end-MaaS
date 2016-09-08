@@ -3,10 +3,11 @@ export default function currentDSLIReducer(state = 0, action) {
 
 		case 'setDSLI':
 		case 'getDSLI':
+		console.log(action.dsli);
 			return {
 				id: action.dsli.id,
 				name: action.dsli.name,
-				code: action.dsli.code,
+				code: action.dsli.DSLcode,
 				lastModifiedDate: action.dsli.lastModifiedDate,
 				permits: action.dsli.permits,
 				databaseId: action.dsli.databaseId
