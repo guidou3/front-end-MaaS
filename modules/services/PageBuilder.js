@@ -13,6 +13,7 @@ class PageBuilder extends Component {
   constructor(props) {
     super(props)
     this.flag = true;
+    this.flag2 = true;
     this.show = false ;
     this.storageResult = [];
     this.secondQuery = [];
@@ -24,18 +25,21 @@ class PageBuilder extends Component {
     //let x="cell(label: 'vacca', type : 'string', value:{collection:'Account', count:true} )";
     //let x="document(collection:'Account', name:'franco',label:'sora', id:'jejio', weight:0){show(populate:['{path:ciccio,model:ringhio}','{path:gianno,model:morandi}']){row(label:'xx', name:'vv'),row(label:'ff', name:'jj'),row(label:'kk', name:'hh')}}";
     //let x = "cell(label: 'prova', type : 'string', value : { collection : 'Account' , query : '{dutyId:{$gt: 2}},{password: 1}', sortby:'{subscribedAt: 1}' ,order:'asc', count: 'true' })";
-    //let x="document(collection:'DSL', name:'franco',label:'sora', id:'jejio', weight:0){show(populate:[{path:'accountId',model:'Account'}]){row(label:'xx', name:'vv'),row(label:'ff', name:'jj'),row(label:'kk', name:'hh')}}";
+    let x="document(collection:'DSL', name:'franco',label:'sora', id:'jejio', weight:0){show(populate:[{path:'accountId',model:'Account'}]){row(label:'xx', name:'vv'),row(label:'ff', name:'jj'),row(label:'kk', name:'hh')}}";
     //let x="cell(label:'numero',type:'link',value:{collection:'Account'})"
     //let x="cell(label: 'prova', type : 'string', value : { collection : 'Account' , query : '{dutyId:1},{companyId: 1}'})";
-    let x = "dashboard(label: 'dragonball'){row{cell:{label:'goku',dsl:\"cell(label:'xx', type:'String', value:10)\"},collection:{label:'goku',dsl:\"cell(label:'xx',value:10)\"}},row{collection:{label:'goku',dsl:\"cell(label:'xx',value:10)\"}}}";
+    //let x = "dashboard(label: 'dragonball'){row{cell:{label:'goku',dsl:\"cell(label:'xx', type:'String', value:10)\"},collection:{label:'goku',dsl:\"cell(label:'xx',value:10)\"}},row{collection:{label:'goku',dsl:\"cell(label:'xx',value:10)\"}}}";
     //let x="collection(name:'DSL',label:'persone di età >=30/anzienda';id:'persona/azienda_collection';weight:0;){index(){}show(populate:['path:azienda,model:azienda']){}}"; // dsli che verrà passata per parametro
     //let x="cell(label: 'vacca', type : 'string', value:{collection:'Account', count:true} )";
     //let x="document(collection:'Account', name:'franco',label:'sora', id:'jejio', weight:0){show(populate:['{path:ciccio,model:ringhio}','{path:gianno,model:morandi}']){}}";
     //let x = "cell(label: 'prova', type : 'string', value : { collection : 'Account' , query : '{password:asd}', sortby:'{subscribedAt: 1}' ,order:'asc' ,count :1})";
     //let x ="document(collection:'DSL', name:'franco',label:'sora', query : '{companyId : \"matrioska\"}'){show(populate:[{path:'accountId',model:'Account'}]){row(label:'xx', name:'vv'),row(label:'ff', name:'jj'),row(label:'kk', name:'hh')}}";
-    let preCompileFile = macro + this.props.dsli.code;
+
+    let preCompileFile = macro + this.props;
+    console.log(preCompileFile);
+    //let preCompileFile = macro + x;
     let compiledDSLI = compile(preCompileFile); //compilazione del preCompiledFile
-    console.log(this.props.dsli.code);
+    //console.log(this.props.dsli.code);
 
     var obj = undefined;
     function insert(object){
@@ -60,9 +64,37 @@ class PageBuilder extends Component {
         }
       )
   }
-
+  getObject(){return this.object};
+  getJSONcell(){
+    // const { store } = this.context;
+     var dsli = this.props.dsli;
+    var DSLType = this.object.DSLType();
+    if(DSLType == "cell"){
+      if(this.object.valueIsQuery()){
+        var query = this.object.buildQuery();
+        //if(this.flag){
+          //this.flag = false;
+          console.log("CELL");
+          console.log(query);
+          this.executeQuery(dsli, query, (err,res) =>{                               //LAUNCH OF A QUERY
+            if(err)                                                                 //CALLBACK FUNCTION WHERE QUERY ENDS
+              return;
+          this.storageResult = Object.assign({}, res);
+          store.dispatch(actions.refresh());                                      //CALL RENDER TO DISPLAY DATA
+        });
+      //}
+      this.JSON = this.object.JSONbuild(this.storageResult);
+      this.show = true;
+    }
+    else{
+     this.JSON = this.object.JSONbuild(this.object.buildQuery());
+     this.show = true;
+    }
+  }
+  return this.JSON;
+}
   render() {
-    const { store } = this.context;
+   /*const { store } = this.context;
     var dsli = this.props.dsli;
     var DSLType = this.object.DSLType();
     if(DSLType == "cell"){
@@ -90,6 +122,7 @@ class PageBuilder extends Component {
     }
 
     if(DSLType == "collection" || DSLType == "document"){
+
       var populate = this.object.getPopulate();
       if(this.flag){                                                              //EXECUTES ONCE
         this.flag = false;
@@ -117,7 +150,8 @@ class PageBuilder extends Component {
       }
 
       if(this.count != 0){
-        if(this.storageResult && this.secondQuery && this.count == Object.keys(this.secondQuery).length){                                 //SET SHOW TO TRUE WHEN DATA IS READY
+
+        if(this.storageResult && this.secondQuery && this.count == Object.keys(this.secondQuery).length){                           //SET SHOW TO TRUE WHEN DATA IS READY
           this.show = true;
           for(var k=0; k<Object.keys(this.secondQuery).length; k++){
             var attribute = populate[k].path;
@@ -141,13 +175,14 @@ class PageBuilder extends Component {
 
     if(DSLType=="dashboard"){
       this.show = true;
-    }
-
-    if(!this.show)
-      return <div>loading...</div>
+    }*/
+    /////////////////////////////////////////
+    if(!this.show){
+    return <div>Loading..</div>
+  }
     else
-      return <div>{this.secondQuery.toString()}/{this.storageResult.toString()}</div>
-
+      //return <div>{this.secondQuery.toString()}/{this.storageResult.toString()}</div>
+     return <div>Loading..</div>
    }
  }
 
