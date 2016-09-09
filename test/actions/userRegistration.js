@@ -11,6 +11,7 @@ const mockStore = configureMockStore(middlewares)
 
 const data = {
 	email: 'MAIL',
+	companyName: 'COMPANY',
 	password: 'PASSWORD',
 	dutyId: 0,
 	subscribedAt: 'DATE',
@@ -71,6 +72,51 @@ describe('The action creator checkUsername', () => {
     return store.dispatch(actions.checkUsername(data))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
+})
+
+const registrationResult = {
+	id:'ID'
+}
+
+describe('The action creator userRegistration:', () => {
+  afterEach(() => {
+    nock.cleanAll()
+  })
+  it('should be able to  create an action of type "userRegistration",', () => {
+    nock(api + 'companies/'+ data.companyName +'/users')
+      .post('')
+      .reply(200, registrationResult)
+
+    const expectedActions = [
+      { type: 'waiting', operation:'userRegistration' },
+      { type: 'userRegistration', user: registrationResult },
+
+    ]
+    const store = mockStore({ DSLI: 0 })
+
+    return store.dispatch(actions.userRegistration(data))
+      .then(function() {
+        return expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
+
+
+  it('should be able to  create an action of type "error".', () => {
+		nock(api + 'companies/'+ data.companyName +'/users')
+      .post('')
+      .reply(404, {})
+
+    const expectedActions = [
+      { type: 'waiting', operation:'userRegistration' },
+      { type: 'error', error:404 }
+    ]
+    const store = mockStore({ DSLI: 0 })
+
+    return store.dispatch(actions.userRegistration(data))
+      .then(function() {
+        return expect(store.getActions()).toEqual(expectedActions)
       })
   })
 })

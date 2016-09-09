@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import {Alert} from 'react-bootstrap';
 
 class MError extends Component {
   constructor(props) {
@@ -7,11 +8,16 @@ class MError extends Component {
 
   render() {
     const { store } = this.context
-    const value = store.getState().sys;
+    const error = store.getState().status.error;
+    let text =""
+    if(error == 404) text = "Error 404: Element not found."
+    else if(error == 401) text = "Error 401: Unauthorized."
+    else if(error == 422) text = "Error 422: Error in registering the owner."
+    else text= "Error " + error
     return (
-      <p>
-        {value}
-      </p>
+      <Alert bsStyle="danger">
+        <p>{text}</p>
+      </Alert>
     )
   }
 }

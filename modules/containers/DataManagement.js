@@ -39,6 +39,14 @@ class MnData extends Component {
 
   render() {
     const { store } = this.context
+
+    if(store.getState().status.result == "error") {
+        this.warn = <MError/>
+      }
+    else {
+        this.warn = ""
+    }
+
     let comp = store.getState().dataList
 
     let body = []

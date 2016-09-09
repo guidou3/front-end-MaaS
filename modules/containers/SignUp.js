@@ -58,19 +58,12 @@ class SignUp extends Component {
           </Alert>
       }
     }
+
     if(store.getState().status.result == "error") {
-      if(store.getState().status.error.response.body.error.status == 422) {
-        this.warn =
-          <Alert bsStyle="danger">
-            <p>Error in registering the owner.</p>
-          </Alert>
+        this.warn = <MError/>
       }
-      else {
-        this.warn =
-          <Alert bsStyle="danger">
-            <p>Network error.</p>
-          </Alert>
-      }
+    else {
+        this.warn = ""
     }
 
     return (

@@ -42,6 +42,13 @@ class HomeDeveloper extends Component {
   render() {
     const {store} = this.context
 
+    if(store.getState().status.result == "error") {
+        this.warn = <MError/>
+      }
+    else {
+        this.warn = ""
+    }
+
     return (
 	  <div className="home">
         <h2>Welcome Super Admin</h2>

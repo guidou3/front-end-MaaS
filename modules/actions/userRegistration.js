@@ -73,7 +73,7 @@ export function userRegistration(data, role) {
 				emailVerified: false
 			})
 			.then(function(result) {
-					dispatch(receiveUserRegistration(true, result))
+					dispatch(receiveUserRegistration(true, result.body))
 				},
 				function(err){
 					dispatch(receiveUserRegistration(false, err.status))

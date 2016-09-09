@@ -92,6 +92,14 @@ class Editor extends Component {
 
   render() {
     const { store } = this.context
+
+    if(store.getState().status.result == "error") {
+        this.warn = <MError/>
+      }
+    else {
+        this.warn = ""
+    }
+
     let dsli = store.getState().currentDSLI
     let comp = store.getState().dataList
     let rows = [];

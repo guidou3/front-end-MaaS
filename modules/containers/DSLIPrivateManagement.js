@@ -14,6 +14,13 @@ class DSLIManagment extends Component {
     const { store } = this.context
     let comp = store.getState().DSLIList
 
+    if(store.getState().status.result == "error") {
+        this.warn = <MError/>
+      }
+    else {
+        this.warn = ""
+    }
+
     let body = []
     let i
     let n = comp.length;

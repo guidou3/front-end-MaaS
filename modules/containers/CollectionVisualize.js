@@ -32,6 +32,15 @@ class CollectionVisualize extends Component {
 
   render() {
     const { store } = this.context
+
+    if(store.getState().status.result == "error") {
+        this.warn = <MError/>
+      }
+    else {
+        this.warn = ""
+    }
+
+
     let dsli = store.getState().currentDSLI
     //let data = store.getState().currentDSLI.result
     let data =

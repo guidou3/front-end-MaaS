@@ -11,6 +11,14 @@ class RePwd extends Component {
 
   render() {
     const { store } = this.context
+
+    if(store.getState().status.result == "error") {
+        this.warn = <MError/>
+      }
+    else {
+        this.warn = ""
+    }
+    
     return (
   	  <div>
         <h2>RecoverPassword</h2>

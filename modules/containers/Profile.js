@@ -11,10 +11,15 @@ class Profile extends Component {
 
   render() {
     const { store } = this.context
-    this.image = store.getState().loggedUser.image
-    if(this.image == undefined) {
-      this.image = 'http://i.stack.imgur.com/HQwHI.jpg'
+
+    if(store.getState().status.result == "error") {
+        this.warn = <MError/>
+      }
+    else {
+        this.warn = ""
     }
+
+    this.image = 'http://i.stack.imgur.com/HQwHI.jpg'
     return (
 
   	  <div>
@@ -24,7 +29,7 @@ class Profile extends Component {
         <div>
           <img src={this.image} alt="Profile image" className="img-responsive"/>
         </div>
-
+        {this.warn}
         <MButton label = "Change image" onClick = {() => {
           store.dispatch(actions.refresh())
         }}/>

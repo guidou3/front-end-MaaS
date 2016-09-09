@@ -19,10 +19,10 @@ class ContactSupport extends Component {
     }
 
     if(store.getState().status.result == "error") {
-      this.warn =
-        <Alert bsStyle="danger">
-          <p>There was a problem sending the message, retry later.</p>
-        </Alert>
+        this.warn = <MError/>
+      }
+    else {
+        this.warn = ""
     }
 
       return (

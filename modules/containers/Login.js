@@ -3,8 +3,8 @@ import {push} from 'react-router-redux'
 import * as actions from '../actions/RootAction'
 import Modal from 'react-modal'
 import Components from '../components'
-const {MTextBox, MButton, MLink} = Components
-import {Alert} from 'react-bootstrap';
+const {MTextBox, MButton, MLink, MError} = Components
+
 
 const customStyles = {
   overlay : {
@@ -41,32 +41,26 @@ class LogIn extends Component {
   }
   goHome() {
     const { store } = this.context
-    if(store.getState().loggedUser.accessLevel == 9) {
-      store.dispatch(push('/homeDeveloper'))
-    }
-    else {
-      store.dispatch(actions.getDSLIList())
-      .then(() => (store.dispatch(push('/home'))))
+    if(store.getState().loggedUser != 0)
+    {
+      if(store.getState().loggedUser.accessLevel == 9) {
+        store.dispatch(push('/homeDeveloper'))
+      }
+      else {
+        store.dispatch(actions.getDSLIList())
+        .then(() => (store.dispatch(push('/home'))))
+      }
     }
   }
   render() {
     const { store } = this.context
     if(store.getState().status.result == "error") {
-      if(store.getState().status.error.response.body.error.status == 401) {
-        if(this.dialog == true) {
-          this.recoveryWarn =
-            <Alert bsStyle="danger">
-              <p>Dati errati</p>
-            </Alert>
-        }
-        else {
-          this.warn =
-            <Alert bsStyle="danger">
-              <p>Dati errati</p>
-            </Alert>
-        }
+      if(this.dialog == true) {
+        this.recoveryWarn = <MError/>
       }
-
+      else {
+        this.warn = <MError/>
+      }
     }
     else {
       this.warn = ""
