@@ -25,11 +25,10 @@ export function getUserList() {
 			.get(api + 'companies/' + getState().loggedUser.company + '/users?access_token=' + getState().loggedUser.token)
 			.then(
 				function(result){
-					let res = JSON.parse(result.text)
-					dispatch(receiveUserList(true, res))
+					dispatch(receiveUserList(true, result.body))
 				},
 				function(error){
-					dispatch(receiveUserList(false, error))
+					dispatch(receiveUserList(false, error.status))
 				}
 			)
 	}

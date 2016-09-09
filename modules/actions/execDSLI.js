@@ -27,13 +27,12 @@ export function execDSLI(id, data) {
       .send({query: data})
 			.then(
 				function(result){
-					let res = JSON.parse(result.text)
 					console.log("RESULT");
-					console.log(res);
-					dispatch(receiveExec(true, res))
+					console.log(result.body);
+					dispatch(receiveExec(true, result.body))
 				},
 				function(error){
-					dispatch(receiveExec(false, error))
+					dispatch(receiveExec(false, error.status))
 				}
 			)
 	}

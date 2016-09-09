@@ -21,7 +21,6 @@ function receiveSaveTextDSLI(bool, text) {
 export function saveTextDSLI(dsli) {
 	return function(dispatch, getState, api){
 		dispatch(requestSaveTextDSLI())
-		console.log(dsli)
 		return request
 			.put(api + 'companies/'+ getState().loggedUser.company + '/dsls/' + dsli.id + '?access_token=' + getState().loggedUser.token)
 			.send({
@@ -31,10 +30,10 @@ export function saveTextDSLI(dsli) {
 				databaseId: dsli.databaseId
 			})
 			.then(function() {
-					dispatch(receiveSaveTextDSLI(true, dsli)) //il reducer deve modificare state.currentDSLI.DSLI
+					dispatch(receiveSaveTextDSLI(true, dsli))
 				},
 				function(err){
-					dispatch(receiveSaveTextDSLI(false, err))
+					dispatch(receiveSaveTextDSLI(false, err.status))
 				}
 			)
 	}

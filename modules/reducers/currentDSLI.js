@@ -3,7 +3,6 @@ export default function currentDSLIReducer(state = 0, action) {
 
 		case 'setDSLI':
 		case 'getDSLI':
-		console.log(action.dsli);
 			return {
 				id: action.dsli.id,
 				name: action.dsli.name,

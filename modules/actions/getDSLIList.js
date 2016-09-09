@@ -25,11 +25,10 @@ export function getDSLIList() {
 			.get(api + 'companies/'+getState().loggedUser.company+'/dsls?access_token='+getState().loggedUser.token)
 			.then(
 				function(result){
-					let res = JSON.parse(result.text)
-					dispatch(receiveDSLIList(true, res))
+					dispatch(receiveDSLIList(true, result.body))
 				},
 				function(error){
-					dispatch(receiveDSLIList(false, error))
+					dispatch(receiveDSLIList(false, error.status))
 				}
 			)
 	}

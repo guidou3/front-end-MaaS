@@ -25,7 +25,7 @@ export function deleteUser(email) {
 					dispatch(receiveDeleteUser(true))
 				},
 				function(error){
-					dispatch(receiveDeleteUser(false, error))
+					dispatch(receiveDeleteUser(false, error.status))
 				}
 			)
 	}

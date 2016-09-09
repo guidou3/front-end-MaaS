@@ -16,7 +16,6 @@ class ContactSupport extends Component {
     this.account =""
     if(store.getState().loggedUser != 0) {
       this.account = store.getState().loggedUser.account
-      //document.getElementById("email").setAttribute("disabled", true)
     }
 
     if(store.getState().status.result == "error") {

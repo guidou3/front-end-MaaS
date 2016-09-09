@@ -1,30 +1,42 @@
 import request from 'superagent'
 import {push} from 'react-router-redux'
 
-export function requestCheckUsername() {
+function requestCheckUsername() {
 	return {
 		type: 'waiting',
 	 	operation: 'checkUsername'
 	}
 }
 
-export function receiveCheckUsername(bool) {
+function receiveCheckUsername(bool) {
 	if(bool) return { type: 'successCheckUsername' }
 	else return { type: 'failedCheckUsername' }
 }
 
-export function checkUsername(username) {
+function receiveError(error) {
+		return {
+			type: 'error',
+			error: error
+		}
+}
+
+export function checkUsername(data) {
 	return function(dispatch, getState, api){
 		dispatch(requestCheckUsername())
-		request
-			.head(api + 'accounts/'+username)
+		return request
+			.get(api + 'accounts/'+ data.email+'/exists')
 			.then(
 				function(res){
-					dispatch(receiveCheckUsername(true))
+					if(res.body.exists) {
+						dispatch(receiveCheckUsername(false))
+					}
+					else {
+						dispatch(receiveCheckUsername(true))
+						dispatch(userRegistration(data, data.dutyId))
+					}
 				},
-				function(){
-					dispatch(receiveCheckUsername(false))
-					dispatch(companyRegistration(username))
+				function(error){
+					dispatch(receiveError(error.status))
 				}
 			)
 	}
@@ -64,7 +76,7 @@ export function userRegistration(data, role) {
 					dispatch(receiveUserRegistration(true, result))
 				},
 				function(err){
-					dispatch(receiveUserRegistration(false, err))
+					dispatch(receiveUserRegistration(false, err.status))
 				}
 			)
 	}

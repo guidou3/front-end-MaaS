@@ -33,7 +33,7 @@ export function login(json) {
 				function(result){
 					welcomeUser(result, dispatch)},
 				function(error){
-					dispatch(receiveLogin(false, error))
+					dispatch(receiveLogin(false, error.status))
 				})
 	}
 }
@@ -59,9 +59,10 @@ export function embodyUser(email) {
 			.post(api + 'accounts/'+ email + '/impersonate?include=user&access_token=' + getState().loggedUser.token)
 			.then(
 				function(result){
-					welcomeUser(result, dispatch)},
+					welcomeUser(result, dispatch)
+				},
 				function(err){
-					dispatch(failedEmbodyUser(err))
+					dispatch(failedEmbodyUser(err.status))
 				}
 			)
 	}
@@ -74,17 +75,11 @@ export function logout() {
 }
 
 function welcomeUser(result, dispatch) {
-	let res = JSON.parse(result.text);
+	let res = result.body
 	dispatch(receiveLogin(true, {
 		account: res.accountId,
 		accessLevel: res.user.dutyId,
 		token: res.id,
 		company: res.user.companyId
 	}))
-	if(res.user.dutyId == 9) {
-		dispatch(push('/homeDeveloper'))
-	}
-	else {
-		dispatch(getDSLIList()).then(() => (dispatch(push('/home'))))
-	}
 }

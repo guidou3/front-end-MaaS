@@ -24,10 +24,10 @@ export function deleteDSLI(dsliId) {
 			.then(
 				function(){
 					dispatch(receiveDeleteDSLI(true))
-					dispatch(actions.getDSLIList())
+					//dispatch(actions.getDSLIList())
 				},
 				function(error){
-					dispatch(receiveDeleteDSLI(false, error))
+					dispatch(receiveDeleteDSLI(false, error.status))
 				}
 			)
 	}

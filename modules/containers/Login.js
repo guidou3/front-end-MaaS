@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import {push} from 'react-router-redux'
 import * as actions from '../actions/RootAction'
 import Modal from 'react-modal'
 import Components from '../components'
@@ -37,6 +38,16 @@ class LogIn extends Component {
     this.warn = ""
     this.recoveryWarn =""
     this.dialog = false
+  }
+  goHome() {
+    const { store } = this.context
+    if(store.getState().loggedUser.accessLevel == 9) {
+      store.dispatch(push('/homeDeveloper'))
+    }
+    else {
+      store.dispatch(actions.getDSLIList())
+      .then(() => (store.dispatch(push('/home'))))
+    }
   }
   render() {
     const { store } = this.context
@@ -81,6 +92,9 @@ class LogIn extends Component {
                               {this.warn}
                               <MButton type="submit" id="btn-login" className="btn btn-custom btn-lg btn-block" label="Log in" onClick = {() => {
                                 store.dispatch(actions.login({mail:this.mail, pwd:this.pwd}))
+                                .then(() => (
+                                  this.goHome()
+                                ))
                               }}/>
                           </form>
                           <a href="#" className="forget" data-toggle="modal" data-target=".forget-modal"onClick = {() => {

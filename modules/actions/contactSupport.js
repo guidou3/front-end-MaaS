@@ -1,5 +1,4 @@
 import request from 'superagent'
-import {push} from 'react-router-redux'
 
 function requestSupport() {
 	return {
@@ -10,8 +9,7 @@ function requestSupport() {
 
 function receiveSupport(bool, data) {
 	if(bool) return {
-		type: 'support',
-		DSLI: data
+		type: 'support'
 	}
 	else return {
 		type: 'error',
@@ -22,17 +20,15 @@ function receiveSupport(bool, data) {
 export function contactSupport(data) {
 	return function(dispatch, getState, api){
 		dispatch(requestSupport())
-    if(data.permits == undefined)
-      data.permits = 0
 		return request
 			.post(api + 'accounts/help/'+ data.email)
 			.send({text:data.text})
 			.then(
-				function(result){
-					dispatch(receiveSupport(true, result))
+				function(){
+					dispatch(receiveSupport(true))
 				},
 				function(error){
-					dispatch(receiveSupport(false, error))
+					dispatch(receiveSupport(false, error.status))
 				}
 			)
 	}

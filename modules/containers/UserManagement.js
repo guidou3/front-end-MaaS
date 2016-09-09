@@ -55,7 +55,8 @@ class MnUser extends Component {
             <MButton label = "Send Invite" className="btn-lg btn main-btn "
               onClick = {() => {
                 this.dialog = true
-                store.dispatch(actions.userRegistration({ownerMail:this.user, companyName:store.getState().loggedUser.company},2)).then(() => (store.dispatch(actions.getUserList())))
+                store.dispatch(actions.checkUsername(this.user))
+                store.dispatch(actions.userRegistration({ownerMail:this.user, companyName:store.getState().loggedUser.company, dutyId:2})).then(() => (store.dispatch(actions.getUserList())))
             }}/>
         </div>
         <div className="table-responsive">

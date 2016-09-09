@@ -23,10 +23,10 @@ export function setAccessLevel(user) {
 		return request
 			.post(api + 'companies/'+ getState().loggedUser.company + '/users/' + user.id + '/permit/'+ user.level +'?access_token=' + getState().loggedUser.token)
 			.then(function() {
-					dispatch(receiveSetAccessLevel(true, '')) //il reducer deve modificare state.currentDSLI.DSLI
+					dispatch(receiveSetAccessLevel(true))
 				},
 				function(err){
-					dispatch(receiveSetAccessLevel(false, err))
+					dispatch(receiveSetAccessLevel(false, err.status))
 				}
 			)
 	}

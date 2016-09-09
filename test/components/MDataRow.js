@@ -24,7 +24,6 @@ function setup() {
 
 describe('MDataRow', () => {
 
-
   it('should contain in the first column the tag', () => {
     const { enzymeWrapper } = setup()
     expect(enzymeWrapper.find('.col1').text()).toBe('tag')

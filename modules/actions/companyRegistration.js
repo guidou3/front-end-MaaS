@@ -1,4 +1,3 @@
-//le funzioni receive...
 import request from 'superagent'
 import {push} from 'react-router-redux'
 import {userRegistration} from './userRegistration'
@@ -52,7 +51,7 @@ export function checkCompanyName(data) {
 									}
 								},
 								function(err){
-									dispatch(receiveError(err))
+									dispatch(receiveError(err.status))
 								}
 							)
 					}

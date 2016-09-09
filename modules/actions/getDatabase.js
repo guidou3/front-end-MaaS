@@ -29,7 +29,7 @@ export function getDatabase() {
 					dispatch(receiveDatabase(true, res))
 				},
 				function(error){
-					dispatch(receiveDatabase(false, error))
+					dispatch(receiveDatabase(false, error.status))
 				}
 			)
 	}

@@ -15,7 +15,7 @@ describe('currentDSLIReducer', () => {
 				{
 					id: 'ID',
 					name: 'NAME',
-					code: 'CODE',
+					DSLcode: 'CODE',
   				lastModifiedDate: 'DATE',
   				permits: 0,
   				databaseId: 'DATABASE'
@@ -49,7 +49,7 @@ it('should handle getDSLI and setDSLI when given only part of the parameters', (
 				{
 					id: 'ID1',
 					name: 'NAME1',
-					code: 'CODE1',
+					DSLcode: 'CODE1',
 					permits: 'PERMIT1'
 				}
       })

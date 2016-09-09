@@ -21,12 +21,10 @@ describe('The action creator checkCompanyName:', () => {
 
   it('should be able to create an action of type "checkCompanyName",', () => {
     nock(api +'companies/'+ data.companyName + '/exists')
-      .persist()
       .get('') //da mettere l'url, e i dati inseriti
       .reply(200, {body:{"exists": false}}) //non so cosa restituisca loopback
 
       nock('https://mass-demo.herokuapp.com/api/accounts/'+ data.ownerMail + '/exists')
-        .persist()
         .get('') //da mettere l'url, e i dati inseriti
         .reply(200, {body:{"exists": false}}) //non so cosa restituisca loopback
 
