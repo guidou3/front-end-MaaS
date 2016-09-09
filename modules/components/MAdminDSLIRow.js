@@ -8,6 +8,14 @@ class MAdminDSLIRow extends Component {
   constructor(props) {
     super(props)
   }
+  clone() {
+    const { store } = this.context
+    let dsli = store.getState().currentDSLI
+    let n = Object.assign({}, dsli, {name:"Clone of "+ dsli.name, permits: 3})
+		store.dispatch(actions.newDSLI(n)).then(() => (store.dispatch(actions.getDSLIList())))
+    //store.dispatch(actions.cloneDSLI(store.getState().currentDSLI,3))
+    //.then(() => (store.dispatch(actions.getDSLIList())))
+  }
 
   render() {
     const { store } = this.context
@@ -50,7 +58,8 @@ class MAdminDSLIRow extends Component {
         </td>
         <td>
           <Button bsSize="xs" bsStyle="primary"  onClick = {() => {
-            store.dispatch(actions.getDSLI(this.props.data.id)).then(() => (store.dispatch(actions.cloneDSLI(store.getState().currentDSLI,3))))
+            store.dispatch(actions.getDSLI(this.props.data.id))
+            .then(() => (this.clone()))
           }}>
             <Glyphicon glyph="globe"/>
           </Button>

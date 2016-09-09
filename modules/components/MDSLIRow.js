@@ -8,7 +8,12 @@ class MDSLIRow extends Component {
   constructor(props) {
     super(props)
   }
-
+  clone() {
+    const { store } = this.context
+    let dsli = store.getState().currentDSLI
+    let n = Object.assign({}, dsli, {name:"Clone of "+ dsli.name})
+		store.dispatch(actions.newDSLI(n)).then(() => (store.dispatch(actions.getDSLIList())))
+  }
   render() {
     const { store } = this.context
     let admin = (<td></td>)
@@ -44,7 +49,8 @@ class MDSLIRow extends Component {
         </td>
         <td>
          <Button bsSize="xs" bsStyle="primary"  onClick = {() => {
-           store.dispatch(actions.getDSLI(this.props.data.id)).then(() => (store.dispatch(actions.cloneDSLI(store.getState().currentDSLI))))
+           store.dispatch(actions.getDSLI(this.props.data.id))
+           .then(() => (this.clone()))
          }}>
            <Glyphicon glyph="share"/>
          </Button>
