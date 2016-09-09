@@ -96,7 +96,7 @@ export function companyRegistration(data) {
 					dispatch(userRegistration(data, 3))
 				},
 				function(err){
-					dispatch(receiveCompanyRegistration(false, err))
+					dispatch(receiveCompanyRegistration(false, err.status))
 				}
 			)
 	}

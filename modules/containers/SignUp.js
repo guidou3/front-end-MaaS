@@ -99,9 +99,6 @@ class SignUp extends Component {
                                     companyName: this.name,
                                     ownerMail: this.owner
                                   }
-                                  console.log(this.name)
-                                  console.log(this.owner)
-                                  console.log(data)
                                   store.dispatch(actions.checkCompanyName(data))
                                   store.dispatch(actions.refresh())
                                 }

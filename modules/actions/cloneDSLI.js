@@ -4,7 +4,6 @@ import {getDSLIList} from './getDSLIList'
 export function cloneDSLI(dsli, level =0) {
 	return function(dispatch){
 		let n = Object.assign({}, dsli, {name:"Clone of "+ dsli.name, permits: level})
-		console.log(n)
 		dispatch(newDSLI(n)).then(() => (dispatch(getDSLIList())))
 	}
 /*

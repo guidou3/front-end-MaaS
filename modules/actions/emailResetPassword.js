@@ -26,7 +26,7 @@ export function sendResetMail(email) {
 					dispatch(receiveResetMail(true))
 				},
 				function(err){
-					dispatch(receiveResetMail(false, err))
+					dispatch(receiveResetMail(false, err.status))
 				}
 			)
 	}

@@ -14,12 +14,12 @@ const data = {
   ownerMail: "ciao@ciao.com"
 }
 
-describe('The action creator checkCompanyName', () => {
+describe('The action creator checkCompanyName:', () => {
   afterEach(() => {
     nock.cleanAll()
   })
 
-  it('should create an action of type "checkCompanyName" after having successfully verified that said name for the company is not already used,', () => {
+  it('should be able to create an action of type "checkCompanyName",', () => {
     nock(api +'companies/'+ data.companyName + '/exists')
       .persist()
       .get('') //da mettere l'url, e i dati inseriti
@@ -43,7 +43,7 @@ describe('The action creator checkCompanyName', () => {
       })
   })
 
-  it('should create an action of type "failedCheckCompanyName" after having received the information that said name for the company is already used,', () => {
+  it('should be able to  create an action of type "failedCheckCompanyName",', () => {
     nock(api +'companies/' + data.companyName + '/exists')
       .persist()
       .get('') //da mettere l'url, e i dati inseriti
@@ -61,7 +61,7 @@ describe('The action creator checkCompanyName', () => {
       })
   })
 
-  it('should create an action of type "failedCheckUsername" after having received the information that the owner\'s username is already used,', () => {
+  it('should be able to  create an action of type "failedCheckUsername",', () => {
     nock(api +'companies/' + data.companyName + '/exists')
       .persist()
       .get('')
@@ -84,16 +84,11 @@ describe('The action creator checkCompanyName', () => {
       })
   })
 
-  it('should create an action of type "error" after having received an error from the API,', () => {
+  it('should be able to  create an action of type "error".', () => {
     nock(api +'companies/' + data.companyName + '/exists')
       .persist()
       .get('')
       .reply(404, {error: "Error from testing"})
-
-    nock('https://mass-demo.herokuapp.com/api/accounts/'+ data.ownerMail + '/exists')
-        .persist()
-        .get('')
-        .reply(200, {exists: true})
 
     const expectedActions = [
       { type: 'waiting', operation:'checkCompanyName' },
@@ -102,6 +97,49 @@ describe('The action creator checkCompanyName', () => {
     const store = mockStore({ DSLI: 0 })
 
     return store.dispatch(actions.checkCompanyName(data))
+      .then(function() {
+        return expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
+})
+
+describe('The action creator companyRegistration:', () => {
+  afterEach(() => {
+    nock.cleanAll()
+  })
+  it('should be able to  create an action of type "companyRegistration",', () => {
+    nock(api +'companies')
+      .persist()
+      .post('')
+      .reply(200, {})
+
+    const expectedActions = [
+      { type: 'waiting', operation:'companyRegistration' },
+      { type: 'companyRegistration' },
+      {  type: 'waiting', operation:'userRegistration' }
+    ]
+    const store = mockStore({ DSLI: 0 })
+
+    return store.dispatch(actions.companyRegistration(data))
+      .then(function() {
+        return expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
+
+
+  it('should be able to  create an action of type "error".', () => {
+    nock(api +'companies')
+      .persist()
+      .post('')
+      .reply(404, {error: "Error from testing"})
+
+    const expectedActions = [
+      { type: 'waiting', operation:'companyRegistration' },
+      { type: 'error', error:404 }
+    ]
+    const store = mockStore({ DSLI: 0 })
+
+    return store.dispatch(actions.companyRegistration(data))
       .then(function() {
         return expect(store.getActions()).toEqual(expectedActions)
       })

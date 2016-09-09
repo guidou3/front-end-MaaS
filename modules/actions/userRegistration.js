@@ -51,7 +51,6 @@ export function receiveUserRegistration(bool, data) {
 export function userRegistration(data, role) {
 	return function(dispatch, getState, api){
 		dispatch(requestUserRegistration())
-		console.log(data);
 		return request
 			.post(api + 'companies/'+data.companyName+'/users')
 			.send({

@@ -31,7 +31,7 @@ export function addDatabase(data) {
 					dispatch(receiveAddDatabase(true))
 				},
 				function(err){
-					dispatch(receiveAddDatabase(false, err))
+					dispatch(receiveAddDatabase(false, err.status))
 				}
 			)
 	}

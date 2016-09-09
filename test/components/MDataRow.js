@@ -34,7 +34,7 @@ describe('MDataRow', () => {
     expect(enzymeWrapper.find('.col2').text()).toBe('id')
 
   })
-  it('should contain in the second column a <Button />', () => {
+  it('should contain in the third column a <Button />', () => {
     const { enzymeWrapper } = setup()
     expect(enzymeWrapper.find('.col3').text()).toBe('<Button />')
   })

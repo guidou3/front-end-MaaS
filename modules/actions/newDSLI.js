@@ -35,10 +35,10 @@ export function newDSLI(data) {
 			})
 			.then(
 				function(result){
-					dispatch(receiveNewDSLI(true, result))
+					dispatch(receiveNewDSLI(true, result.body))
 				},
 				function(error){
-					dispatch(receiveNewDSLI(false, error))
+					dispatch(receiveNewDSLI(false, error.status))
 				}
 			)
 	}

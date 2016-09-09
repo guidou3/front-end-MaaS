@@ -29,7 +29,7 @@ export function changePassword(newPassword, token) {
 					dispatch(receiveChangePassword(true))
 				},
 				function(error){
-					dispatch(receiveChangePassword(false, error))
+					dispatch(receiveChangePassword(false, error.status))
 				}
 			)
 	}

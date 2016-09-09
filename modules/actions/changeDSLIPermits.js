@@ -31,7 +31,7 @@ export function changeDSLIPermits(dsli, newPermit) { //newPermits is an array
 					dispatch(receiveChangeDSLIPermits(true, newPermit))
 				},
 				function(error){
-					dispatch(receiveChangeDSLIPermits(false, error))
+					dispatch(receiveChangeDSLIPermits(false, error.status))
 				}
 			)
 	}

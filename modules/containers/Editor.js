@@ -48,13 +48,17 @@ class EditorAce extends Component {
         mode="javascript"
         theme="monokai"
         name="EditorAce"
-        fontSize={14}
         height="30em"
         width="90%"
-        enableBasicAutocompletion
-        enableSnippets
-        enableLiveAutocompletion
-        editorProps={{$blockScrolling: true}}
+        setOptions={{
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          enableSnippets: true,
+          tabSize: 4,
+          fontSize: 14,
+          showGutter: true,
+          showPrintMargin: false
+        }}
         value={dsli.code}
         onChange={onWrite}
       />
