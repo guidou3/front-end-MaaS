@@ -14,19 +14,22 @@
  */
 
  /*jshint esversion: 6 */
- import React, { Component, PropTypes } from 'react'
- import request from 'superagent'
- var AttributeReader = require('../utils/AttributeReader');
- //var typeError = require("/utils/TypeError");
- class CellModel extends Component{
+
+import AttributeReader from '../utils/AttributeReader'
+import {executeQuery} from '../utils/DSLICompiler'
+import * as actions from '../actions/RootAction'
+import React from 'react'
+
+class CellModel {
    constructor(params){
-     super()
+     this.flag = true;
+     this.show = false ;
+     this.storageResult = [];
+     this.JSON;
+
      this.label = undefined;
      AttributeReader.assertEmptyAttributes(params, function() {}); // da inserire l'errore
-     AttributeReader.readRequiredAttributes(params, this, ["label","type",
-       "value"
-     ], function(param)
-     {
+     AttributeReader.readRequiredAttributes(params, this, ["label","type","value"], function(param){
        if (param == "type")
        {
          //throw new typeError.error();
@@ -40,9 +43,7 @@
      if (typeof this.value == "object")
      {
        AttributeReader.assertEmptyAttributes(this.value, function() {});
-       AttributeReader.readRequiredAttributes(this.value, this, [
-         "collection"
-       ], function() {}); //da inserire l'errore
+       AttributeReader.readRequiredAttributes(this.value, this, ["collection"], function() {}); //da inserire l'errore
        this.sortby = "{'_id': 1}";
        this.order = "asc";
        this.count = false;
@@ -50,73 +51,83 @@
          "query", "sortby", "order", "count"
        ]);
      }
-     if (typeof this.value != "string" && typeof this.value !=
-       "number")
+     if (typeof this.value != "string" && typeof this.value != "number")
      {
        //lancia errore
      }
-     }
-     //Manca ancora da fare l'id
+  }
 
-     getLabel(){
-       return this.label;
-     }
+  getLabel(){
+    return this.label;
+  }
+  getType(){
+    return this.type;
+  }
 
-     getType(){
-       return this.type;
-     }
+  buildQuery(){
+    if (typeof this.value == "string" || typeof this.value == "number")
+      return this.value;
+    else
+    {
+      if (typeof this.value == "object")
+      {
+        var findQuery = "db.collection('"+this.collection+"')";
+        if(this.query)
+          findQuery=findQuery + ".find(" + this.query +")";
+        else
+          findQuery=findQuery + ".find()";
+        if(this.order == "desc")
+          var completeQuery = findQuery + ".sort(-" + this.sortby + ").limit(1)";
+        else
+          var completeQuery =  findQuery + ".sort(" + this.sortby + ").limit(1)";
+        if(this.count == true && typeof this.count == "boolean")
+          return "db.collection('"+this.collection+"').aggregate([{ $match:"+this.query+" },{ $group: { _id: null, count: { $sum: 1 } } }])";
+        else
+          return completeQuery;
+      }
+    }
+  }
 
-     buildQuery(){
-       if (typeof this.value == "string" || typeof this.value ==
-         "number")
-       {
-         //console.log(this.value);
-         return this.value;
-       }
-       else
-       {
-         if (typeof this.value == "object")
-         {
-           var findQuery = "db.collection('"+this.collection+"')";
-           if(this.query){
-             findQuery=findQuery + ".find(" + this.query +")";
-           }
-           else{
-             findQuery=findQuery + ".find()";
-           }
-           if(this.order == "desc")
-           {
-             var completeQuery = findQuery + ".sort(-" + this.sortby + ").limit(1)";
-           }
-           else
-           {
-             var completeQuery =  findQuery + ".sort(" + this.sortby + ").limit(1)";
-           }
-           if(this.count == true && typeof this.count == "boolean")
-           {
-              return "db.collection('"+this.collection+"').aggregate([{ $match:"+this.query+" },{ $group: { _id: null, count: { $sum: 1 } } }])";
-           }
-           else {
-             return completeQuery;
-           }
-         }
-       }
-     }
-     DSLType(){
-       return "cell";
-     }
-     JSONbuild(queryResult){
-       return { "properties":{"label":this.label, "DSLType": this.DSLType(), "returnType":this.getType()}, "data":{"result":queryResult}};
-     }
-     valueIsQuery(){
-       if(typeof this.value == "object"){
-          return true;
-       }
-       else{
-          return false;
-       }
-     }
+  DSLType(){
+    return "cell";
+  }
+  JSONbuild(queryResult){
+    return { "properties":{"label":this.label, "DSLType": this.DSLType(), "returnType":this.getType()}, "data":{"result":queryResult}};
+  }
+  valueIsQuery(){
+    if(typeof this.value == "object"){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 
+  render(store){
+    if(this.valueIsQuery()){
+      var query = this.buildQuery();
+      if(this.flag){
+        this.flag = false;
+        executeQuery(store.getState().currentDSLI, query, store.getState().loggedUser.token, (err,res) =>{                               //LAUNCH OF A QUERY
+          if(err)                                                                 //CALLBACK FUNCTION WHERE QUERY ENDS
+          return;
+          this.storageResult = Object.assign({}, res);
+          store.dispatch(actions.refresh());                                      //CALL RENDER TO DISPLAY DATA
+        });
+      }
+      this.JSON = this.JSONbuild(this.storageResult);
+      this.show = true;
+    }
+    else{
+      this.JSON = this.JSONbuild(this.buildQuery());
+      this.show = true;
+    }
 
-   };
+    if(!this.show)
+      return <div>Eseguendo le query ...</div>
+    else
+      return <div>Ciao, sono una CELLA!</div>                                       //RENDER CODE HERE, DATI IN JSON
+  }
+}
+
 export default CellModel

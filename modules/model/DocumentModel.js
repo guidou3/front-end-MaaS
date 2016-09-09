@@ -14,14 +14,14 @@
  * =================================================
  */
 
-import React, { Component, PropTypes } from 'react'
-var AttributeReader = require('../utils/AttributeReader');
+import AttributeReader from '../utils/AttributeReader'
+import {executeQuery} from '../utils/DSLICompiler'
+import * as actions from '../actions/RootAction'
+import React from 'react'
 
-class DocumentModel /*extends Component*/
-{
+class DocumentModel {
   constructor(params, populate, bodyRows)
   {
-    //super()
     AttributeReader.assertEmptyAttributes(params, function(param) {}); //da inserire l'errore
     AttributeReader.readRequiredAttributes(params, this, [
       "collection", "name"
@@ -35,6 +35,12 @@ class DocumentModel /*extends Component*/
       "populate"
     ]);
     this.rows = bodyRows;
+    this.flag = true;
+    this.show = false ;
+    this.storageResult = [];
+    this.secondQuery = [];
+    this.count =0;
+    this.JSON;
   }
 
   buildQuery()
@@ -78,6 +84,61 @@ class DocumentModel /*extends Component*/
       }
     };
   }
-};
-//export default DocumentModel
-module.exports = DocumentModel
+
+  render(store){
+    var populate = this.getPopulate();
+    if(this.flag){                                                              //EXECUTES ONCE
+      this.flag = false;
+      var query = this.buildQuery();
+      executeQuery(store.getState().currentDSLI, query, store.getState().loggedUser.token, (err,res) =>{                                 //LAUNCH OF A QUERY
+        if(err)                                                                 //CALLBACK FUNCTION WHERE QUERY ENDS
+          return;
+        this.storageResult = Object.assign({}, res);
+        store.dispatch(actions.refresh());                                      //CALL RENDER TO DISPLAY DATA
+      });
+      if(populate){
+        for(var k =0; k< populate.length; k++){
+          this.count ++;
+          var collection = populate[k].model;
+
+          var populateQuery = "db.collection('"+ collection +"').find()";
+          executeQuery(store.getState().currentDSLI, populateQuery, store.getState().loggedUser.token, (err,res) =>{            //SAME THING HERE
+            if(err)
+              return;
+            this.secondQuery.push(Object.assign({}, res));
+            store.dispatch(actions.refresh());
+          });
+        }
+      }
+    }
+
+    if(this.count != 0){
+      if(this.storageResult && this.secondQuery && this.count == Object.keys(this.secondQuery).length){                           //SET SHOW TO TRUE WHEN DATA IS READY
+        this.show = true;
+        for(var k=0; k<Object.keys(this.secondQuery).length; k++){
+          var attribute = populate[k].path;
+           for(var i=0; i<Object.keys(this.storageResult).length; i++){
+            var id = this.storageResult[i][attribute];
+            for(var j=0; j<Object.keys(this.secondQuery[k]).length; j++){
+              if(this.secondQuery[k][j]._id == id){
+                this.storageResult[i][attribute] = this.secondQuery[k][j];
+              }
+            }
+          }
+        }
+        this.JSON=this.JSONbuild(this.storageResult);
+      }
+    }
+    else if(this.storageResult){
+      this.show = true;
+      this.JSON=this.JSONbuild(this.storageResult);
+    }
+
+    if(!this.show)
+      return <div>Eseguendo le query ...</div>
+    else
+      return <div>Ciao, sono un DOCUMENT!</div>                                       //RENDER CODE HERE, DATI IN JSON
+  }
+}
+
+export default DocumentModel

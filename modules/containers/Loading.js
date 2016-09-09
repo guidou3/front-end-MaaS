@@ -11,18 +11,22 @@ class Loading extends Component {
 
   render() {
     const { store } = this.context
+    let build = undefined
     if(!this.fetching){
       this.fetching = true;
       store.dispatch(actions.getDSLI(this.props.location.query.ID))
         .then(() => {
           this.ready = true;
+          console.log("DONE");
           store.dispatch(actions.refresh());
         });
     }
-    if(!this.ready)
-      return <PageBuilder dsli = {store.getState().currentDSLI}/>
+    if(this.ready){
+      build = <PageBuilder dsli = {store.getState().currentDSLI}/>
+      return <div>{build}</div>
+    }
     else
-      return <div>loading...</div>
+      return <div>Caricando la DSLI ...</div>
   }
 }
 
