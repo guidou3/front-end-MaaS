@@ -1,7 +1,10 @@
 import AttributeReader from '../utils/AttributeReader'
 import {executeQuery} from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
+
+import Components from '../components'
+const {MTextBox, MTextArea, MButton} = Components
 
 class CollectionModel {
   constructor(params, index, show){
@@ -129,8 +132,59 @@ class CollectionModel {
     if(!this.show)
       return <div>Eseguendo le query ...</div>
     else
-      return <div>Ciao, sono una COLLECTION!</div>                                       //RENDER CODE HERE, DATI IN JSON
+      //return <div>Ciao, sono una COLLECTION!</div>                                       //RENDER CODE HERE, DATI IN JSON
+      return <CollectionVisualize JSON = {this.JSON}/>
   }
 }
 
-export default CollectionModel
+class CollectionVisualize extends Component {
+  constructor(props) {
+    super(props)
+    this.JSON = this.props.JSON
+    this.warn = ""
+    this.name = "SampleDSLI"
+    this.flag =true;
+  }
+
+  render() {
+    this.JSON = {
+      "properties":{
+        "DSLType":"collection",
+        "indexColumns":[{"label":"Id", "name":"_id", "sortable":true, "selectable":true, "transformation":{}},{"label":"Scarpe", "name":"Scarpe.nome", "sortable":true, "selectable":true, "transformation":{}}],
+        "showRows":[{"label":"Nome Scarpe", "name":'Scarpe.nome'}], "showPopulate":[{"path":"azienda","model":"azienda"}]},
+      "data":{
+        "result":[{"_id":"doeiioj","Scarpe":{"_id":"iofijfo","nome":"nike"}},{"_id":"doeiyystsfj","Scarpe":{"_id":"sssds","nome":"addidas"}}]}
+    };
+
+    let prop = this.JSON.properties;
+    let data = this.JSON.data;
+    let rows = [];
+    let x = [];
+    let y = [];
+
+    if(this.flag){
+      this.flag = false;
+      for(let k = 0; k < prop.indexColumns.length; k++){
+        y.push(<th>{prop.indexColumns[k].name}</th>)
+      }
+    }
+
+    for(let j = 0; j < data.result.length; j++){
+      for(let i = 0; i < prop.indexColumns.length; i++){
+        var r = prop.indexColumns[i].name.split('.');
+        if(typeof data.result[j][r[0]] == "object")
+          x[i+j*2] = <td>{data.result[j][r[0]][r[1]]}</td>
+        else{
+          x[i+j*2] = <td>{data.result[j][r[0]]}</td>
+        }
+      }
+      rows.push(<tr>{Object.assign([],x)}</tr>);
+      x = [];
+    }
+
+    return (<div><table><thead><tr>{y}</tr></thead><tbody>{rows}</tbody></table></div>)
+  }
+}
+
+
+  export default CollectionModel
