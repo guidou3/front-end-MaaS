@@ -46,6 +46,7 @@ var executeQuery = function(dsli, data, token, cb) {
 				cb(null, res);
 			},
 			function(error){
+				console.log(error.response.text);
 				cb(error, null);
 			}
 		)

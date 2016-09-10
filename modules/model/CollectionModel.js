@@ -183,9 +183,12 @@ class CollectionModel {
     if(this.flag){                                                              //EXECUTES ONCE
       this.flag = false;
       var query = this.buildQuery();
-      executeQuery(store.getState().currentDSLI, query, store.getState().loggedUser.token, (err,res) =>{                                 //LAUNCH OF A QUERY
+      console.log(query);
+      executeQuery(store.getState().currentDSLI, query, store.getState().loggedUser.token, (err,res) =>{
+        console.log(err);                             //LAUNCH OF A QUERY
         if(err)                                                                 //CALLBACK FUNCTION WHERE QUERY ENDS
           return;
+        console.log(res);
         this.storageResult = Object.assign({}, res);
         store.dispatch(actions.refresh());                                      //CALL RENDER TO DISPLAY DATA
       });}
@@ -240,7 +243,7 @@ class CollectionModel {
         }
       }
     }
-    else if(this.storageResult){
+    else if(this.storageResult && this.storageResult.length != 0){
       this.show = true;
       this.JSON=this.JSONbuild(this.storageResult);
     }

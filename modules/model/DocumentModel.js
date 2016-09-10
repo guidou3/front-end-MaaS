@@ -177,7 +177,7 @@ console.log("ST",this.storageResult,"SQ",this.secondQuery);
         }
       }
     }
-    else if(this.storageResult){
+    else if(this.storageResult && this.storageResult.length != 0){
       this.show = true;
       this.JSON=this.JSONbuild(this.storageResult);
     }
