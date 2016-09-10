@@ -17,6 +17,7 @@
 import AttributeReader from '../utils/AttributeReader'
 import {executeQuery} from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'
+import DocumentVisualize from './DocumentVisualize'
 import React from 'react'
 
 class DocumentModel {
@@ -73,7 +74,7 @@ class DocumentModel {
   JSONbuild(result)
   {
     return {
-      "proprierties":
+      "properties":
       {
         "DSLType": this.DSLType(),
         "rows": this.rows
@@ -98,23 +99,25 @@ class DocumentModel {
       });
       if(populate){
         for(var k =0; k< populate.length; k++){
-          this.count ++;
           var collection = populate[k].model;
 
           var populateQuery = "db.collection('"+ collection +"').find()";
+
+          console.log("LENGHT :"+populate.length)
           executeQuery(store.getState().currentDSLI, populateQuery, store.getState().loggedUser.token, (err,res) =>{            //SAME THING HERE
             if(err)
               return;
             this.secondQuery.push(Object.assign({}, res));
+            this.count ++;
+            console.log("COUNT :"+this.count)
             store.dispatch(actions.refresh());
           });
         }
       }
     }
 
-    if(this.count != 0){
-      if(this.storageResult && this.secondQuery && this.count == Object.keys(this.secondQuery).length){                           //SET SHOW TO TRUE WHEN DATA IS READY
-        this.show = true;
+    if(populate.length != 0){
+      if(this.storageResult && this.secondQuery && this.count == populate.length){                           //SET SHOW TO TRUE WHEN DATA IS READY
         for(var k=0; k<Object.keys(this.secondQuery).length; k++){
           var attribute = populate[k].path;
            for(var i=0; i<Object.keys(this.storageResult).length; i++){
@@ -126,7 +129,10 @@ class DocumentModel {
             }
           }
         }
-        this.JSON=this.JSONbuild(this.storageResult);
+        if(this.storageResult.length != 0){
+          this.show = true;
+          this.JSON=this.JSONbuild(this.storageResult);
+        }
       }
     }
     else if(this.storageResult){
@@ -134,10 +140,11 @@ class DocumentModel {
       this.JSON=this.JSONbuild(this.storageResult);
     }
 
-    if(!this.show)
-      return <div>Eseguendo le query ...</div>
+    if(this.show){
+      return <DocumentVisualize dsli = {store.getState().currentDSLI} JSON = {this.JSON}/>
+    }
     else
-      return <div>Ciao, sono un DOCUMENT!</div>                                       //RENDER CODE HERE, DATI IN JSON
+      return <div>Eseguendo le query ...</div>
   }
 }
 
