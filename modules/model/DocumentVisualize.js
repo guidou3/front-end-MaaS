@@ -16,6 +16,7 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MTextBox, MTextArea, MButton} = Components
+import saveAs from 'save-as'
 
 class CollectionRow extends Component {
   constructor(props) {
@@ -59,6 +60,66 @@ class CollectionVisualize extends Component {
     console.log(this.props.JSON);
     this.JSON = this.props.JSON
     this.dsli = this.props.dsli
+    //this.saveCSV()
+  }
+
+  saveCSV() {
+    let headers = this.JSON.properties.rows
+    let n = headers.length
+    let text = ""
+    for (let i = 0; i < n; i++) {
+      text += headers[i].label+";"
+      let data = this.JSON.data.result[0]
+      var r = headers[i].name.split('.');
+      var value
+      if(r.length > 1){
+        if(data[r[0]] && data[r[0]][r[1]])
+          value = data[r[0]][r[1]]
+        else
+          value = '/'
+      }
+      else{
+        if(data[r[0]])
+          value = data[r[0]]
+        else
+          value = '/'
+      }
+      text += value.toString()+";"
+      text += "\n"
+    }
+
+    let blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
+    saveAs(blob, this.dsli.name+'.csv')
+  }
+
+  saveJSON() {
+    let headers = this.JSON.properties.rows
+    let n = headers.length
+    let result = new Object()
+    let data = this.JSON.data.result[0]
+
+    for (let j = 0; j < n; j++) {
+      var r = headers[j].name.split('.');
+      var value
+      if(r.length > 1){
+        if(data[r[0]] && data[r[0]][r[1]])
+          value = data[r[0]][r[1]]
+        else
+          value = '/'
+        if(!result[r[0]])
+          result[r[0]] = new Object()
+        result[r[0]][r[1]] = value
+      }
+      else{
+        if(data[r[0]])
+          value = data[r[0]]
+        else
+          value = '/'
+        result[r[0]] = value
+      }
+    }
+    let blob = new Blob([JSON.stringify(result)], { type: 'text/plain;charset=utf-8' })
+    saveAs(blob, this.dsli.name+'.json')
   }
 
   render() {

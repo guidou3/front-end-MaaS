@@ -8,17 +8,19 @@ class CollectionVisualize extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
-    console.log("VISUALIZE JSON :");
-    console.log(this.props.JSON);
     this.JSON = this.props.JSON
     this.dsli = this.props.dsli
-    //this.saveCSV()
   }
 
   saveCSV() {
     let text = ""+this.JSON.properties.label+"\n"+this.JSON.data.result[0]['_id'];
     let blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
     saveAs(blob, this.dsli.name+'.csv')
+  }
+
+  saveJSON() {
+    let blob = new Blob([JSON.stringify(this.JSON.data.result[0])], { type: 'text/plain;charset=utf-8' })
+    saveAs(blob, this.dsli.name+'.json')
   }
 
   render() {

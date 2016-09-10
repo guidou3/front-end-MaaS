@@ -16,6 +16,7 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MTextBox, MTextArea, MButton} = Components
+import saveAs from 'save-as'
 
 class CollectionRow extends Component {
   constructor(props) {
@@ -66,6 +67,71 @@ class CollectionVisualize extends Component {
     console.log(this.props.JSON);
     this.JSON = this.props.JSON
     this.dsli = this.props.dsli
+    //this.saveJSON()
+  }
+
+  saveCSV() {
+    let headers = this.JSON.properties.indexColumns
+    let n = headers.length
+    let text = ""
+    for (let i = 0; i < n; i++) {
+      text += headers[i].label+";"
+    }
+    for (let i = 0; i < Object.keys(this.JSON.data.result).length; i++) {
+      let data = this.JSON.data.result[i]
+      text += "\n"
+      for (let j = 0; j < n; j++) {
+        var r = headers[j].name.split('.');
+        var value
+        if(r.length > 1){
+          if(data[r[0]] && data[r[0]][r[1]])
+            value = data[r[0]][r[1]]
+          else
+            value = '/'
+        }
+        else{
+          if(data[r[0]])
+            value = data[r[0]]
+          else
+            value = '/'
+        }
+        text += value.toString()+";"
+      }
+    }
+    let blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
+    saveAs(blob, this.dsli.name+'.csv')
+  }
+
+  saveJSON() {
+    let headers = this.JSON.properties.indexColumns
+    let n = headers.length
+    let array = []
+    for (let i = 0; i < Object.keys(this.JSON.data.result).length; i++) {
+      let data = this.JSON.data.result[i]
+      array[i] = new Object()
+      for (let j = 0; j < n; j++) {
+        var r = headers[j].name.split('.');
+        var value
+        if(r.length > 1){
+          if(data[r[0]] && data[r[0]][r[1]])
+            value = data[r[0]][r[1]]
+          else
+            value = '/'
+          if(!array[i][r[0]])
+            array[i][r[0]] = new Object()
+          array[i][r[0]][r[1]] = value
+        }
+        else{
+          if(data[r[0]])
+            value = data[r[0]]
+          else
+            value = '/'
+          array[i][r[0]] = value
+        }
+      }
+    }
+    let blob = new Blob([JSON.stringify(array)], { type: 'text/plain;charset=utf-8' })
+    saveAs(blob, this.dsli.name+'.json')
   }
 
   render() {
