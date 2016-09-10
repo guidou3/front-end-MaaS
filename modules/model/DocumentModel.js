@@ -8,10 +8,16 @@
  * Version         Date           Programmer
  * =================================================
  * 0.1.0           2016-08-13     Berselli Marco
+ * —---------------------------------------------—
+ * Codifica modulo, creazione del costruttore
+ * =================================================
+ * * 0.2.0         2016-08-18    Zamberlan Sebastiano
+ * —---------------------------------------------—
  * Codifica Modulo, Inserimento dei metodi e degli
  * errori dove opportuno
  * =================================================
  * 1.0.0           2016-09-08    Roberto D'Amico
+ * —---------------------------------------------—
  * Inserimento del metodo Render
  * =================================================
  */
