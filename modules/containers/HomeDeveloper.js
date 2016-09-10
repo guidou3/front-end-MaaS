@@ -1,3 +1,16 @@
+/*
+* Name : HomeDeveloper.js
+* Location : ./modules/containers/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-08   Roberto D'Amico
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
