@@ -1,17 +1,20 @@
 /*
- * Name : cell.js
- * Module : Back-end::lib::Model::cell
- * Location : /model/
- *
- * History :
- *
- * Version         Date           Programmer
- * =================================================
- * 0.0.1           2016-07-12     Zamberlan Sebastiano
- * -------------------------------------------------
- * Codifica modulo
- * =================================================
- */
+* Name : CellModel.js
+* Location : ./modules/model/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-13     Berselli Marco
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+* 0.2.0           2016-09-08     Roberto D'Amico
+* -------------------------------------------------
+* Inserimento del metodo Render
+* =================================================
+*/
 
  /*jshint esversion: 6 */
 

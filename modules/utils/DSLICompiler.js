@@ -1,13 +1,12 @@
 /*
-* Name : AttributeReader.js
-* Module : Back-end::Lib::Utils::AttributeReader
-* Location : /lib/utils
+* Name : DSLICompiler.js
+* Location : /modules/utils
 *
 * History :
 *
 * Version         Date           Programmer
 * =================================================
-* 0.0.1          2014-02-26     Serena Girardi
+* 0.0.1          2016-08-08     Roberto D'Amico
 * -------------------------------------------------
 * Codifica modulo.
 * =================================================

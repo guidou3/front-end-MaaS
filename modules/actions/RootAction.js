@@ -1,3 +1,20 @@
+/*
+* Name :  RootAcrions.js
+* Location : ./modules/actions/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-07-27    Guido Santi
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+* 0.2.0           2016-08-15    Guido Santi
+* -------------------------------------------------
+* Modifica del modulo
+* =================================================
+*/
 import request from 'superagent'
 import {push} from 'react-router-redux'
 import {changeDSLIPermits} from './changeDSLIPermits'

@@ -1,3 +1,17 @@
+/*jshint esversion: 6 */
+/*
+ * Name : DocumentVisualize.js
+ * Location : ./modules/model/
+ *
+ * History :
+ *
+ * Version         Date           Programmer
+ * =================================================
+ * 0.1.0           2016-09-08    Roberto D'Amico
+ * -------------------------------------------------
+ * Codifica modulo
+ * =================================================
+ */
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
