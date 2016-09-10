@@ -75,7 +75,7 @@ p {
    color:#fff;
 }
 .form-control {
-        background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .userManagement > .form-group > .form-control {
@@ -184,8 +184,6 @@ border-radius: 0px;
     margin-bottom: 0px;
    }
 
-
-
    .navbar-inverse .navbar-brand {
    	color: #ffffff;
    	font-weight: bolder;
@@ -211,88 +209,6 @@ border-radius: 0px;
     padding: 10px;
     width: auto;
   }
-
-/*=======================================
-    PRICE SECTION STYLES
-==================================================*/
-
-.plan {
-    background: #D8D8D8;
-    padding: 0 0 15px 0;
-    margin: 30px 0px;
-    list-style: none;
-    text-align: center;
-
-}
-
-
-
-.plan li {
-   padding: 25px 0px;
-color: #858585;
-font-size: 25px;
-}
-
-.plan li.plan-head {
-    background-color:#000!important;
-   padding: 15px 0px;
-color: #FFFFFF;
-line-height: 20px;
-font-size: 20px;
-font-weight: 600;
-border: none;
-   }
-
-.plan li.main-price {
-   padding: 25px 0px;
-background-color:rgba(31, 138, 99, 1);
-color: #fff;
-border: none;
-font-weight: 900;
-font-size: 45px;
-}
-
-
-/*=======================================
-    SERVICE SECTION STYLES
-==================================================*/
-#services-inner {
-    padding-top:50px;
-    padding-bottom:40px;
-}
-
-.service-div {
-	width: 100%;
-	min-height: 100px;
-	background-color: rgba(0, 121, 138, 1);
-	box-shadow: none;
-	border: 0;
-    padding:20px;
-    margin-bottom:30px;
-    color:#fff;
-    font-size:16px;
-    padding-top: 45px;
-}
-.service-div > i {
-    color:#fff;
-}
-
-/*=======================================
-    STATS SECTION STYLES
-==================================================*/
-.stats-div {
-    text-align:center;
-    width: 100%;
-    min-height: 100px;
-    padding: 30px 20px 30px 20px;
-}
-
-.stats-div > h3 {
-    font-size:60px;
-    font-weight:900;
-}
-
-
 
 /*    --------------------------------------------------
 	:: Login Section
@@ -359,7 +275,7 @@ font-size: 45px;
 }
 
 /*    --------------------------------------------------
-	:: Login Section
+	:: Sigup Section
 	-------------------------------------------------- */
 #signin {
   padding-top: 4%;
@@ -452,11 +368,21 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
   height: 8%;
   background-color:#000;
-  color:#fff;
   text-align:right;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 10px 15px;
+  text-decoration:none;
+}
+
+#footer > a {
+  color:#FFFFFF;
+  font-family: 'Arial', sans-serif;
+}
+#footer > a:hover {
+  text-decoration:none;
 }
 
 /*    --------------------------------------------------

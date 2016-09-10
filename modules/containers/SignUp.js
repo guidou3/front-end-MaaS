@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import Modal from 'react-modal'
 import Components from '../components'
-const {MTextBox, MButton, MLink} = Components
+const {MTextBox, MButton, MLink, MError} = Components
 import * as actions from '../actions/RootAction'
 import { routerMiddleware, push } from 'react-router-redux'
 import {Alert} from 'react-bootstrap';
@@ -41,8 +41,8 @@ class SignUp extends Component {
   render() {
     const { store } = this.context
 
-    if(store.getState().status.companyNameValidity != undefined) {
-      if(store.getState().status.companyNameValidity == true && store.getState().status.usernameValidity == true) {
+    if(store.getState().status.companyNameValidity != undefined || store.getState().status.usernameValidity != undefined) {
+      if(store.getState().status.companyNameValidity != false && store.getState().status.usernameValidity != false) {
         this.dialog = true
       }
       else if(store.getState().status.companyNameValidity == false) {
@@ -62,6 +62,7 @@ class SignUp extends Component {
     if(store.getState().status.result == "error") {
         this.warn = <MError/>
       }
+    else if(store.getState().status.result == "failed") {}
     else {
         this.warn = ""
     }
@@ -86,14 +87,13 @@ class SignUp extends Component {
                               {this.warn}
                               <MButton type="submit" id="btn-login" className="btn btn-custom btn-lg btn-block" label="Sign up" onClick = {() => {
                                 this.warn =""
-                                store.dispatch(actions.refresh())
                                 if(this.name != undefined && this.owner != undefined) {
                                   let data = {
                                     companyName: this.name,
                                     ownerMail: this.owner
                                   }
+                                  store.dispatch({type:'initialize'})
                                   store.dispatch(actions.checkCompanyName(data))
-                                  store.dispatch(actions.refresh())
                                 }
                                 else {
                                   this.warn =

@@ -124,8 +124,7 @@ class Header extends Component {
           </div>
 
           <div id="footer">
-            <MLink to="/support">Contatta il supporto!</MLink >
-            <a href="" id="superadminaccess">administrator login</a>
+            <MLink to="/support">Contact Support</MLink >
           </div>
         </div>
     )
