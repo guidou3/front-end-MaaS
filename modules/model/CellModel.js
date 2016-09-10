@@ -18,6 +18,7 @@
 import AttributeReader from '../utils/AttributeReader'
 import {executeQuery} from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'
+import CellVisualize from './CellVisualize'
 import React from 'react'
 
 class CellModel {
@@ -111,22 +112,28 @@ class CellModel {
         executeQuery(store.getState().currentDSLI, query, store.getState().loggedUser.token, (err,res) =>{                               //LAUNCH OF A QUERY
           if(err)                                                                 //CALLBACK FUNCTION WHERE QUERY ENDS
           return;
+          console.log(res);
           this.storageResult = Object.assign({}, res);
           store.dispatch(actions.refresh());                                      //CALL RENDER TO DISPLAY DATA
         });
       }
-      this.JSON = this.JSONbuild(this.storageResult);
-      this.show = true;
+      if(this.storageResult.length != 0){
+        console.log("MODEL");
+        this.show = true;
+        this.JSON=this.JSONbuild(this.storageResult);
+      }
     }
-    else{
-      this.JSON = this.JSONbuild(this.buildQuery());
+    else if(this.storageResult){
+      console.log("VANILLA");
       this.show = true;
+      this.JSON=this.JSONbuild(this.storageResult);
     }
 
-    if(!this.show)
-      return <div>Eseguendo le query ...</div>
+    if(this.show){
+      return <CellVisualize dsli = {store.getState().currentDSLI} JSON = {this.JSON}/>
+    }
     else
-      return <div>Ciao, sono una CELLA!</div>                                       //RENDER CODE HERE, DATI IN JSON
+      return <div>Eseguendo le query ...</div>
   }
 }
 
