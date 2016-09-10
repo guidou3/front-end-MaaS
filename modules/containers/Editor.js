@@ -70,8 +70,8 @@ class MSelectData extends Component {
   render() {
     const { store } = this.context
     return (
-      <option value={this.props.data.tag}>
-        {this.props.db == this.props.data.tag ? this.props.data.tag+ "\u2713" : this.props.data.tag}
+      <option value={this.props.data.id}>
+        {this.props.db == this.props.data.id ? this.props.data.tag+ "\u2713" : this.props.data.tag}
       </option>
     )
   }
