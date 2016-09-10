@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
-const {MButton, MDSLIRow, MTextBox} = Components
+const {MButton, MDSLIRow, MTextBox, MError} = Components
 import Modal from 'react-modal'
 
 const customStyles = {
@@ -46,7 +46,7 @@ class Dashboard extends Component {
     else {
         this.warn = ""
     }
-    
+
     let comp = store.getState().DSLIList
 
     let body = []

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Modal from 'react-modal'
 import Components from '../components'
-const {MTextBox, MButton, MDataRow} = Components
+const {MTextBox, MButton, MDataRow, MError} = Components
 
 const customStyles = {
   overlay : {

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
-const {MTextBox, MButton, MTextArea} = Components
+const {MTextBox, MButton, MTextArea, MError} = Components
 import {Alert} from 'react-bootstrap';
 
 class ContactSupport extends Component {

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
-const {MTextBox, MTextArea, MButton} = Components
+const {MTextBox, MTextArea, MButton, MError} = Components
 import {ButtonToolbar, Button, Glyphicon, FieldGroup} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 

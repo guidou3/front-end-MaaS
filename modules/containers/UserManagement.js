@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Modal from 'react-modal'
 import Components from '../components'
-const {MTextBox, MButton, MUserRow} = Components
+const {MTextBox, MButton, MUserRow, MError} = Components
 
 const customStyles = {
   overlay : {
@@ -45,7 +45,7 @@ class MnUser extends Component {
     else {
         this.warn = ""
     }
-    
+
     let comp = store.getState().userList
 
     let body = []

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
-const {MTextBox, MTextArea, MButton} = Components
+const {MTextBox, MTextArea, MButton, MError} = Components
 
 class CollectionRow extends Component {
   constructor(props) {

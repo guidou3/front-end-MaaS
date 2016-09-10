@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Modal from 'react-modal'
 import Components from '../components'
-const {MTextBox, MButton, MAdminDSLIRow} = Components
+const {MTextBox, MButton, MAdminDSLIRow, MError} = Components
 
 class DSLIManagment extends Component {
   constructor(props) {

@@ -120,7 +120,7 @@ class SignUp extends Component {
         					<span className="sr-only">Close</span>
         				</button>
         				<h4 className="modal-title">Company registered!</h4>
-                <p>Check your e-mail to login!</p>
+                <p>Check your e-mail to continue your registration!</p>
         			</div>
         			<div className="modal-footer">
                 <MButton type="button" className="btn btn-custom" label="OK" onClick = {() => {

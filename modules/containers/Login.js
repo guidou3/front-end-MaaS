@@ -93,7 +93,6 @@ class LogIn extends Component {
                           </form>
                           <a href="#" className="forget" data-toggle="modal" data-target=".forget-modal"onClick = {() => {
                             this.dialog = true
-                            store.dispatch({type: "initialize"})
                             store.dispatch(actions.refresh())
                           }}>Forgot your password?</a>
                           <hr></hr>

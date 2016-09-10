@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import MTextBox from '../components/MTextBox'
+import Components from '../components'
+const {MTextBox,  MError} = Components
 import * as actions from '../actions/RootAction'
 import { routerMiddleware, push } from 'react-router-redux'
 
@@ -18,7 +19,7 @@ class RePwd extends Component {
     else {
         this.warn = ""
     }
-    
+
     return (
   	  <div>
         <h2>RecoverPassword</h2>

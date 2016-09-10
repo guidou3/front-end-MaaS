@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
-import MButton from '../components/MButton'
-import MTextBox from '../components/MTextBox'
+import Components from '../components'
+const {MTextBox, MButton,  MError} = Components
 import { Button } from 'react-bootstrap'
 
 class Profile extends Component {

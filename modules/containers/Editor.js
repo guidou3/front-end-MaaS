@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
-const {MTextBox, MTextArea, MButton} = Components
+const {MTextBox, MTextArea, MButton, MError} = Components
 import Modal from 'react-modal'
 import brace from 'brace';
 import AceEditor from 'react-ace';
