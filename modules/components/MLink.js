@@ -1,3 +1,16 @@
+/*
+* Name : MError.js
+* Location : ./modules/components/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-09     Roberto D'Amico
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 

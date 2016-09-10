@@ -1,3 +1,16 @@
+/*
+* Name : MDSLIRow.js
+* Location : ./modules/components/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-05     Roberto D'Amico
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import MButton from './MButton'
