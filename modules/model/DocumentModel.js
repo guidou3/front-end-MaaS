@@ -1,19 +1,26 @@
 /*jshint esversion: 6 */
 /*
- * Name : dashboard.js
- * Location : /model/
+ * Name : DocumentModel.js
+ * Location : ./modules/model/
  *
  * History :
  *
  * Version         Date           Programmer
  * =================================================
- * 0.0.1           2016-08-13     Berselli Marco
- * 0.1.0           2016-08-18    Zamberlan Sebastiano
+ * 0.1.0           2016-08-13     Berselli Marco
  * -------------------------------------------------
- * Codifica modulo
+ * Codifica modulo, creazione del costruttore
+ * =================================================
+ * * 0.2.0         2016-08-18    Zamberlan Sebastiano
+ * -------------------------------------------------
+ * Codifica Modulo, Inserimento dei metodi e degli
+ * errori dove opportuno
+ * =================================================
+ * 1.0.0           2016-09-08    Roberto D'Amico
+ * -------------------------------------------------
+ * Inserimento del metodo Render
  * =================================================
  */
-
 import AttributeReader from '../utils/AttributeReader'
 import {executeQuery} from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'

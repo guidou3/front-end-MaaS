@@ -1,3 +1,25 @@
+/*jshint esversion: 6 */
+/*
+ * Name : CollectionModel.js
+ * Location : ./modules/model/
+ *
+ * History :
+ *
+ * Version         Date           Programmer
+ * =================================================
+ * 0.1.0           2016-08-12     Berselli Marco
+ * -------------------------------------------------
+ * Codifica modulo
+ * =================================================
+ * * 0.2.0         2016-08-18    Zamberlan Sebastiano
+ * -------------------------------------------------
+ * Inserimento degli errori
+ * =================================================
+ * 1.0.0           2016-09-08    Roberto D'Amico
+ * -------------------------------------------------
+ * Inserimento del metodo Render
+ * =================================================
+ */
 import AttributeReader from '../utils/AttributeReader'
 import {executeQuery} from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'
@@ -113,7 +135,7 @@ class CollectionModel {
           }
         }
       }
-    console.log("STORAGERESULTSHOW",this.storageResultShow, "SECONDQUERYSHOW",this.secondQueryShow);
+
   }
 
 
@@ -163,7 +185,7 @@ class CollectionModel {
 
         }
       }
-    
+
 
 
 

@@ -11,7 +11,7 @@
 * Codifica modulo
 * =================================================
 */
-im
+
 import request from 'superagent'
 import * as actions from './RootAction'
 
