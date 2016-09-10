@@ -9,22 +9,31 @@ class CollectionRow extends Component {
   }
   render() {
     let body = []
-    let dsli = this.props.dsli
+    let data = this.props.data
     let header = this.props.header.indexColumns
     for (let i = 0; i < header.length; i++) {
       var r = header[i].name.split('.');
+      var value
       if(r.length > 1){
-        if(dsli[r[0]] && dsli[r[0]][r[1]])
-          body[i] = <td>{dsli[r[0]][r[1]].toString()}</td>
+        if(data[r[0]] && data[r[0]][r[1]])
+          value = data[r[0]][r[1]]
         else
-          body[i] = <td>/</td>
+          value = '/'
       }
       else{
-        if(dsli[r[0]])
-          body[i] = <td>{dsli[r[0]].toString()}</td>
+        if(data[r[0]])
+          value = data[r[0]]
         else
-          body[i] = <td>/</td>
+          value = '/'
       }
+      if(header[i].selectable){
+        console.log(this.props.boss.props);
+        body[i] = <td><a href={"/execdsli?ID="+this.props.boss.props.dsli.id+"&SHOW="+this.props.boss.JSON.data.result[i]._id} className="show" onClick = {() => {
+
+        }}>{value.toString()}</a></td>
+      }
+      else
+        body[i] = <td>{value.toString()}</td>
     }
 
     return (
@@ -56,7 +65,7 @@ class CollectionVisualize extends Component {
     //console.log(Object.keys(this.JSON.data.result).length);
     for (let i = 0; i < Object.keys(this.JSON.data.result).length; i++) {
     //  console.log(this.JSON.data.result[i]);
-      body[i] = <CollectionRow header={prop} dsli={this.JSON.data.result[i]}/>
+      body[i] = <CollectionRow boss={this} header={prop} data={this.JSON.data.result[i]}/>
     }
     return (
       <div>
