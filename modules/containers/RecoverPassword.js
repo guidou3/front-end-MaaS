@@ -22,7 +22,7 @@ class RePwd extends Component {
 
     return (
   	  <div>
-        <h2>RecoverPassword</h2>
+        <h2>Set new password</h2>
         Nuova Password <MTextBox
           boxType="password"
           onWrite={(event) => {
