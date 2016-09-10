@@ -110,9 +110,13 @@ class CollectionModel {
   }
 
   buildQuery(){
+    var stringQuery = '{}';
     var query = "db.collection('" + this.name + "')";
     if(this.query)
-      query = query + ".find(" + this.query + ")";
+    {
+      stringQuery = JSON.stringify(this.query);
+      query = query + ".find(" + stringQuery + ")";
+    }
     else
       query = query + ".find()";
     if(this.order == "desc")
