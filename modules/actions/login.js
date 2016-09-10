@@ -68,12 +68,6 @@ export function embodyUser(email) {
 	}
 }
 
-export function logout() {
-	return {
-		type: 'logout'
-	}
-}
-
 function welcomeUser(result, dispatch) {
 	let res = result.body
 	dispatch(receiveLogin(true, {
@@ -82,4 +76,37 @@ function welcomeUser(result, dispatch) {
 		token: res.id,
 		company: res.user.companyId
 	}))
+}
+
+function requestLogout() {
+	return {
+		type: 'waiting',
+		operation: 'logout'
+	}
+}
+
+function receiveLogout(bool, data) {
+	if(bool) return {
+		type: 'logout'
+		}
+	else return {
+		type: 'error',
+		error: data
+		}
+}
+
+export function logout() {
+	return function(dispatch, getState, api){
+		dispatch(requestLogout())
+		return request
+		  .post(api + 'accounts/logout?access_token='+ getState().loggedUser.token)
+			.send()
+			.then(function() {
+					dispatch(receiveLogout(true))
+				},
+				function(err){
+					dispatch(receiveLogout(false, err.status))
+				}
+			)
+	}
 }

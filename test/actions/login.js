@@ -80,3 +80,57 @@ describe('The action creator login', () => {
       })
   })
 })
+
+describe('The action creator logout', () => {
+  afterEach(() => {
+    nock.cleanAll()
+  })
+
+  it('should be able to create an action of type "logout",', () => {
+		const store = mockStore({
+      loggedUser: {
+        accessLevel:3,
+        account:'ACCOUNT',
+        company:'COMPANY',
+        token:'TOKEN'
+      }
+    })
+    nock(api + 'accounts/logout')
+      .post('?access_token=' + store.getState().loggedUser.token)
+      .reply(200, {})
+
+    const expectedActions = [
+      { type: 'waiting', operation: 'logout' },
+      { type: 'logout'}
+    ]
+
+    return store.dispatch(actions.logout())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
+
+  it('should be able to  create an action of type "error".', () => {
+    const store = mockStore({
+      loggedUser: {
+        accessLevel:3,
+        account:'ACCOUNT',
+        company:'COMPANY',
+        token:'TOKEN'
+      }
+    })
+		nock(api + 'accounts/logout')
+      .post('?access_token=' + store.getState().loggedUser.token)
+      .reply(404, {})
+
+    const expectedActions = [
+      { type: 'waiting', operation:'logout' },
+      { type: 'error', error:404 }
+    ]
+
+    return store.dispatch(actions.logout())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
+})
