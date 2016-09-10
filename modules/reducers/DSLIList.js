@@ -1,3 +1,20 @@
+/*
+* Name : DSLIList.js
+* Location : ./modules/reducers/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-20     Guido Santi
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+* 0.2.0           2016-08-22     Guido Santi
+* -------------------------------------------------
+* Modifica modulo
+* =================================================
+*/
 export default function DSLIListReducer(state = 0, action) {
 	switch(action.type) {
 		case 'getDSLIList':
