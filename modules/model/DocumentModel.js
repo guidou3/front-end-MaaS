@@ -27,9 +27,6 @@ class DocumentModel {
   constructor(params, populate, bodyRows)
   {
     var self = this;
-
-
-
     //Lettura Attributi Obbligatori
     AttributeReader.readRequiredAttributes(params, this, [
       "collection"
@@ -48,11 +45,12 @@ class DocumentModel {
       "populate"]);
 
       //Assegnazione delle righe all'interno del parametro rows
-    /*  this.rows = bodyRows;
-      self = this.rows;
+      //this.rows = bodyRows;
+      /*self = this.rows;
+      var arrayRow = {};
       for(var i=0; i<bodyRows.length; i++)
       {
-        AttributeReader.readRequiredAttributes(bodyRows[i],this.rows,
+        AttributeReader.readRequiredAttributes(bodyRows[i],arrayRow,
           ["label","name"], function(param){
           throw new MaasError(8000,
             "Required parameter '" + param + "' in document.rows '");
@@ -127,12 +125,10 @@ class DocumentModel {
       });}
       if(populate && this.storageResult.length != 0 && this.flag1){
         this.flag1 = false;
-        console.log("CIAONE");
         for(var k =0; k< populate.length; k++){
           this.count ++;
           var collection = populate[k].model;
           var attribute = populate[k].path;
-          console.log("AAAAA");
           var populateQuery = "db.collection('" + collection +"').find({_id: {$in:['";
           for(var i=0; i<Object.keys(this.storageResult).length ; i++){
             if(this.storageResult[i][attribute]){
