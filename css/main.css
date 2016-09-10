@@ -49,10 +49,8 @@ h2 {
 }
 h3 {
     line-height:30px;
-    padding-bottom:20px;
 }
 h4 {
-  padding-top: 25px;
   line-height: 40px;
   padding-bottom: 0px;
   font-size: 22px;
@@ -108,6 +106,10 @@ p {
 .data-label {
   float: left;
   margin-right: 10px;
+}
+
+.form-group .profile{
+  float:none;
 }
 
 .Editor > .buttons > .btn{
