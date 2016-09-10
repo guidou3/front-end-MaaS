@@ -29,6 +29,7 @@ import {executeQuery} from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'
 import React, { Component, PropTypes } from 'react'
 import CollectionVisualize from './CollectionVisualize'
+import showCollectionVisualize from './showCollectionVisualize'
 
 class CollectionModel {
   constructor(params, index, show){
@@ -88,6 +89,8 @@ class CollectionModel {
     this.secondQueryShow = [];
     this.count1=0;
     this.flag3 =true;
+    this.show1 =false;
+    this.JSON1 =null;
   }
 
   getName(){
@@ -107,6 +110,13 @@ class CollectionModel {
   }
   DSLType(){
     return "collection";
+  }
+
+  showJSONbuild(result){
+    return {
+      "properties":{"showRows":this.getShowRows()},
+      "data":{"result":result}
+    };
   }
 
   buildQuery(){
@@ -129,15 +139,18 @@ class CollectionModel {
   buildShowQuery(id,store){
     var query = "db.collection('" + this.name + "').find({_id:'" + id + "'})";
     if(this.flag2){
+
       this.flag2=false
       executeQuery(store.getState().currentDSLI, query, store.getState().loggedUser.token, (err,res) =>{                                 //LAUNCH OF A QUERY
         if(err)                                                                 //CALLBACK FUNCTION WHERE QUERY ENDS
           return;
         this.storageResultShow = Object.assign({}, res);
+
         store.dispatch(actions.refresh());                                      //CALL RENDER TO DISPLAY DATA
       });
     }
     if(this.populate && Object.keys(this.storageResultShow).length != 0 && this.flag3){
+
       this.flag3=false;
       for(var k =0; k< this.populate.length; k++){
 
@@ -154,6 +167,7 @@ class CollectionModel {
         this.count1 ++;
       }
     }
+    if(this.populate.length !=0 ){
     if(Object.keys(this.secondQueryShow).length == this.count1){
         for(var k=0; k<Object.keys(this.secondQueryShow).length; k++){
           var attribute = this.populate[k].path;
@@ -166,9 +180,33 @@ class CollectionModel {
             }
           }
         }
+        if(this.storageResultShow.length != 0){
+          this.show1 = true;
+          //JSON
+          this.JSON1=this.showJSONbuild(this.storageResultShow);
+
+        }
+      }
+    }
+    else{
+      if(this.storageResultShow){
+        this.show1 = true;
+        this.JSON1=this.showJSONbuild(this.storageResultShow);
+
+      }
+    }
+
+      if(this.show1){
+        console.log("RENDERJOSN",this.JSON1);
+        return <showCollectionVisualize dsli = {store.getState().currentDSLI} JSON = {this.JSON}/>
+        return <div></div>
       }
 
+      else
+        return <div>Eseguendo le query ...</div>
+
   }
+
 
 
   JSONbuild(result){
@@ -183,19 +221,19 @@ class CollectionModel {
     if(this.flag){                                                              //EXECUTES ONCE
       this.flag = false;
       var query = this.buildQuery();
-      console.log(query);
+
       executeQuery(store.getState().currentDSLI, query, store.getState().loggedUser.token, (err,res) =>{
-        console.log(err);                             //LAUNCH OF A QUERY
+                                    //LAUNCH OF A QUERY
         if(err)                                                                 //CALLBACK FUNCTION WHERE QUERY ENDS
           return;
-        console.log(res);
+
         this.storageResult = Object.assign({}, res);
         store.dispatch(actions.refresh());                                      //CALL RENDER TO DISPLAY DATA
       });}
       if(populate && this.storageResult.length != 0 && this.flag1){
         this.flag1 = false;
         for(var k =0; k< populate.length; k++){
-          console.log(populate.length)
+
           this.count ++;
           var collection = populate[k].model;
           var attribute = populate[k].path;
