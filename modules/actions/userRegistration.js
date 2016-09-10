@@ -53,7 +53,7 @@ export function userRegistration(data, role) {
 		dispatch(requestUserRegistration())
 		console.log(data);
 		return request
-			.post(api + 'companies/'+data.companyName+'/users')
+			.post(api + 'companies/'+data.companyName+'/users?access_token='+getState().loggedUser.token)
 			.send({
 				email: data.ownerMail,
 				password: "asd",

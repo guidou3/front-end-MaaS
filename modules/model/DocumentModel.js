@@ -66,6 +66,7 @@ class DocumentModel {
     this.secondQuery = [];
     this.count =0;
     this.JSON;
+    this.flag1=true;
   }
   //Metodi della Classe
 
@@ -113,6 +114,7 @@ class DocumentModel {
   }
 
   render(store){
+
     var populate = this.getPopulate();
     if(this.flag){                                                              //EXECUTES ONCE
       this.flag = false;
@@ -122,26 +124,39 @@ class DocumentModel {
           return;
         this.storageResult = Object.assign({}, res);
         store.dispatch(actions.refresh());                                      //CALL RENDER TO DISPLAY DATA
-      });
-      if(populate){
+      });}
+      if(populate && this.storageResult.length != 0 && this.flag1){
+        this.flag1 = false;
+        console.log("CIAONE");
         for(var k =0; k< populate.length; k++){
+          this.count ++;
           var collection = populate[k].model;
-
-          var populateQuery = "db.collection('"+ collection +"').find()";
-
-          console.log("LENGHT :"+populate.length)
+          var attribute = populate[k].path;
+          console.log("AAAAA");
+          var populateQuery = "db.collection('" + collection +"').find({_id: {$in:['";
+          for(var i=0; i<Object.keys(this.storageResult).length ; i++){
+            if(this.storageResult[i][attribute]){
+            if(i == (Object.keys(this.storageResult).length-1)){
+              populateQuery = populateQuery + this.storageResult[i][attribute] +"']}})";
+            }
+            else{
+              populateQuery = populateQuery + this.storageResult[i][attribute] +"','";
+            }
+          }
+          }
+          console.log(populateQuery);
           executeQuery(store.getState().currentDSLI, populateQuery, store.getState().loggedUser.token, (err,res) =>{            //SAME THING HERE
             if(err)
               return;
             this.secondQuery.push(Object.assign({}, res));
-            this.count ++;
-            console.log("COUNT :"+this.count)
+            console.log("RES",res);
             store.dispatch(actions.refresh());
           });
+
         }
       }
-    }
 
+console.log("ST",this.storageResult,"SQ",this.secondQuery);
     if(populate.length != 0){
       if(this.storageResult && this.secondQuery && this.count == populate.length){                           //SET SHOW TO TRUE WHEN DATA IS READY
         for(var k=0; k<Object.keys(this.secondQuery).length; k++){
