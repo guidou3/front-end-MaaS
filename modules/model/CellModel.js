@@ -1,21 +1,21 @@
 /*jshint esversion: 6 */
 /*
- * Name : cell.js
- * FrontEnd::Model::CellModel
- * Location : /model/
- *
- * History :
- *
- * Version         Date           Programmer
- * =================================================
- * 0.0.1           2016-07-12     Zamberlan Sebastiano
- * 0.0.2           2016-08-15     Berselli Marco
- * 0.0.3           2016-08-22     Berselli Marco
- * 0.1.0           2016-01-09     Zamberlan Sebastiano
- * -------------------------------------------------
- * Codifica modulo
- * =================================================
- */
+* Name : CellModel.js
+* Location : ./modules/model/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-15     Zamberlan Sebastiano
+* —---------------------------------------------—
+* Codifica modulo e Inserimento degli errori
+* =================================================
+* 0.2.0           2016-09-08     Roberto D'Amico
+* —---------------------------------------------—
+* Inserimento del metodo Render
+* =================================================
+*/
 import AttributeReader from '../utils/AttributeReader'
 import
 {
