@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 /*
  * Name : dashboard.js
+ * FrontEnd::Model::DocumentModel
  * Location : /model/
  *
  * History :
@@ -9,6 +10,7 @@
  * =================================================
  * 0.0.1           2016-08-13     Berselli Marco
  * 0.1.0           2016-08-18    Zamberlan Sebastiano
+ * 0.1.1           2016-08-27    Zamberlan Sebastiano
  * -------------------------------------------------
  * Codifica modulo
  * =================================================
@@ -18,23 +20,45 @@ import AttributeReader from '../utils/AttributeReader'
 import {executeQuery} from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'
 import DocumentVisualize from './DocumentVisualize'
+import MaasError from '../utils/MaasError'
 import React from 'react'
 
 class DocumentModel {
   constructor(params, populate, bodyRows)
   {
-    AttributeReader.assertEmptyAttributes(params, function(param) {}); //da inserire l'errore
+    var self = this;
+
+
+
+    //Lettura Attributi Obbligatori
     AttributeReader.readRequiredAttributes(params, this, [
-      "collection", "name"
-    ], function(param) {}); //lancio errore
-    this.query = "{}";
-    AttributeReader.readOptionalAttributes(params, this, [
-        "query"
-      ], function(param) {}) // lancio errore
-    this.populate = [];
+      "collection"
+    ], function(param) {
+      throw new MaasError(8000,
+        "Required parameter '" + param + "' in document '" +
+          self.toString() + "'");
+    });
+
+    //Lettura Attributi Opzionali
+    AttributeReader.readOptionalAttributes(params, this, ["query"]);
+
+
+    //Lettura Attributi Opzionali all'interno di populate
     AttributeReader.readOptionalAttributes(populate, this, [
-      "populate"
-    ]);
+      "populate"]);
+
+      //Assegnazione delle righe all'interno del parametro rows
+    /*  this.rows = bodyRows;
+      self = this.rows;
+      for(var i=0; i<bodyRows.length; i++)
+      {
+        AttributeReader.readRequiredAttributes(bodyRows[i],this.rows,
+          ["label","name"], function(param){
+          throw new MaasError(8000,
+            "Required parameter '" + param + "' in document.rows '");
+        });
+      }*/
+
     this.rows = bodyRows;
     this.flag = true;
     this.show = false ;
@@ -43,20 +67,22 @@ class DocumentModel {
     this.count =0;
     this.JSON;
   }
+  //Metodi della Classe
 
+  //Metodo Creazione Query
   buildQuery()
   {
-    return "db.collection('" + this.collection + "').find(" + this.query +
+    var stringQuery = '{}';
+    if(this.query)
+      stringQuery = JSON.stringify(this.query);
+    return "db.collection('" + this.collection + "').find(" + stringQuery +
       ")";
   }
 
+  //Metodi get
   getCollection()
   {
     return this.collection;
-  }
-  getName()
-  {
-    return this.name;
   }
   getPopulate()
   {

@@ -27,7 +27,7 @@ class CollectionVisualize extends Component {
           <table id="mytable" className="table table-bordred table-striped">
             <tbody>
             <tr><th>{prop.label}</th></tr>
-            <tr><td>{this.JSON.data.result[0]['_id']}</td></tr>
+            <tr><td>{this.JSON.data.result[0][prop.select]}</td></tr>
             </tbody>
           </table>
         </div>
