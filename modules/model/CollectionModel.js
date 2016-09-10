@@ -1,20 +1,23 @@
 /*jshint esversion: 6 */
 /*
- * Name : dashboard.js
- * FrontEnd::Model::DashboardModel
- * Location : /model/
+ * Name : CollectionModel.js
+ * Location : ./modules/model/
  *
  * History :
  *
  * Version         Date           Programmer
  * =================================================
- * 0.0.1           2016-08-13    Zamberlan Sebastiano
- * 0.1.0           2016-08-18    Berselli Marco
- * 0.1.1           2016-08-27    Berselli Marco
- * 0.1.2           2016-08-30    Zamberlan Sebastiano
- * 0.1.3           2016-09-02    Zamberlan Sebastiano
+ * 0.1.0           2016-08-12     Berselli Marco
  * -------------------------------------------------
  * Codifica modulo
+ * =================================================
+ * * 0.2.0         2016-08-18    Zamberlan Sebastiano
+ * -------------------------------------------------
+ * Inserimento degli errori
+ * =================================================
+ * 1.0.0           2016-09-08    Roberto D'Amico
+ * -------------------------------------------------
+ * Inserimento del metodo Render
  * =================================================
  */
 import AttributeReader from '../utils/AttributeReader'
@@ -22,49 +25,34 @@ import {executeQuery} from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'
 import React, { Component, PropTypes } from 'react'
 import CollectionVisualize from './CollectionVisualize'
-import MaasError from '../utils/MaasError'
 
 class CollectionModel {
   constructor(params, index, show){
-    var self = this;
 
-    //Index
-    this.param = [];
-    this.columns = [];
-
-    //Lettura Attributi Obbligatori
     AttributeReader.readRequiredAttributes(params,this,[
       "param"],function(param){
         throw new MaasError(8000,
           "Required parameter '" + param + "' in collection '" +
             self.toString() + "'");
-      });
-
-    //Lettura Attributi con Valore Vuoto
-    AttributeReader.assertEmptyAttributes(params,function(param){
-      throw new MaasError(8000,
-      "Unexpected parameter '" + param + "' in collection '"
-      + self.toString() + "'");
-      });
-
-
-      //Lettura Attributi Obbligatori dentro l'attributo param
-      AttributeReader.readRequiredAttributes(this.param,this,[
-        "name"],function(param){
-          throw new MaasError(8000,
-          "Required parameter '" + param + "' in collection '" +
-            self.toString() + "'");
         });
+        //Lettura Attributi con Valore Vuoto
+       AttributeReader.assertEmptyAttributes(params,function(param){
+         throw new MaasError(8000,
+         "Unexpected parameter '" + param + "' in collection '"
+         + self.toString() + "'");
+         });
 
-      this.populate = [];
-      this.sortby = "{'_id': 1}";
-      this.order = "asc";
+    //Lettura Attributi Obbligatori dentro l'attributo param
+          AttributeReader.readRequiredAttributes(this.param,this,[
+              "name"],function(param){
+                  throw new MaasError(8000,
+                  "Required parameter '" + param + "' in collection '" +
+                    self.toString() + "'");
+                });
 
     //Index
     this.param = [];
     this.columns = [];
-
-    AttributeReader.readOptionalAttributes(this.param,this,["populate","sortby","order","query"]);
 
     this.indexPopulate = this.populate;
 
@@ -75,6 +63,12 @@ class CollectionModel {
           + self.toString() + "'");
         });
 
+        this.populate = [];
+        this.sortby = "{'_id': 1}";
+        this.order = "asc";
+    AttributeReader.readOptionalAttributes(this.param,this,["populate","sortby","order","query"]);
+    //Show
+    this.indexPopulate = this.populate;
     //Show
     AttributeReader.readOptionalAttributes(show,this,["populate","rows"]);
 
@@ -165,7 +159,7 @@ class CollectionModel {
           }
         }
       }
-    console.log("STORAGERESULTSHOW",this.storageResultShow, "SECONDQUERYSHOW",this.secondQueryShow);
+
   }
 
 
