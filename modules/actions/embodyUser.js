@@ -1,3 +1,16 @@
+/*
+* Name : embodyUser.js
+* Location : ./modules/actions/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-17     Guido Santi
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 export function requestEmbodyUser() {
 	return {
 		type: 'waiting',

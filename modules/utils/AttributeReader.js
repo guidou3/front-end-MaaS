@@ -1,10 +1,9 @@
 /*
 * Name : AttributeReader.js
-* Module : Back-end::Lib::Utils::AttributeReader
-* Location : /lib/utils
+* Location : /modules/utils
 *
 * History :
-* 
+*
 * Version         Date           Programmer
 * =================================================
 * 0.0.1          2014-02-26     Serena Girardi
@@ -24,7 +23,7 @@ var readRequiredAttributes = function(source, target, required, errback) {
 			delete source[attr];
 			continue;
 		}
-		
+
 		// Attributo attr mancante
 		return errback(attr);
 	}
@@ -45,7 +44,7 @@ var readOptionalAttributes = function(source, target, optional) {
 var assertEmptyAttributes = function(source, errback) {
 	for (var key in source) {
 		if (source.hasOwnProperty(key)) {
-			
+
 			return errback(key);
 
 		}

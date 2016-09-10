@@ -1,40 +1,67 @@
 /*jshint esversion: 6 */
 /*
- * Name : dashboard.js
- * Location : /model/
+ * Name : DocumentModel.js
+ * Location : ./modules/model/
  *
  * History :
  *
  * Version         Date           Programmer
  * =================================================
- * 0.0.1           2016-08-13     Berselli Marco
- * 0.1.0           2016-08-18    Zamberlan Sebastiano
- * -------------------------------------------------
- * Codifica modulo
+ * 0.1.0           2016-08-13     Berselli Marco
+ * —---------------------------------------------—
+ * Codifica modulo, creazione del costruttore
+ * =================================================
+ * * 0.2.0         2016-08-18    Zamberlan Sebastiano
+ * —---------------------------------------------—
+ * Codifica Modulo, Inserimento dei metodi e degli
+ * errori dove opportuno
+ * =================================================
+ * 1.0.0           2016-09-08    Roberto D'Amico
+ * —---------------------------------------------—
+ * Inserimento del metodo Render
  * =================================================
  */
-
 import AttributeReader from '../utils/AttributeReader'
 import {executeQuery} from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'
 import DocumentVisualize from './DocumentVisualize'
+import MaasError from '../utils/MaasError'
 import React from 'react'
 
 class DocumentModel {
   constructor(params, populate, bodyRows)
   {
-    AttributeReader.assertEmptyAttributes(params, function(param) {}); //da inserire l'errore
+    var self = this;
+    //Lettura Attributi Obbligatori
     AttributeReader.readRequiredAttributes(params, this, [
-      "collection", "name"
-    ], function(param) {}); //lancio errore
-    this.query = "{}";
-    AttributeReader.readOptionalAttributes(params, this, [
-        "query"
-      ], function(param) {}) // lancio errore
-    this.populate = [];
+      "collection"
+    ], function(param) {
+      throw new MaasError(8000,
+        "Required parameter '" + param + "' in document '" +
+          self.toString() + "'");
+    });
+
+    //Lettura Attributi Opzionali
+    AttributeReader.readOptionalAttributes(params, this, ["query"]);
+
+
+    //Lettura Attributi Opzionali all'interno di populate
     AttributeReader.readOptionalAttributes(populate, this, [
-      "populate"
-    ]);
+      "populate"]);
+
+      //Assegnazione delle righe all'interno del parametro rows
+      //this.rows = bodyRows;
+      /*self = this.rows;
+      var arrayRow = {};
+      for(var i=0; i<bodyRows.length; i++)
+      {
+        AttributeReader.readRequiredAttributes(bodyRows[i],arrayRow,
+          ["label","name"], function(param){
+          throw new MaasError(8000,
+            "Required parameter '" + param + "' in document.rows '");
+        });
+      }*/
+
     this.rows = bodyRows;
     this.flag = true;
     this.show = false ;
@@ -44,20 +71,22 @@ class DocumentModel {
     this.JSON;
     this.flag1=true;
   }
+  //Metodi della Classe
 
+  //Metodo Creazione Query
   buildQuery()
   {
-    return "db.collection('" + this.collection + "').find(" + this.query +
+    var stringQuery = '{}';
+    if(this.query)
+      stringQuery = JSON.stringify(this.query);
+    return "db.collection('" + this.collection + "').find(" + stringQuery +
       ")";
   }
 
+  //Metodi get
   getCollection()
   {
     return this.collection;
-  }
-  getName()
-  {
-    return this.name;
   }
   getPopulate()
   {
@@ -101,12 +130,10 @@ class DocumentModel {
       });}
       if(populate && this.storageResult.length != 0 && this.flag1){
         this.flag1 = false;
-        console.log("CIAONE");
         for(var k =0; k< populate.length; k++){
           this.count ++;
           var collection = populate[k].model;
           var attribute = populate[k].path;
-          console.log("AAAAA");
           var populateQuery = "db.collection('" + collection +"').find({_id: {$in:['";
           for(var i=0; i<Object.keys(this.storageResult).length ; i++){
             if(this.storageResult[i][attribute]){

@@ -1,3 +1,17 @@
+/*
+* Name : Components.js
+* Location : ./modules/model/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-07-27     Roberto D'Amico
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
+
 import React, { Component, PropTypes } from 'react'
 import MTextBox from '../components/MTextBox'
 import MTextArea from '../components/MTextArea'

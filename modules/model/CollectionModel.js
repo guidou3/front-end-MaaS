@@ -1,3 +1,29 @@
+/*jshint esversion: 6 */
+/*
+ * Name : CollectionModel.js
+ * Location : ./modules/model/
+ *
+ * History :
+ *
+ * Version         Date           Programmer
+ * =================================================
+ * 0.1.0           2016-08-12     Berselli Marco
+ * —---------------------------------------------—
+ * Codifica modulo
+ * =================================================
+ * * 0.2.0         2016-08-18    Zamberlan Sebastiano
+ * —---------------------------------------------—
+ * Codifica Modulo, Inserimento dei metodi
+ * =================================================
+ * * 0.3.0         2016-08-22    Zamberlan Sebastiano
+ * —---------------------------------------------—
+ * Inserimento degli errori
+ * =================================================
+ * 1.0.0           2016-09-08    Roberto D'Amico
+ * —---------------------------------------------—
+ * Inserimento del metodo Render
+ * =================================================
+ */
 import AttributeReader from '../utils/AttributeReader'
 import {executeQuery} from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'
@@ -6,24 +32,48 @@ import CollectionVisualize from './CollectionVisualize'
 
 class CollectionModel {
   constructor(params, index, show){
-    //super()
-    AttributeReader.assertEmptyAttributes(params,function(param){});//lancio dell'errore
-    AttributeReader.readRequiredAttributes(params,this,["param"],function(param){});//lancio dell'errore
-    AttributeReader.readRequiredAttributes(this.param,this,["name"],function(param){});//lancio dell'errore
-    AttributeReader.assertEmptyAttributes(index,function(param){});//lancio dell'errore
+
+    AttributeReader.readRequiredAttributes(params,this,[
+      "param"],function(param){
+        throw new MaasError(8000,
+          "Required parameter '" + param + "' in collection '" +
+            self.toString() + "'");
+        });
+        //Lettura Attributi con Valore Vuoto
+       AttributeReader.assertEmptyAttributes(params,function(param){
+         throw new MaasError(8000,
+         "Unexpected parameter '" + param + "' in collection '"
+         + self.toString() + "'");
+         });
+
+    //Lettura Attributi Obbligatori dentro l'attributo param
+          AttributeReader.readRequiredAttributes(this.param,this,[
+              "name"],function(param){
+                  throw new MaasError(8000,
+                  "Required parameter '" + param + "' in collection '" +
+                    self.toString() + "'");
+                });
+
     //Index
     this.param = [];
     this.columns = [];
 
-    AttributeReader.readOptionalAttributes(index,this,["param","columns"]);
-    this.populate = [];
-    this.sortby = "{'_id': 1}";
-    this.order = "asc";
+    this.indexPopulate = this.populate;
 
+    AttributeReader.readOptionalAttributes(index,this,["param","columns"]);
+    AttributeReader.assertEmptyAttributes(index,function(param){
+          throw new MaasError(8000,
+          "Unexpected parameter '" + param + "' in collection.index '"
+          + self.toString() + "'");
+        });
+
+        this.populate = [];
+        this.sortby = "{'_id': 1}";
+        this.order = "asc";
     AttributeReader.readOptionalAttributes(this.param,this,["populate","sortby","order","query"]);
+    //Show
     this.indexPopulate = this.populate;
     //Show
-
     AttributeReader.readOptionalAttributes(show,this,["populate","rows"]);
 
     this.flag = true;
@@ -60,9 +110,13 @@ class CollectionModel {
   }
 
   buildQuery(){
+    var stringQuery = '{}';
     var query = "db.collection('" + this.name + "')";
     if(this.query)
-      query = query + ".find(" + this.query + ")";
+    {
+      stringQuery = JSON.stringify(this.query);
+      query = query + ".find(" + stringQuery + ")";
+    }
     else
       query = query + ".find()";
     if(this.order == "desc")
@@ -113,7 +167,7 @@ class CollectionModel {
           }
         }
       }
-    console.log("STORAGERESULTSHOW",this.storageResultShow, "SECONDQUERYSHOW",this.secondQueryShow);
+
   }
 
 
@@ -163,7 +217,7 @@ class CollectionModel {
 
         }
       }
-    
+
 
 
 
