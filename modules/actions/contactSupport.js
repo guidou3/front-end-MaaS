@@ -1,3 +1,16 @@
+/*
+* Name : contactSupport.js
+* Location : ./modules/actions/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-07-30     Guido Santi
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 import request from 'superagent'
 import {push} from 'react-router-redux'
 

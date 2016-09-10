@@ -12,10 +12,11 @@
 * Codifica modulo e Inserimento degli errori
 * =================================================
 * 0.2.0           2016-09-08     Roberto D'Amico
-* —---------------------------------------------—
+* -------------------------------------------------
 * Inserimento del metodo Render
 * =================================================
 */
+
 import AttributeReader from '../utils/AttributeReader'
 import
 {

@@ -1,3 +1,16 @@
+/*
+* Name : dataList.js
+* Location : ./modules/reducers/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-18     Guido Santi
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 export default function dataListReducer(state = 0, action) {
 	switch(action.type) {
 		case 'getDatabase':
