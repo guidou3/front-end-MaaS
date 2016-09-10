@@ -1,3 +1,16 @@
+/*
+* Name : saveTextDSLI.js
+* Location : ./modules/actions/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-30     Guido Santi
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 import request from 'superagent'
 
 function requestSaveTextDSLI() {
