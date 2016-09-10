@@ -2,15 +2,15 @@ import expect from 'expect'
 import React from 'react'
 import { shallow } from 'enzyme'
 import MDataRow from '../../modules/components/MDataRow'
+const data =
+{
+  tag:'tag',
+  id:'id'
+}
 
 function setup() {
   const props = {
     store: expect.createSpy()
-  }
-  const data =
-  {
-    tag:'tag',
-    id:'id'
   }
 
   const enzymeWrapper = shallow(<MDataRow data={data}/>);
@@ -26,11 +26,11 @@ describe('MDataRow', () => {
 
   it('should contain in the first column the tag', () => {
     const { enzymeWrapper } = setup()
-    expect(enzymeWrapper.find('.col1').text()).toBe('tag')
+    expect(enzymeWrapper.find('.col1').text()).toBe(data.tag)
   })
   it('should contain in the second column the id', () => {
     const { enzymeWrapper } = setup()
-    expect(enzymeWrapper.find('.col2').text()).toBe('id')
+    expect(enzymeWrapper.find('.col2').text()).toBe(data.id)
 
   })
   it('should contain in the third column a <Button />', () => {
