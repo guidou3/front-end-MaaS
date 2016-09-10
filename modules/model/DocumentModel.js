@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 /*
  * Name : dashboard.js
+ * FrontEnd::Model::DocumentModel
  * Location : /model/
  *
  * History :
@@ -9,6 +10,7 @@
  * =================================================
  * 0.0.1           2016-08-13     Berselli Marco
  * 0.1.0           2016-08-18    Zamberlan Sebastiano
+ * 0.1.1           2016-08-27    Zamberlan Sebastiano
  * -------------------------------------------------
  * Codifica modulo
  * =================================================
@@ -18,49 +20,87 @@ import AttributeReader from '../utils/AttributeReader'
 import {executeQuery} from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'
 import React from 'react'
+import MaasError from "../utils/MaasError";
 
-class DocumentModel {
-  constructor(params, populate, bodyRows)
-  {
-    AttributeReader.assertEmptyAttributes(params, function(param) {}); //da inserire l'errore
+class DocumentModel{
+  constructor(params, populate, bodyRows){
+    var self = this;
+
+    //Lettura Attributi Obbligatori
     AttributeReader.readRequiredAttributes(params, this, [
-      "collection", "name"
-    ], function(param) {}); //lancio errore
+      "collection"
+    ], function(param) {
+      throw new MaasError(8000,
+        "Required parameter '" + param + "' in document '" +
+          self.toString() + "'");
+    });
+
     this.query = "{}";
-    AttributeReader.readOptionalAttributes(params, this, [
-        "query"
-      ], function(param) {}) // lancio errore
+
+    //Lettura Attributi Opzionali
+    AttributeReader.readOptionalAttributes(params, this, ["query"]);
+
     this.populate = [];
+
+    //Lettura Attributi Opzionali all'interno di populate
     AttributeReader.readOptionalAttributes(populate, this, [
-      "populate"
-    ]);
-    this.rows = bodyRows;
+      "populate"]);
+      this.rows = bodyRows;
     this.flag = true;
     this.show = false ;
     this.storageResult = [];
     this.secondQuery = [];
     this.count =0;
     this.JSON;
+
+    //Assegnazione delle righe all'interno del parametro rows
+    //this.rows = bodyRows;
+   for(var i=0; i<bodyRows.length; i++)
+    {
+      AttributeReader.readRequiredAttributes(bodyRows[i],this.rows,
+        ["label","name"], function(param){
+        throw new MaasError(8000,
+          "Required parameter '" + param + "' in document.rows '" +
+            self.toString() + "'");
+      });
+    }
+
+    //Lettura Attributi con Valore Vuoto
+    AttributeReader.assertEmptyAttributes(params, function(param) {
+      throw new MaasError(8000,
+      "Unexpected parameter '" + param + "' in document '"
+      + self.toString() + "'");
+    });
   }
 
+  //Metodi della Classe
+
+  //Metodo Creazione Query
   buildQuery()
   {
-    return "db.collection('" + this.collection + "').find(" + this.query +
-      ")";
+    var sostituition1 = this.query.replace("<","'");
+    var sostituition2 = sostituition1.replace("<","'");
+    this.query = sostituition2;
+    return "db.collection('" + this.collection + "').find("
+     + this.query +")";
   }
 
+  //Metodi get
   getCollection()
   {
     return this.collection;
   }
+
   getName()
   {
     return this.name;
   }
+
   getPopulate()
   {
     return this.populate;
   }
+
   getRows()
   {
     return this.rows;
@@ -70,6 +110,8 @@ class DocumentModel {
   {
     return "document";
   }
+
+  //Metodo
   JSONbuild(result)
   {
     return {
