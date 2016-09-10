@@ -186,12 +186,9 @@ syntax cell = function(ctx) {
 
       let param = params.next('expr').value;
       dataReturn = dataReturn.concat(#`${stx}: ${param}`);
-  
+
     // eat ','
     params.next();
   }
   return #`insert(new cellModel({${dataReturn}}));`;
 }
-
-
-
