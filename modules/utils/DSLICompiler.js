@@ -25,13 +25,24 @@ import vm from 'vm';
 var compileDSLI = function(code, errback) {
 	let preCompileFile = macro + code;
 
-	let compiledDSLI = compile(preCompileFile);
+	let compiledDSLI
+	try{
+		compiledDSLI = compile(preCompileFile);
+	} catch(err){
+		errback(err);
+		return null;
+	}
 
 	var obj = undefined;
 	function insert(object){
 	 obj=object;
 	}
-	vm.runInNewContext(compiledDSLI.code, {insert:insert, require:require, cellModel:cellModel, dashboardModel:dashboardModel, collectionModel:collectionModel, documentModel:documentModel});
+	try{
+		vm.runInNewContext(compiledDSLI.code, {insert:insert, require:require, cellModel:cellModel, dashboardModel:dashboardModel, collectionModel:collectionModel, documentModel:documentModel});
+	} catch(err){
+		errback(err);
+		return null;
+	}
 	console.log(obj);
 	return obj;
 };

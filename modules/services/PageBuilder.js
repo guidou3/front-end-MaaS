@@ -18,7 +18,7 @@
 
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
-import {compileDSLI} from '../utils/DSLICompiler';
+import {compileDSLI} from '../utils/DSLICompiler'
 
 class PageBuilder extends Component {
   constructor(props) {

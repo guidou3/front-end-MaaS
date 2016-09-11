@@ -18,6 +18,8 @@ const {MTextBox, MTextArea, MButton, MError} = Components
 import Modal from 'react-modal'
 import { Button } from 'react-bootstrap'
 
+import {compileDSLI} from '../utils/DSLICompiler';
+
 import brace from 'brace';
 import AceEditor from 'react-ace';
 import 'brace/ext/language_tools';
@@ -184,6 +186,17 @@ class Editor extends Component {
           }}>
             Save
           </Button>
+
+
+          <Button bsSize="lg" bsStyle="primary" disabled={save} onClick = {() => {
+            console.log(dsli.code);
+            compileDSLI(dsli.code, (err) => {
+              console.log(err);
+            })
+          }}>
+            Check Syntax
+          </Button>
+
 
           <Button bsSize="lg" bsStyle="primary" onClick = {() => {
             store.dispatch(actions.cloneDSLI(dsli))
