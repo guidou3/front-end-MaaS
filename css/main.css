@@ -203,6 +203,27 @@ border-radius: 0px;
   margin-top: 5%;
 }
 
+.loading {
+  margin-left: 45%;
+  margin-top: 15%;
+  margin-bottom: 15%;
+  font-size:20px;
+}
+
+.error {
+  font-size:30px;
+  color: #FF0000;
+  margin-left: 40%;
+}
+
+.check-error {
+  width: 95%;
+}
+
+.dropdown.btn-group {
+  margin-bottom: 7%;
+}
+
 .Impersonate {
    height: 250px;
    width: auto;

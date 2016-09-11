@@ -93,9 +93,7 @@ class MAdminDSLIRow extends Component {
     return (
       <tr>
         <td>
-          <MLink to="/execdsli" onClick = {() => {
-            store.dispatch(actions.getDSLI(this.props.data.id))
-          }}>
+          <MLink to={"/execdsli?ID="+this.props.data.id}>
             {this.props.data.name}
           </MLink>
         </td>

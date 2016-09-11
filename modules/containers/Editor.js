@@ -16,7 +16,7 @@ import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MTextBox, MTextArea, MButton, MError} = Components
 import Modal from 'react-modal'
-import { Button } from 'react-bootstrap'
+import { Button, Alert } from 'react-bootstrap'
 
 import {compileDSLI} from '../utils/DSLICompiler';
 
@@ -114,9 +114,6 @@ class Editor extends Component {
     if(store.getState().status.result == "error") {
         this.warn = <MError/>
       }
-    else {
-        this.warn = ""
-    }
 
     let save = false
     let del = false
@@ -161,7 +158,7 @@ class Editor extends Component {
            </select>
           </div>
     }
-
+    let result = "primary"
 
     return (
   	  <div className= "Editor">
@@ -179,7 +176,7 @@ class Editor extends Component {
             {combobox}
 
         <EditorAce data={dsli} bool={save}/>
-
+        {this.warn}
         <div className = "buttons">
           <Button bsSize="lg" bsStyle="primary" disabled={save} onClick = {() => {
             store.dispatch(actions.saveTextDSLI(dsli))
@@ -189,11 +186,21 @@ class Editor extends Component {
           </Button>
 
 
-          <Button bsSize="lg" bsStyle="primary" disabled={save} onClick = {() => {
-            console.log(dsli.code);
-            compileDSLI(dsli.code, (err) => {
-              console.log(err);
-            })
+          <Button bsSize="lg" bsStyle={result} disabled={save} onClick = {() => {
+            var error = compileDSLI(dsli.code, (errback) => {  })
+            if(error.err != undefined){
+                this.warn =
+                <Alert  bsStyle="danger" bsClass="alert-danger check-error">
+                  <p>{error.err}</p>
+                </Alert>
+              }
+            else {
+              this.warn =
+              <Alert  bsStyle="success" bsClass="alert-success check-error">
+                <p>There are not any errors. </p>
+              </Alert>
+            }
+            store.dispatch(actions.refresh())
           }}>
             Check Syntax
           </Button>
@@ -213,8 +220,6 @@ class Editor extends Component {
             Delete
           </Button>
         </div>
-
-        {this.warn}
         <Modal isOpen= {this.dialog} style={customStyles} transparent={true}>
           	<div className="modal-dialog modal-sm">
           		<div className="modal-content">

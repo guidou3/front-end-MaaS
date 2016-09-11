@@ -37,7 +37,7 @@ class PageBuilder extends Component {
     if(this.object)
       return this.object.render(store);
     else
-      return <div>Compilando il codice ...</div>;
+      return <div className="loading">Compilando il codice ...</div>;
    }
  }
 
