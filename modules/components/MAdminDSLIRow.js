@@ -58,6 +58,7 @@ class MAdminDSLIRow extends Component {
       combobox = null
       send = null
     }
+    var date = new Date(this.props.data.lastModifiedDate)
 
     return (
       <tr>
@@ -69,7 +70,7 @@ class MAdminDSLIRow extends Component {
             {this.props.data.name}
           </MLink>
         </td>
-        <td>{this.props.data.lastModifiedDate}</td>
+        <td>{date.toUTCString()}</td>
         <td>{this.props.data.accountId}</td>
         {combobox}
         <td>
