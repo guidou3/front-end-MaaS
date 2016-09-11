@@ -43,7 +43,7 @@ class CollectionRow extends Component {
       }
       if(header[i].selectable){
         console.log(this.props.boss.props);
-        body[i] = <td><a href={"/execdsli?ID="+this.props.boss.props.dsli.id+"&SHOW="+this.props.boss.JSON.data.result[i]._id} className="show" onClick = {() => {
+        body[i] = <td><a href={"/execdsli?ID="+this.props.boss.props.dsli.id+"&SHOW="+data._id} className="show" onClick = {() => {
 
         }}>{value.toString()}</a></td>
       }

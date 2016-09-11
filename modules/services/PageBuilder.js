@@ -23,21 +23,15 @@ import {compileDSLI} from '../utils/DSLICompiler';
 class PageBuilder extends Component {
   constructor(props) {
     super(props)
-    this.flag = true;
-    this.flag2 = true;
-    this.show = false ;
-    this.storageResult = [];
-    this.secondQuery = [];
-    this.count =0;
-    this.JSON;
 
     this.object = compileDSLI(this.props.dsli.code);
+    console.log(this.props.location);
+    if(this.props.location.query)
+      this.object.showID = this.props.location.query.SHOW;
    }
 
   render() {
-   const { store } = this.context;
-    var dsli = this.props.dsli;
-    var DSLType = this.object.DSLType();
+    const { store } = this.context
     if(this.object)
       return this.object.render(store);
     else

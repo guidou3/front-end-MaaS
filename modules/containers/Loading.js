@@ -35,7 +35,7 @@ class Loading extends Component {
         });
     }
     if(this.ready){
-      build = <PageBuilder dsli = {store.getState().currentDSLI}/>
+      build = <PageBuilder location = {this.props.location} dsli = {store.getState().currentDSLI}/>
       return <div>{build}</div>
     }
     else
