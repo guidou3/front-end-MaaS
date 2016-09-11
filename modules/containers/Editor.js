@@ -3,6 +3,8 @@ import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MTextBox, MTextArea, MButton, MError} = Components
 import Modal from 'react-modal'
+import { Button } from 'react-bootstrap'
+
 import brace from 'brace';
 import AceEditor from 'react-ace';
 import 'brace/ext/language_tools';
@@ -50,7 +52,7 @@ class EditorAce extends Component {
         theme="monokai"
         name="EditorAce"
         height="30em"
-        width="90%"
+        width="95%"
         setOptions={{
           enableBasicAutocompletion: true,
           enableLiveAutocompletion: true,
@@ -103,12 +105,6 @@ class Editor extends Component {
     let save = false
     let del = false
 
-    if(this.props.data.permits < 3 && this.props.data.permits != 0 && store.getState().loggedUser.accessLevel < 2)
-      del = true
-    if(this.props.data.permits < 2 && this.props.data.permits != 0 && store.getState().loggedUser.accessLevel < 2 ){
-      save = true
-    }
-
     let dsli = store.getState().currentDSLI
     let comp = store.getState().dataList
     let rows = [];
@@ -129,7 +125,10 @@ class Editor extends Component {
            {rows}
          </select>
         </div>
-
+    if(dsli.permits < 3 && dsli.permits != 0 && store.getState().loggedUser.accessLevel < 2){
+      save = null
+      del = null
+    }
     /*let save = (<MButton label = "Save" className="btn main-btn"
                 onClick = {() => {
                   store.dispatch(actions.saveTextDSLI(dsli)).then(() => (store.dispatch(actions.getDSLIList())))
@@ -140,39 +139,44 @@ class Editor extends Component {
                 onClick = {() => {
                   store.dispatch(actions.deleteDSLI(dsli.id)).then(() => (store.dispatch(actions.getDSLIList()))).then(() => (store.dispatch(actions.redirect('/home'))))
               }}/>)*/
-    if(dsli.permits < 3 && dsli.permits != 0 && store.getState().loggedUser.accessLevel < 2){
-      save = null
-      del = null
-    }
+
     return (
   	  <div className= "Editor">
         <div className = "DSLITitle">
           <h2>
             {dsli.name}
-            <MButton label = "Rename DSLI" className="btn main-btn"
-              onClick = {() => {
-                this.dialog = true
-                store.dispatch(actions.refresh())
-            }}/>
+            <Button bsSize="sm" bsStyle="primary" onClick = {() => {
+              this.dialog = true
+              store.dispatch(actions.refresh())
+            }}>
+              Rename DSLI
+            </Button>
             {combobox}
           </h2>
         </div>
         <EditorAce data={dsli}/>
 
         <div className = "buttons">
-          <Button bsSize="xs" bsStyle="primary" disabled={save} onClick = {() => {
-            store.dispatch(actions.getDSLI(this.props.data.id))
-              .then(() => (store.dispatch(actions.getDatabase())))
-              .then(() => (store.dispatch(actions.redirect("/editdsli"))))
+          <Button bsSize="lg" bsStyle="primary" disabled={save} onClick = {() => {
+            store.dispatch(actions.saveTextDSLI(dsli))
+              .then(() => (store.dispatch(actions.getDSLIList())))
           }}>
             Save
           </Button>
-          {del}
-          <MButton label = "Clone" className="btn main-btn"
-            onClick = {() => {
-              store.dispatch(actions.cloneDSLI(dsli))
-              store.dispatch(actions.redirect('/home'))
-          }}/>
+
+          <Button bsSize="lg" bsStyle="primary" onClick = {() => {
+            store.dispatch(actions.cloneDSLI(dsli))
+            store.dispatch(actions.redirect('/home'))
+          }}>
+            Clone
+          </Button>
+          <Button bsSize="lg" bsStyle="danger" disabled={del} onClick = {() => {
+            store.dispatch(actions.deleteDSLI(dsli.id))
+            .then(() => (store.dispatch(actions.getDSLIList())))
+            .then(() => (store.dispatch(actions.redirect('/home'))))
+          }}>
+            Delete
+          </Button>
         </div>
 
         {this.warn}
