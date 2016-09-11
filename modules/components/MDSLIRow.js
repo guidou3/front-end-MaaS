@@ -24,7 +24,7 @@ class MDSLIRow extends Component {
   clone() {
     const { store } = this.context
     let dsli = store.getState().currentDSLI
-    let n = Object.assign({}, dsli, {name:"Clone of "+ dsli.name})
+    let n = Object.assign({}, dsli, {name:"Clone of "+ dsli.name, permits:0})
 		store.dispatch(actions.newDSLI(n)).then(() => (store.dispatch(actions.getDSLIList())))
   }
   render() {
