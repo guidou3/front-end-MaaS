@@ -48,6 +48,7 @@ class MnUser extends Component {
     super(props)
     this.warn = ""
     this.dialog = false
+    this.user=1
   }
 
   render() {
@@ -110,14 +111,23 @@ class MnUser extends Component {
           			<div className="modal-body">
           				<p>Insert the mail of the user to invite</p>
                   <MTextBox type="email" name="email" id="email" className="form-control" placeholder="example@example.com" onWrite={(event) => {this.user = event.target.value}}/>
-          			</div>
+                  <p>Insert the access level</p>
+                  <select name="example" className="input-sm form-control" onChange = {(event) => {
+                     this.level = event.target.value
+                  }}>
+                   <option value={1}>Member</option>
+                   <option value={2}>Admin</option>
+                  </select>
+                </div>
           			<div className="modal-footer">
           				<button type="button" className="btn btn-default" data-dismiss="modal" onClick = {() => {
                     this.dialog = false
                     store.dispatch(actions.refresh())
                   }}>Cancel</button>
                   <MButton type="button" className="btn btn-custom" label="Send Invite" onClick = {() => {
-                    store.dispatch(actions.userRegistration({mail:this.user, companyName:store.getState().loggedUser.company, dutyId:2}))
+                    console.log({mail:this.user, companyName:store.getState().loggedUser.company})
+                    console.log(this.level)
+                    store.dispatch(actions.userRegistration({mail:this.user, companyName:store.getState().loggedUser.company}, this.level))
                     .then(() => (store.dispatch(actions.getUserList())))
                     this.dialog = false
                     store.dispatch(actions.refresh())

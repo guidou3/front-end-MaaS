@@ -109,7 +109,7 @@ describe('The action creator userRegistration:', () => {
       { type: 'userRegistration', user: registrationResult },
     ]
 
-    return store.dispatch(actions.userRegistration(data))
+    return store.dispatch(actions.userRegistration(data, 2))
       .then(function() {
         return expect(store.getActions()).toEqual(expectedActions)
       })
@@ -134,7 +134,7 @@ describe('The action creator userRegistration:', () => {
       { type: 'error', error:404 }
     ]
 
-    return store.dispatch(actions.userRegistration(data))
+    return store.dispatch(actions.userRegistration(data, 2))
       .then(function() {
         return expect(store.getActions()).toEqual(expectedActions)
       })
