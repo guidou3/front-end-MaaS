@@ -1,3 +1,16 @@
+/*
+* Name : SignUp.js
+* Location : ./modules/containers/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-13   Roberto D'Amico
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 import React, { Component, PropTypes } from 'react'
 import Modal from 'react-modal'
 import Components from '../components'

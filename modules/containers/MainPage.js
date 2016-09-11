@@ -1,3 +1,16 @@
+/*
+* Name : MainPage.js
+* Location : ./modules/containers/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-14   Roberto D'Amico
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 // modules/Home.js
 import React from 'react'
 import Components from '../components'

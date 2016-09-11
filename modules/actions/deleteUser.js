@@ -1,3 +1,16 @@
+/*
+* Name : deleteUser.js
+* Location : ./modules/actions/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-15     Guido Santi
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 import request from 'superagent'
 
 export function requestDeleteUser() {

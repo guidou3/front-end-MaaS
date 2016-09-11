@@ -1,3 +1,16 @@
+/*
+* Name : currentUser.js
+* Location : ./modules/reducers/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-17     Guido Santi
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 export default function currentUserReducer(state = 0, action) {
 	switch(action.type) {
 		case 'getUser':

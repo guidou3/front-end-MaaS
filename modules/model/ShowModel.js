@@ -29,40 +29,12 @@ import MaasError from '../utils/MaasError'
 import React from 'react'
 
 class DocumentModel {
-  constructor(params, populate, bodyRows)
+  constructor(id, parent)
   {
-    var self = this;
-    //Lettura Attributi Obbligatori
-    AttributeReader.readRequiredAttributes(params, this, [
-      "collection"
-    ], function(param) {
-      throw new MaasError(8000,
-        "Required parameter '" + param + "' in document '" +
-          self.toString() + "'");
-    });
-
-    //Lettura Attributi Opzionali
-    AttributeReader.readOptionalAttributes(params, this, ["query"]);
-
-
-    //Lettura Attributi Opzionali all'interno di populate
-    AttributeReader.readOptionalAttributes(populate, this, [
-      "populate"]);
-
-      //Assegnazione delle righe all'interno del parametro rows
-      //this.rows = bodyRows;
-      /*self = this.rows;
-      var arrayRow = {};
-      for(var i=0; i<bodyRows.length; i++)
-      {
-        AttributeReader.readRequiredAttributes(bodyRows[i],arrayRow,
-          ["label","name"], function(param){
-          throw new MaasError(8000,
-            "Required parameter '" + param + "' in document.rows '");
-        });
-      }*/
-
-    this.rows = bodyRows;
+    this.rows = parent.getShowRows();
+    this.populate = parent.getPopulateShow();
+    this.query = this.buildQuery(id, parent.getName())
+    
     this.flag = true;
     this.show = false ;
     this.storageResult = [];
@@ -70,17 +42,12 @@ class DocumentModel {
     this.count =0;
     this.JSON;
     this.flag1=true;
-  }
-  //Metodi della Classe
 
-  //Metodo Creazione Query
-  buildQuery()
+  }
+
+  buildQuery(id, model)
   {
-    var stringQuery = '{}';
-    if(this.query)
-      stringQuery = JSON.stringify(this.query);
-    return "db.collection('" + this.collection + "').find(" + stringQuery +
-      ")";
+    return "db.collection('" + model + "').find({_id:'" + id + "'})";
   }
 
   //Metodi get
@@ -101,6 +68,7 @@ class DocumentModel {
   {
     return "document";
   }
+
   JSONbuild(result)
   {
     return {
@@ -118,11 +86,10 @@ class DocumentModel {
 
   render(store){
 
-    var populate = this.getPopulate();
+    var populate = this.populate
     if(this.flag){                                                              //EXECUTES ONCE
       this.flag = false;
-      var query = this.buildQuery();
-      executeQuery(store.getState().currentDSLI, query, store.getState().loggedUser.token, (err,res) =>{                                 //LAUNCH OF A QUERY
+      executeQuery(store.getState().currentDSLI, this.query, store.getState().loggedUser.token, (err,res) =>{                                 //LAUNCH OF A QUERY
         if(err)                                                                 //CALLBACK FUNCTION WHERE QUERY ENDS
           return;
         this.storageResult = Object.assign({}, res);
@@ -137,13 +104,13 @@ class DocumentModel {
           var populateQuery = "db.collection('" + collection +"').find({_id: {$in:['";
           for(var i=0; i<Object.keys(this.storageResult).length ; i++){
             if(this.storageResult[i][attribute]){
-            if(i == (Object.keys(this.storageResult).length-1)){
-              populateQuery = populateQuery + this.storageResult[i][attribute] +"']}})";
+              if(i == (Object.keys(this.storageResult).length-1)){
+                populateQuery = populateQuery + this.storageResult[i][attribute] +"']}})";
+              }
+              else{
+                populateQuery = populateQuery + this.storageResult[i][attribute] +"','";
+              }
             }
-            else{
-              populateQuery = populateQuery + this.storageResult[i][attribute] +"','";
-            }
-          }
           }
           console.log(populateQuery);
           executeQuery(store.getState().currentDSLI, populateQuery, store.getState().loggedUser.token, (err,res) =>{            //SAME THING HERE
@@ -153,11 +120,10 @@ class DocumentModel {
             console.log("RES",res);
             store.dispatch(actions.refresh());
           });
-
         }
       }
 
-console.log("ST",this.storageResult,"SQ",this.secondQuery);
+    console.log("ST",this.storageResult,"SQ",this.secondQuery);
     if(populate.length != 0){
       if(this.storageResult && this.secondQuery && this.count == populate.length){                           //SET SHOW TO TRUE WHEN DATA IS READY
         for(var k=0; k<Object.keys(this.secondQuery).length; k++){

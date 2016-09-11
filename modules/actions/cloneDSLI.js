@@ -1,3 +1,16 @@
+/*
+* Name : cloneDSLI.js
+* Location : ./modules/actions/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-05     Guido Santi
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 import {newDSLI} from './newDSLI'
 import {getDSLIList} from './getDSLIList'
 

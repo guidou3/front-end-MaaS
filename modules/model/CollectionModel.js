@@ -1,52 +1,99 @@
-//import React, { Component, PropTypes } from 'react'
-var AttributeReader = require("../utils/AttributeReader");
-class CollectionModel /*extends Component*/{
+/*jshint esversion: 6 */
+/*
+ * Name : CollectionModel.js
+ * Location : ./modules/model/
+ *
+ * History :
+ *
+ * Version         Date           Programmer
+ * =================================================
+ * 0.1.0           2016-08-12     Berselli Marco
+ * —---------------------------------------------—
+ * Codifica modulo
+ * =================================================
+ * * 0.2.0         2016-08-18    Zamberlan Sebastiano
+ * —---------------------------------------------—
+ * Codifica Modulo, Inserimento dei metodi
+ * =================================================
+ * * 0.3.0         2016-08-22    Zamberlan Sebastiano
+ * —---------------------------------------------—
+ * Inserimento degli errori
+ * =================================================
+ * 1.0.0           2016-09-08    Roberto D'Amico
+ * —---------------------------------------------—
+ * Inserimento del metodo Render
+ * =================================================
+ */
+import AttributeReader from '../utils/AttributeReader'
+import {executeQuery} from '../utils/DSLICompiler'
+import * as actions from '../actions/RootAction'
+import React, { Component, PropTypes } from 'react'
+import CollectionVisualize from './CollectionVisualize'
+import ShowModel from './ShowModel'
+
+class CollectionModel {
   constructor(params, index, show){
-    //super()
-    AttributeReader.assertEmptyAttributes(params,function(param){});//lancio dell'errore
-    AttributeReader.readRequiredAttributes(params,this,["param"],function(param){});//lancio dell'errore
-    AttributeReader.readRequiredAttributes(this.param,this,["name"],function(param){});//lancio dell'errore
-    AttributeReader.assertEmptyAttributes(index,function(param){});//lancio dell'errore
+
+    AttributeReader.readRequiredAttributes(params,this,[
+      "param"],function(param){
+        throw new MaasError(8000,
+          "Required parameter '" + param + "' in collection '" +
+            self.toString() + "'");
+        });
+        //Lettura Attributi con Valore Vuoto
+       AttributeReader.assertEmptyAttributes(params,function(param){
+         throw new MaasError(8000,
+         "Unexpected parameter '" + param + "' in collection '"
+         + self.toString() + "'");
+         });
+
+    //Lettura Attributi Obbligatori dentro l'attributo param
+          AttributeReader.readRequiredAttributes(this.param,this,[
+              "name"],function(param){
+                  throw new MaasError(8000,
+                  "Required parameter '" + param + "' in collection '" +
+                    self.toString() + "'");
+                });
+
     //Index
     this.param = [];
     this.columns = [];
+
+    this.indexPopulate = this.populate;
+
     AttributeReader.readOptionalAttributes(index,this,["param","columns"]);
-    this.populate = [];
-    this.sortby = "{'_id': 1}";
-    this.order = "asc";
+    AttributeReader.assertEmptyAttributes(index,function(param){
+          throw new MaasError(8000,
+          "Unexpected parameter '" + param + "' in collection.index '"
+          + self.toString() + "'");
+        });
+
+        this.populate = [];
+        this.sortby = "{'_id': 1}";
+        this.order = "asc";
     AttributeReader.readOptionalAttributes(this.param,this,["populate","sortby","order","query"]);
+    //Show
     this.indexPopulate = this.populate;
     //Show
     AttributeReader.readOptionalAttributes(show,this,["populate","rows"]);
 
+    this.flag = true;
+    this.show = false ;
+    this.storageResult = [];
+    this.secondQuery = [];
+    this.count =0;
+    this.JSON = null;
+    this.flag1 = true;
   }
+
   getName(){
     return this.name;
   }
-
   getIndexColumns(){
     return this.columns;
   }
   getShowRows(){
     return this.rows;
-  }
-  buildQuery(){ //non sono sicuro di come funzioni page ma teoricamente serve per indicare in che pagina si è spostati
-    var query = "db.collection('" + this.name + "')";
-    if(this.query){
-      query = query + ".find(" + this.query + ")";
-    }
-    else{
-      query = query + ".find()";
-    }
-    if(this.order == "desc")
-    {
-      return query + ".sort(-" + this.sortby + ")";
-    }
-    else
-    {
-      return query + ".sort(" + this.sortby + ")";
-    }
-    return query;
   }
   getPopulate(){
      return this.indexPopulate;
@@ -54,19 +101,120 @@ class CollectionModel /*extends Component*/{
   getPopulateShow(){
     return this.populate;
   }
-  buildShowQuery(id){
-    var query = "db.collection(" + this.name + ").find({_id:" + id + "})";
+  DSLType(){
+    return "collection";
+  }
+
+  showJSONbuild(result){
+    return {
+      "properties":{"showRows":this.getShowRows()},
+      "data":{"result":result}
+    };
+  }
+
+  buildQuery(){
+    var stringQuery = '{}';
+    var query = "db.collection('" + this.name + "')";
+    if(this.query)
+    {
+      stringQuery = JSON.stringify(this.query);
+      query = query + ".find(" + stringQuery + ")";
+    }
+    else
+      query = query + ".find()";
+    if(this.order == "desc")
+      return query + ".sort(-" + this.sortby + ")";
+    else
+      return query + ".sort(" + this.sortby + ")";
     return query;
   }
-  DSLType(){
-       return "collection";
-     }
+
   JSONbuild(result){
     return {
       "properties":{"DSLType":this.DSLType(), "indexColumns":this.getIndexColumns(), "showRows":this.getShowRows(), "showPopulate":this.getPopulateShow()},
       "data":{"result":result}
     };
   }
+
+  render(store){
+
+    var populate = this.getPopulate();
+    if(this.flag){
+      this.flag = false;
+
+      if(this.showID){
+        this.showModel = new ShowModel(this.showID, this)
+      }
+      else {
+        var query = this.buildQuery();
+        executeQuery(store.getState().currentDSLI, query, store.getState().loggedUser.token, (err,res) =>{
+          if(err)
+            return;
+          this.storageResult = Object.assign({}, res);
+          store.dispatch(actions.refresh());
+        });
+      }
+    }
+
+    if(populate && this.storageResult.length != 0 && this.flag1){
+      this.flag1 = false;
+      for(var k =0; k< populate.length; k++){
+        this.count ++;
+        var collection = populate[k].model;
+        var attribute = populate[k].path;
+        var populateQuery = "db.collection('" + collection +"').find({_id: {$in:['";
+        for(let i=0; i<Object.keys(this.storageResult).length ; i++){
+          if(this.storageResult[i][attribute]){
+            if(i == (Object.keys(this.storageResult).length-1)){
+              populateQuery = populateQuery + this.storageResult[i][attribute] +"']}})";
+            }
+            else{
+              populateQuery = populateQuery + this.storageResult[i][attribute] +"','";
+            }
+          }
+        }
+        executeQuery(store.getState().currentDSLI, populateQuery, store.getState().loggedUser.token, (err,res) =>{            //SAME THING HERE
+          if(err)
+            return;
+          this.secondQuery.push(Object.assign({}, res));
+          store.dispatch(actions.refresh());
+        });
+      }
+    }
+
+    if(populate.length != 0){
+      if(this.storageResult && this.secondQuery && this.count == populate.length){                           //SET SHOW TO TRUE WHEN DATA IS READY
+        for(var k=0; k<Object.keys(this.secondQuery).length; k++){
+          var attribute = populate[k].path;
+           for(var i=0; i<Object.keys(this.storageResult).length; i++){
+            var id = this.storageResult[i][attribute];
+            for(var j=0; j<Object.keys(this.secondQuery[k]).length; j++){
+              if(this.secondQuery[k][j]._id == id){
+                this.storageResult[i][attribute] = this.secondQuery[k][j];
+              }
+            }
+          }
+        }
+        if(this.storageResult.length != 0){
+          this.show = true;
+          this.JSON=this.JSONbuild(this.storageResult);
+        }
+      }
+    }
+    else if(this.storageResult && this.storageResult.length != 0){
+      this.show = true;
+      this.JSON=this.JSONbuild(this.storageResult);
+    }
+
+    if(this.showModel){
+      return this.showModel.render(store)
+    }
+    else if(this.show){
+      return <CollectionVisualize dsli = {store.getState().currentDSLI} JSON = {this.JSON}/>
+    }
+    else
+      return <div>Eseguendo le query ...</div>
+  }
 }
-module.exports = CollectionModel;
-//export default cell
+
+export default CollectionModel

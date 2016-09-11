@@ -1,3 +1,16 @@
+/*
+* Name : Editor.js
+* Location : ./modules/containers/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-09   Roberto D'Amico
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
@@ -77,8 +90,8 @@ class MSelectData extends Component {
 
   render() {
     return (
-      <option value={this.props.data.tag}>
-        {this.props.db == this.props.data.tag ? this.props.data.tag+ "\u2713" : this.props.data.tag}
+      <option value={this.props.data.id}>
+        {this.props.db == this.props.data.id ? this.props.data.tag+ "\u2713" : this.props.data.tag}
       </option>
     )
   }

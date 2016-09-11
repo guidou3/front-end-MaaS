@@ -1,3 +1,16 @@
+/*
+* Name : userRegistration.js
+* Location : ./modules/actions/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-17     Guido Santi
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 import request from 'superagent'
 import {push} from 'react-router-redux'
 
@@ -64,7 +77,7 @@ export function userRegistration(data, role) {
 	return function(dispatch, getState, api){
 		dispatch(requestUserRegistration())
 		return request
-			.post(api + 'companies/'+data.companyName+'/users')
+			.post(api + 'companies/'+data.companyName+'/users?access_token='+getState().loggedUser.token)
 			.send({
 				email: data.mail,
 				password: "asd",

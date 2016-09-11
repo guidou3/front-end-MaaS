@@ -1,3 +1,16 @@
+/*
+* Name : RecoverPassword.js
+* Location : ./modules/containers/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-05   Roberto D'Amico
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 import React, { Component, PropTypes } from 'react'
 import Components from '../components'
 const {MTextBox,  MError} = Components

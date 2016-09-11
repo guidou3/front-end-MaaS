@@ -1,3 +1,17 @@
+/*
+* Name : companyRegistrationjs
+* Location : ./modules/actions/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-12    Guido Santi
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
+//le funzioni receive...
 import request from 'superagent'
 import {push} from 'react-router-redux'
 import {userRegistration} from './userRegistration'

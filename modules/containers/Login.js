@@ -1,3 +1,16 @@
+/*
+* Name : Login.js
+* Location : ./modules/containers/
+*
+* History :
+*
+* Version         Date           Programmer
+* =================================================
+* 0.1.0           2016-08-12  Roberto D'Amico
+* -------------------------------------------------
+* Codifica modulo
+* =================================================
+*/
 import React, { Component, PropTypes } from 'react'
 import {push} from 'react-router-redux'
 import * as actions from '../actions/RootAction'
