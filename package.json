@@ -4,6 +4,7 @@
   "description": "Client dell'applicazione MaaS",
   "main": "index.js",
   "dependencies": {
+    "file-saver": "^1.3.2",
     "fs": "0.0.2",
     "includes-loader": "^0.1.0",
     "react": "^0.14.8",
@@ -22,7 +23,6 @@
     "redux-persist": "^3.5.0",
     "redux-promise-middleware": "^3.0.0",
     "redux-thunk": "^2.1.0",
-    "save-as": "^0.1.7",
     "superagent": "^2.0.0",
     "sweet.js": "^1.0.0"
   },

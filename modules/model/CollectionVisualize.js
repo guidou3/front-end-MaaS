@@ -16,46 +16,46 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MTextBox, MTextArea, MButton} = Components
-import saveAs from 'save-as'
+import { DropdownButton, MenuItem } from 'react-bootstrap'
+import Save from 'react-file-download'
 
 class CollectionRow extends Component {
   constructor(props) {
     super(props)
   }
+
   render() {
     let body = []
     let data = this.props.data
     let header = this.props.header.indexColumns
     for (let i = 0; i < header.length; i++) {
-      var r = header[i].name.split('.');
-      var value
-      if(r.length > 1){
-        if(data[r[0]] && data[r[0]][r[1]])
-          value = data[r[0]][r[1]]
-        else
-          value = '/'
-      }
-      else{
-        if(data[r[0]])
-          value = data[r[0]]
-        else
-          value = '/'
-      }
-      if(header[i].selectable){
-        console.log(this.props.boss.props);
-        body[i] = <td><a href={"/execdsli?ID="+this.props.boss.props.dsli.id+"&SHOW="+data._id} className="show" onClick = {() => {
+      try{
+        var r = header[i].name.split('.');
+        var value
+        if(r.length > 1){
+          if(data[r[0]] && data[r[0]][r[1]])
+            value = data[r[0]][r[1]]
+          else
+            value = '/'
+        }
+        else{
+          if(data[r[0]])
+            value = data[r[0]]
+          else
+            value = '/'
+        }
 
-        }}>{value.toString()}</a></td>
+        if(header[i].selectable)
+          body[i] = <td><a href={"/execdsli?ID="+this.props.boss.props.dsli.id+"&SHOW="+data._id} className="show">{value.toString()}</a></td>
+        else
+          body[i] = <td>{value.toString()}</td>
+
+      }catch(err){
+        body[i] = <td>{err.toString()}</td>
       }
-      else
-        body[i] = <td>{value.toString()}</td>
     }
 
-    return (
-      <tr>
-        {body}
-      </tr>
-    )
+    return (<tr>{body}</tr>)
   }
 }
 
@@ -63,11 +63,8 @@ class CollectionVisualize extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
-    console.log("VISUALIZE JSON :");
-    console.log(this.props.JSON);
     this.JSON = this.props.JSON
     this.dsli = this.props.dsli
-    //this.saveJSON()
   }
 
   saveCSV() {
@@ -98,8 +95,8 @@ class CollectionVisualize extends Component {
         text += value.toString()+";"
       }
     }
-    let blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
-    saveAs(blob, this.dsli.name+'.csv')
+
+    Save(text, this.dsli.name+'.csv')
   }
 
   saveJSON() {
@@ -130,8 +127,8 @@ class CollectionVisualize extends Component {
         }
       }
     }
-    let blob = new Blob([JSON.stringify(array)], { type: 'text/plain;charset=utf-8' })
-    saveAs(blob, this.dsli.name+'.json')
+
+    Save(JSON.stringify(array), this.dsli.name+'.json')
   }
 
   render() {
@@ -141,12 +138,12 @@ class CollectionVisualize extends Component {
     for (let i = 0; i < n; i++) {
       header[i] = <th>{prop.indexColumns[i].label}</th>
     }
+    
     let body = []
-    //console.log(Object.keys(this.JSON.data.result).length);
     for (let i = 0; i < Object.keys(this.JSON.data.result).length; i++) {
-    //  console.log(this.JSON.data.result[i]);
       body[i] = <CollectionRow boss={this} header={prop} data={this.JSON.data.result[i]}/>
     }
+
     return (
       <div>
         <div className = "DSLITitle">
@@ -162,6 +159,14 @@ class CollectionVisualize extends Component {
             </tbody>
           </table>
         </div>
+        <DropdownButton bsStyle="primary" title="Export">
+          <MenuItem eventKey="1" onSelect={() => {
+            this.saveCSV()
+          }}>Export csv</MenuItem>
+          <MenuItem eventKey="2" onSelect={() => {
+            this.saveJSON()
+          }}>Export json</MenuItem>
+        </DropdownButton>
       </div>
     )
   }

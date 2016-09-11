@@ -16,39 +16,41 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MTextBox, MTextArea, MButton} = Components
-import saveAs from 'save-as'
+import { DropdownButton, MenuItem } from 'react-bootstrap'
+import Save from 'react-file-download'
 
 class CollectionRow extends Component {
   constructor(props) {
     super(props)
   }
   render() {
-    let body = []
-    let dsli = this.props.dsli
-    let header = this.props.header.rows
-    let row = this.props.row
+    try{
+      let body = []
+      let dsli = this.props.dsli
+      let header = this.props.header.rows
+      let row = this.props.row
 
-    body[0] = <td><b>{header[row].label.toString()}</b></td>
+      body[0] = <td><b>{header[row].label.toString()}</b></td>
 
-    var r = header[row].name.split('.');
-    if(r.length > 1){
-      if(dsli[r[0]] && dsli[r[0]][r[1]])
-        body[1] = <td>{dsli[r[0]][r[1]].toString()}</td>
-      else
-        body[1] = <td>/</td>
+      var r = header[row].name.split('.');
+      if(r.length > 1){
+        if(dsli[r[0]] && dsli[r[0]][r[1]])
+          body[1] = <td>{dsli[r[0]][r[1]].toString()}</td>
+        else
+          body[1] = <td>/</td>
+      }
+      else{
+        if(dsli[r[0]])
+          body[1] = <td>{dsli[r[0]].toString()}</td>
+        else
+          body[1] = <td>/</td>
+      }
+
+      return (<tr>{body}</tr>)
+
+    }catch(err){
+      return (<tr><td><b>Error:</b></td><td>DSLI may be invalid</td></tr>)
     }
-    else{
-      if(dsli[r[0]])
-        body[1] = <td>{dsli[r[0]].toString()}</td>
-      else
-        body[1] = <td>/</td>
-    }
-
-    return (
-      <tr>
-        {body}
-      </tr>
-    )
   }
 }
 
@@ -56,11 +58,8 @@ class CollectionVisualize extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
-    console.log("VISUALIZE JSON :");
-    console.log(this.props.JSON);
     this.JSON = this.props.JSON
     this.dsli = this.props.dsli
-    //this.saveCSV()
   }
 
   saveCSV() {
@@ -88,8 +87,7 @@ class CollectionVisualize extends Component {
       text += "\n"
     }
 
-    let blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
-    saveAs(blob, this.dsli.name+'.csv')
+    Save(text, this.dsli.name+'.csv')
   }
 
   saveJSON() {
@@ -118,8 +116,8 @@ class CollectionVisualize extends Component {
         result[r[0]] = value
       }
     }
-    let blob = new Blob([JSON.stringify(result)], { type: 'text/plain;charset=utf-8' })
-    saveAs(blob, this.dsli.name+'.json')
+
+    Save(JSON.stringify(result), this.dsli.name+'.json')
   }
 
   render() {
@@ -144,6 +142,14 @@ class CollectionVisualize extends Component {
             </tbody>
           </table>
         </div>
+        <DropdownButton bsStyle="primary" title="Export">
+          <MenuItem eventKey="1" onSelect={() => {
+            this.saveCSV()
+          }}>Export csv</MenuItem>
+          <MenuItem eventKey="2" onSelect={() => {
+            this.saveJSON()
+          }}>Export json</MenuItem>
+        </DropdownButton>
       </div>
     )
   }
