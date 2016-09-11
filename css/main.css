@@ -153,6 +153,24 @@ table {
     color:#fff;
 }
 
+.home-header {
+  overflow:hidden;
+}
+.home-header > h2 {
+  float: left;
+  margin-left: 10px;
+}
+
+.home-header > button {
+  float: right;
+  margin-top: 2%;
+  margin-right: 10px;
+}
+
+.table-responsive {
+  overflow:hidden;
+}
+
 .home > .btn {
   margin-left: 30px;
 }

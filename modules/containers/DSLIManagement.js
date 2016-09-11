@@ -56,6 +56,7 @@ class DSLIManagment extends Component {
                 <th>Access level</th>
                 <th>Edit</th>
                 <th>Publish</th>
+                <th>Send</th>
                 <th>Delete</th>
               </tr>
             </thead>
