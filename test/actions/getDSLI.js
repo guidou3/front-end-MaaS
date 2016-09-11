@@ -32,7 +32,7 @@ describe('The action creator getDSLI', () => {
         token:'TOKEN'
       }
     })
-    nock(api + 'companies/'+ store.getState().loggedUser.company+'/dsls/'+ id)
+    nock(api + 'dsl/'+ id)
       .get('?access_token=' + store.getState().loggedUser.token)
       .reply(200, result)
 
@@ -56,7 +56,7 @@ describe('The action creator getDSLI', () => {
         token:'TOKEN'
       }
     })
-		nock(api + 'companies/'+ store.getState().loggedUser.company+'/dsls/'+id )
+		nock(api + 'dsl/'+id )
       .get('?access_token=' + store.getState().loggedUser.token)
       .reply(404, { })
 

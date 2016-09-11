@@ -35,7 +35,7 @@ export function getDSLI(id) {
 	return function(dispatch, getState, api){
 		dispatch(requestDSLI())
 		return request
-			.get(api + 'companies/'+getState().loggedUser.company+'/dsls/'+id+'?access_token='+getState().loggedUser.token)
+			.get(api + 'dsl/'+id+'?access_token='+getState().loggedUser.token)
 			.then(
 				function(result){
 					dispatch(receiveDSLI(true, result.body))
