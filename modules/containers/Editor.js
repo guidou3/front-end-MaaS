@@ -46,6 +46,9 @@ class EditorAce extends Component {
       dsli.code = newValue
     }
     let dsli = this.props.data;
+    let bool = false;
+    if(dsli.permits < 3 && dsli.permits != 0 && store.getState().loggedUser.accessLevel < 2)
+      bool = true;
     return (
       <AceEditor
         mode="javascript"
@@ -56,6 +59,7 @@ class EditorAce extends Component {
         setOptions={{
           enableBasicAutocompletion: true,
           enableLiveAutocompletion: true,
+          readOnly: bool,
           tabSize: 4,
           fontSize: 14,
           showGutter: true,
@@ -126,19 +130,9 @@ class Editor extends Component {
          </select>
         </div>
     if(dsli.permits < 3 && dsli.permits != 0 && store.getState().loggedUser.accessLevel < 2){
-      save = null
-      del = null
+      save = true;
+      del = true;
     }
-    /*let save = (<MButton label = "Save" className="btn main-btn"
-                onClick = {() => {
-                  store.dispatch(actions.saveTextDSLI(dsli)).then(() => (store.dispatch(actions.getDSLIList())))
-                  console.log(dsli);
-              }}/>)*/
-
-    /*let del = (<MButton label = "Delete" className="btn main-btn"
-                onClick = {() => {
-                  store.dispatch(actions.deleteDSLI(dsli.id)).then(() => (store.dispatch(actions.getDSLIList()))).then(() => (store.dispatch(actions.redirect('/home'))))
-              }}/>)*/
 
     return (
   	  <div className= "Editor">
