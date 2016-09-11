@@ -80,10 +80,11 @@ class DocumentModel {
   render(store) {
 
     try{
+      let token = this.guest || store.getState().loggedUser.token;
       var populate = this.populate
       if(this.flag){                                                              //EXECUTES ONCE
         this.flag = false;
-        executeQuery(store.getState().currentDSLI, this.query, store.getState().loggedUser.token, (err,res) =>{                                 //LAUNCH OF A QUERY
+        executeQuery(store.getState().currentDSLI, this.query, token, (err,res) =>{                                 //LAUNCH OF A QUERY
           if(err)                                                                 //CALLBACK FUNCTION WHERE QUERY ENDS
             this.err = err
           else
@@ -107,7 +108,7 @@ class DocumentModel {
                 }
               }
             }
-            executeQuery(store.getState().currentDSLI, populateQuery, store.getState().loggedUser.token, (err,res) =>{            //SAME THING HERE
+            executeQuery(store.getState().currentDSLI, populateQuery, token, (err,res) =>{            //SAME THING HERE
               if(err)                                                                 //CALLBACK FUNCTION WHERE QUERY ENDS
                 this.err = err
               else

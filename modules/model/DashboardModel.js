@@ -90,7 +90,7 @@ class DashboardModel {
   render(store){
     let visual = []
     for (var i=0; i < this.dsliRows.length; i++){
-      console.log(this.dsliRows[i].render(store));
+      this.dsliRows[i].guest = this.guest
       visual[i] = this.dsliRows[i].render(store)
     }
     if(!this.dsliRows)

@@ -27,7 +27,7 @@ class Loading extends Component {
     let build = undefined
     if(!this.fetching){
       this.fetching = true;
-      store.dispatch(actions.getDSLI(this.props.location.query.ID))
+      store.dispatch(actions.getDSLI(this.props.location.query.ID, this.props.location.query.GUEST))
         .then(() => {
           this.ready = true;
           console.log("DONE");

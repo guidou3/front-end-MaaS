@@ -31,11 +31,12 @@ function receiveDSLI(bool, data) {
 	}
 }
 
-export function getDSLI(id) {
+export function getDSLI(id, guestToken) {
 	return function(dispatch, getState, api){
+		let token = guestToken || getState().loggedUser.token
 		dispatch(requestDSLI())
 		return request
-			.get(api + 'dsl/'+id+'?access_token='+getState().loggedUser.token)
+			.get(api + 'dsl/'+id+'?access_token='+token)
 			.then(
 				function(result){
 					dispatch(receiveDSLI(true, result.body))

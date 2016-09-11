@@ -26,9 +26,11 @@ class PageBuilder extends Component {
 
     this.object = compileDSLI(this.props.dsli.code);
     console.log(this.props.location);
-    if(this.props.location.query)
+    if(this.props.location.query){
       this.object.showID = this.props.location.query.SHOW;
-   }
+      this.object.guest = this.props.location.query.GUEST;
+    }
+  }
 
   render() {
     const { store } = this.context

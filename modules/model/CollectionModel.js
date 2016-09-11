@@ -76,6 +76,7 @@ class CollectionModel {
     this.count =0;
     this.JSON = null;
     this.flag1 = true;
+
   }
 
   getName() {
@@ -138,16 +139,18 @@ class CollectionModel {
 
   render(store) {
     try{
+      let token = this.guest || store.getState().loggedUser.token;
       var populate = this.getPopulate();
       if(this.flag){
         this.flag = false;
 
         if(this.showID){
           this.showModel = new ShowModel(this.showID, this)
+          this.showModel.guest = this.guest
         }
         else {
           var query = this.buildQuery();
-          executeQuery(store.getState().currentDSLI, query, store.getState().loggedUser.token, (err,res) =>{
+          executeQuery(store.getState().currentDSLI, query, token, (err,res) =>{
             if(err)
               this.err = err
             else
@@ -174,7 +177,7 @@ class CollectionModel {
               }
             }
           }
-          executeQuery(store.getState().currentDSLI, populateQuery, store.getState().loggedUser.token, (err,res) =>{
+          executeQuery(store.getState().currentDSLI, populateQuery, token, (err,res) =>{
             if(err)
               this.err = err
             else
@@ -217,7 +220,7 @@ class CollectionModel {
     else if(this.showModel)
       return this.showModel.render(store)
     else if(this.show)
-      return <CollectionVisualize dsli = {store.getState().currentDSLI} JSON = {this.JSON}/>
+      return <CollectionVisualize guest = {this.guest} dsli = {store.getState().currentDSLI} JSON = {this.JSON}/>
     else
       return <div>Eseguendo le query ...</div>
   }

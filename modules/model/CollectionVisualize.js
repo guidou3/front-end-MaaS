@@ -45,8 +45,13 @@ class CollectionRow extends Component {
             value = '/'
         }
 
-        if(header[i].selectable)
-          body[i] = <td><a href={"/execdsli?ID="+this.props.boss.props.dsli.id+"&SHOW="+data._id} className="show">{value.toString()}</a></td>
+        if(header[i].selectable){
+          console.log(this.props.boss.props.guest);
+          if(this.props.boss.props.guest)
+            body[i] = <td><a href={"/execdsli?ID="+this.props.boss.props.dsli.id+"&GUEST="+this.props.boss.props.guest+"&SHOW="+data._id} className="show">{value.toString()}</a></td>
+          else
+            body[i] = <td><a href={"/execdsli?ID="+this.props.boss.props.dsli.id+"&SHOW="+data._id} className="show">{value.toString()}</a></td>
+        }
         else
           body[i] = <td>{value.toString()}</td>
 
@@ -138,7 +143,7 @@ class CollectionVisualize extends Component {
     for (let i = 0; i < n; i++) {
       header[i] = <th>{prop.indexColumns[i].label}</th>
     }
-    
+
     let body = []
     for (let i = 0; i < Object.keys(this.JSON.data.result).length; i++) {
       body[i] = <CollectionRow boss={this} header={prop} data={this.JSON.data.result[i]}/>

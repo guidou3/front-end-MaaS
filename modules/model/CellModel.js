@@ -148,11 +148,12 @@ class CellModel {
 
   render(store) {
     try{
+      let token = this.guest || store.getState().loggedUser.token;
       if (this.valueIsQuery()){
         var query = this.buildQuery();
         if (this.flag){
           this.flag = false;
-          executeQuery(store.getState().currentDSLI, query, store.getState().loggedUser.token, (err, res) =>{
+          executeQuery(store.getState().currentDSLI, query, token, (err, res) =>{
             if (err)
               this.err = err
             else
