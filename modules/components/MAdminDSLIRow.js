@@ -18,6 +18,8 @@ import MTextBox from './MTextBox'
 import MLink from './MLink'
 import { Button, DropdownButton, MenuItem, Glyphicon} from 'react-bootstrap'
 import Modal from 'react-modal'
+import MTextBox from './MTextBox'
+
 
 const customStyles = {
   overlay : {
