@@ -90,7 +90,7 @@ class SignUp extends Component {
                                 if(this.name != undefined && this.owner != undefined) {
                                   let data = {
                                     companyName: this.name,
-                                    ownerMail: this.owner
+                                    mail: this.owner
                                   }
                                   store.dispatch({type:'initialize'})
                                   store.dispatch(actions.checkCompanyName(data))

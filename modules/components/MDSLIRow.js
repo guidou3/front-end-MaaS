@@ -17,29 +17,28 @@ class MDSLIRow extends Component {
   render() {
     const { store } = this.context
     let admin = (<td></td>)
-    let edit = "false"
-    let del = "false"
-    let clone = "false"
+    let edit = false
+    let del = false
+    let clone = false
 
     if(this.props.data.permits < 3 && this.props.data.permits != 0 && store.getState().loggedUser.accessLevel < 2)
-      del = "true"
+      del = true
     if(this.props.data.permits < 2 && this.props.data.permits != 0 && store.getState().loggedUser.accessLevel < 2 ){
-      clone = "true"
-      edit = "true"
+      clone = true
+      edit = true
     }
-
+    var date = new Date(this.props.data.lastModifiedDate)
     return (
       <tr>
-        <td>{this.props.data.id}</td>
         <td>
           <MLink to={"/execdsli?ID="+this.props.data.id}>
             {this.props.data.name}
           </MLink>
         </td>
-        <td>{this.props.data.lastModifiedDate}</td>
+        <td>{date.toString()}</td>
         <td>{this.props.data.accountId}</td>
         <td>
-          <Button bsSize="xs" bsStyle="primary"  onClick = {() => {
+          <Button bsSize="xs" bsStyle="primary" disabled={edit} onClick = {() => {
             store.dispatch(actions.getDSLI(this.props.data.id))
               .then(() => (store.dispatch(actions.getDatabase())))
               .then(() => (store.dispatch(actions.redirect("/editdsli"))))
@@ -48,7 +47,7 @@ class MDSLIRow extends Component {
           </Button>
         </td>
         <td>
-         <Button bsSize="xs" bsStyle="primary"  onClick = {() => {
+         <Button bsSize="xs" bsStyle="primary" disabled={clone} onClick = {() => {
            store.dispatch(actions.getDSLI(this.props.data.id))
            .then(() => (this.clone()))
          }}>
@@ -56,7 +55,7 @@ class MDSLIRow extends Component {
          </Button>
        </td>
         <td>
-         <Button bsSize="xs" bsStyle="danger"  onClick = {() => {
+         <Button bsSize="xs" bsStyle="danger" disabled={del} onClick = {() => {
            store.dispatch(actions.deleteDSLI(this.props.data.id)).then(() => (store.dispatch(actions.getDSLIList())))
          }}>
            <Glyphicon glyph="trash"/>

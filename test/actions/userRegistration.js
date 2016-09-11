@@ -10,7 +10,7 @@ const middlewares = [ thunk.withExtraArgument(api) ]
 const mockStore = configureMockStore(middlewares)
 
 const data = {
-	email: 'MAIL',
+	mail: 'MAIL',
 	companyName: 'COMPANY',
 	password: 'PASSWORD',
 	dutyId: 0,
@@ -25,7 +25,7 @@ describe('The action creator checkUsername', () => {
 
   it('should be able to create an action of type "successCheckUsername",', () => {
     const store = mockStore({ })
-    nock(api + 'accounts/'+ data.email+'/exists')
+    nock(api + 'accounts/'+ data.mail+'/exists')
       .get('')
       .reply(200, {exists: false})
 
@@ -43,7 +43,7 @@ describe('The action creator checkUsername', () => {
 
 	it('should be able to create an action of type "failedCheckUsername",', () => {
     const store = mockStore({ })
-    nock(api + 'accounts/'+ data.email+'/exists')
+    nock(api + 'accounts/'+ data.mail+'/exists')
       .get('')
       .reply(200, {exists: true})
 
@@ -60,7 +60,7 @@ describe('The action creator checkUsername', () => {
 
   it('should be able to  create an action of type "error".', () => {
     const store = mockStore({ })
-		nock(api + 'accounts/'+ data.email+'/exists')
+		nock(api + 'accounts/'+ data.mail+'/exists')
       .get('')
       .reply(404, { })
 

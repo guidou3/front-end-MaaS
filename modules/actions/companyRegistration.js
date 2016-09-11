@@ -39,7 +39,7 @@ export function checkCompanyName(data) {
 					}
 					else {
 						return request
-							.get(api + 'accounts/' + data.ownerMail + '/exists')
+							.get(api + 'accounts/' + data.mail + '/exists')
 							.then(
 								function(res){
 									if(res.body.exists) {
@@ -87,7 +87,7 @@ export function companyRegistration(data) {
 			.post(api + 'companies')
 			.send({
 				organization: data.companyName,
-				ownerId: data.ownerMail,
+				ownerId: data.mail,
 				subscribedAt: Date()
 			})
 			.then(function() {

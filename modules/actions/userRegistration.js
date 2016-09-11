@@ -24,7 +24,7 @@ export function checkUsername(data) {
 	return function(dispatch, getState, api){
 		dispatch(requestCheckUsername())
 		return request
-			.get(api + 'accounts/'+ data.email+'/exists')
+			.get(api + 'accounts/'+ data.mail+'/exists')
 			.then(
 				function(res){
 					if(res.body.exists) {
@@ -66,7 +66,7 @@ export function userRegistration(data, role) {
 		return request
 			.post(api + 'companies/'+data.companyName+'/users')
 			.send({
-				email: data.ownerMail,
+				email: data.mail,
 				password: "asd",
 				dutyId: role,
 				subscribedAt: Date(),

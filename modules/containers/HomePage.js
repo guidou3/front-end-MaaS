@@ -58,7 +58,7 @@ class Dashboard extends Component {
     }
     return (
 	  <div className="home">
-        <h2>Welcome to Your Dashboard</h2>
+        <h2>Welcome to Your Home Page</h2>
         <MButton label = "Create DSLI" className="btn main-btn"
           onClick = {() => {
             this.newDSLI = true
@@ -68,7 +68,6 @@ class Dashboard extends Component {
           <table id="mytable" className="table table-bordred table-striped">
             <thead>
               <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Last Modified</th>
                 <th>Author</th>
