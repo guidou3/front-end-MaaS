@@ -5,6 +5,7 @@ const {MTextBox, MTextArea, MButton, MError} = Components
 import Modal from 'react-modal'
 import brace from 'brace';
 import AceEditor from 'react-ace';
+import 'brace/ext/language_tools';
 
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
@@ -53,7 +54,6 @@ class EditorAce extends Component {
         setOptions={{
           enableBasicAutocompletion: true,
           enableLiveAutocompletion: true,
-          enableSnippets: true,
           tabSize: 4,
           fontSize: 14,
           showGutter: true,
@@ -100,6 +100,15 @@ class Editor extends Component {
         this.warn = ""
     }
 
+    let save = false
+    let del = false
+
+    if(this.props.data.permits < 3 && this.props.data.permits != 0 && store.getState().loggedUser.accessLevel < 2)
+      del = true
+    if(this.props.data.permits < 2 && this.props.data.permits != 0 && store.getState().loggedUser.accessLevel < 2 ){
+      save = true
+    }
+
     let dsli = store.getState().currentDSLI
     let comp = store.getState().dataList
     let rows = [];
@@ -121,16 +130,16 @@ class Editor extends Component {
          </select>
         </div>
 
-    let save = (<MButton label = "Save" className="btn main-btn"
+    /*let save = (<MButton label = "Save" className="btn main-btn"
                 onClick = {() => {
                   store.dispatch(actions.saveTextDSLI(dsli)).then(() => (store.dispatch(actions.getDSLIList())))
                   console.log(dsli);
-              }}/>)
+              }}/>)*/
 
-    let del = (<MButton label = "Delete" className="btn main-btn"
+    /*let del = (<MButton label = "Delete" className="btn main-btn"
                 onClick = {() => {
                   store.dispatch(actions.deleteDSLI(dsli.id)).then(() => (store.dispatch(actions.getDSLIList()))).then(() => (store.dispatch(actions.redirect('/home'))))
-              }}/>)
+              }}/>)*/
     if(dsli.permits < 3 && dsli.permits != 0 && store.getState().loggedUser.accessLevel < 2){
       save = null
       del = null
@@ -151,7 +160,13 @@ class Editor extends Component {
         <EditorAce data={dsli}/>
 
         <div className = "buttons">
-          {save}
+          <Button bsSize="xs" bsStyle="primary" disabled={save} onClick = {() => {
+            store.dispatch(actions.getDSLI(this.props.data.id))
+              .then(() => (store.dispatch(actions.getDatabase())))
+              .then(() => (store.dispatch(actions.redirect("/editdsli"))))
+          }}>
+            Save
+          </Button>
           {del}
           <MButton label = "Clone" className="btn main-btn"
             onClick = {() => {

@@ -3,12 +3,47 @@ import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MTextBox, MButton, MTextArea, MError} = Components
 import {Alert} from 'react-bootstrap';
+import Modal from 'react-modal'
+
+const customStyles = {
+  overlay : {
+    position          : 'fixed',
+    top               : 0,
+    left              : 0,
+    right             : 0,
+    bottom            : 0,
+    //backgroundColor   : 'rgba(0, 0, 0, 0.5)'
+  },
+  content : {
+    position          : 'absolute',
+    top               : '50%',
+    left              : '50%',
+    right             : 'none',
+    bottom            : 'none',
+    marginRight       : 'none',
+    //background        : 'rgba(0, 0, 0, 0.5)',
+    outline           : 'none',
+    borderRadius      : 'none',
+    transform         : 'translate(-50%, -50%)',
+    border            : 'none',
+    padding           : 'none'
+  }
+};
 
 class ContactSupport extends Component {
   constructor(props) {
     super(props)
     this.warn = ""
     this.account = "E-mail"
+    this.dialog = false;
+  }
+
+  openModal() {
+    const { store } = this.context
+    if(store.getState().status.result != "error") {
+      this.dialog= true;
+      store.dispatch(actions.refresh())
+    }
   }
 
   render() {
@@ -21,9 +56,6 @@ class ContactSupport extends Component {
     if(store.getState().status.result == "error") {
         this.warn = <MError/>
       }
-    else {
-        this.warn = ""
-    }
 
       return (
         <div className="container">
@@ -70,6 +102,15 @@ class ContactSupport extends Component {
                   if(this.account, this.name, this.message != undefined){
                     this.message = "Sender: "+this.account+"\nName: "+this.name+"\nMessage: \n"+this.message
                     store.dispatch(actions.contactSupport({email:this.account, text:this.message}))
+                    .then(() => (this.openModal()))
+                  }
+                  else {
+                    this.warn =
+                    <Alert bsStyle="danger">
+                      <p>Every field must be filled.</p>
+                    </Alert>
+                    store.dispatch(actions.refresh())
+                    console.log("So?");
                   }
                   console.log("Ebbene?");
                 }} label ="Send a message">
@@ -78,6 +119,28 @@ class ContactSupport extends Component {
             </div>
             </form>
           </div>
+          <Modal isOpen= {this.dialog} style={customStyles} transparent={true}>
+            	<div className="modal-dialog modal-sm">
+            		<div className="modal-content">
+            			<div className="modal-header">
+            				<button type="button" className="close" data-dismiss="modal" onClick = {() => {
+                      this.dialog = false
+                      store.dispatch(actions.refresh())
+                    }}>
+            					<span aria-hidden="true">×</span>
+            					<span className="sr-only">Close</span>
+            				</button>
+            				<h4 className="modal-title">Message sent!</h4>
+            			</div>
+            			<div className="modal-footer">
+            				<button type="button" className="btn btn-default" data-dismiss="modal" onClick = {() => {
+                      this.dialog = false
+                      store.dispatch(actions.refresh())
+                    }}>OK</button>
+            			</div>
+            		</div>
+            	</div>
+          </Modal>
         </div>
       )
 
