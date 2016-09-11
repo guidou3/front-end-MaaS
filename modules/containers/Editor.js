@@ -128,28 +128,45 @@ class Editor extends Component {
     for (i = 0; i < n; i++) {
       rows[i] = <MSelectData data = {comp[i]} db = {dsli.databaseId}/>
     }
-    let combobox =
-         <div className="form-group">
-          <div className="data-label">
-            <h3> Database:   </h3>
-          </div>
-          <select className="form-control" defaultValue={dsli.databaseId} onChange = {(event) => {
-             dsli.databaseId = event.target.value;
-           }}>
-           {rows}
-         </select>
-        </div>
     if(dsli.permits < 3 && dsli.permits != 0 && store.getState().loggedUser.accessLevel < 2){
       save = true;
       del = true;
     }
+    let combobox = ""
+    if(save == true) {
+      combobox =
+           <div className="form-group">
+            <div className="data-label">
+              <h3> Database:   </h3>
+            </div>
+            <select className="form-control" defaultValue={dsli.databaseId} disabled onChange = {(event) => {
+               dsli.databaseId = event.target.value;
+             }}>
+             {rows}
+           </select>
+          </div>
+    }
+    else {
+      combobox =
+           <div className="form-group">
+            <div className="data-label">
+              <h3> Database:   </h3>
+            </div>
+            <select className="form-control" defaultValue={dsli.databaseId} onChange = {(event) => {
+               dsli.databaseId = event.target.value;
+             }}>
+             {rows}
+           </select>
+          </div>
+    }
+
 
     return (
   	  <div className= "Editor">
         <div className = "DSLITitle">
           <h2>
             {dsli.name}
-            <Button bsSize="sm" bsStyle="primary" onClick = {() => {
+            <Button bsSize="sm" bsStyle="primary" disabled={save} onClick = {() => {
               this.dialog = true
               store.dispatch(actions.refresh())
             }}>
