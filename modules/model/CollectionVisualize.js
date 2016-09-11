@@ -16,7 +16,7 @@ import React, { Component, PropTypes } from 'react'
 import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MTextBox, MTextArea, MButton} = Components
-import saveAs from 'save-as'
+import Save from 'react-file-download'
 
 class CollectionRow extends Component {
   constructor(props) {
@@ -98,8 +98,8 @@ class CollectionVisualize extends Component {
         text += value.toString()+";"
       }
     }
-    let blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
-    saveAs(blob, this.dsli.name+'.csv')
+
+    Save(text, this.dsli.name+'.csv')
   }
 
   saveJSON() {
@@ -130,8 +130,8 @@ class CollectionVisualize extends Component {
         }
       }
     }
-    let blob = new Blob([JSON.stringify(array)], { type: 'text/plain;charset=utf-8' })
-    saveAs(blob, this.dsli.name+'.json')
+    
+    Save(JSON.stringify(array), this.dsli.name+'.json')
   }
 
   render() {

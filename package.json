@@ -11,6 +11,7 @@
     "react-bootstrap": "^0.30.3",
     "react-bootstrap-select": "^0.14.0",
     "react-dom": "^0.14.7",
+    "react-file-download": "^0.3.1",
     "react-modal": "^1.4.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.0.0",
