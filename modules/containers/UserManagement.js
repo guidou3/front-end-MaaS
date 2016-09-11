@@ -117,7 +117,7 @@ class MnUser extends Component {
                     store.dispatch(actions.refresh())
                   }}>Cancel</button>
                   <MButton type="button" className="btn btn-custom" label="Send Invite" onClick = {() => {
-                    store.dispatch(actions.userRegistration({ownerMail:this.user, companyName:store.getState().loggedUser.company, dutyId:2}))
+                    store.dispatch(actions.userRegistration({mail:this.user, companyName:store.getState().loggedUser.company, dutyId:2}))
                     .then(() => (store.dispatch(actions.getUserList())))
                     this.dialog = false
                     store.dispatch(actions.refresh())

@@ -34,6 +34,7 @@ import {login, logout, embodyUser} from './login'
 import {setAccessLevel} from './setAccessLevel'
 import {newDSLI} from './newDSLI'
 import {saveTextDSLI} from './saveTextDSLI'
+import {sendDSLI} from './sendDSLI'
 import {getDatabase} from './getDatabase'
 import {addDatabase} from './addDatabase'
 import {checkUsername, userRegistration} from './userRegistration'
@@ -61,6 +62,7 @@ export {
   logout,
   newDSLI,
   saveTextDSLI,
+  sendDSLI,
   checkUsername,
   userRegistration
 }

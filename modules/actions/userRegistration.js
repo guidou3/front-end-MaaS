@@ -77,7 +77,7 @@ export function userRegistration(data, role) {
 	return function(dispatch, getState, api){
 		dispatch(requestUserRegistration())
 		return request
-			.post(api + 'companies/'+data.companyName+'/users?access_token='+getState().loggedUser.token)
+			.post(api + 'companies/'+data.companyName+'/users?access_token='+ getState().loggedUser.token)
 			.send({
 				email: data.mail,
 				password: "asd",

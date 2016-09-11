@@ -24,7 +24,14 @@ describe('The action creator checkUsername', () => {
   })
 
   it('should be able to create an action of type "successCheckUsername",', () => {
-    const store = mockStore({ })
+		const store = mockStore({
+			loggedUser: {
+				accessLevel:3,
+				account:'ACCOUNT',
+				company:'COMPANY',
+				token:'TOKEN'
+			}
+		})
     nock(api + 'accounts/'+ data.mail+'/exists')
       .get('')
       .reply(200, {exists: false})
@@ -85,16 +92,22 @@ describe('The action creator userRegistration:', () => {
     nock.cleanAll()
   })
   it('should be able to  create an action of type "userRegistration",', () => {
-    nock(api + 'companies/'+ data.companyName +'/users')
-      .post('')
+		const store = mockStore({
+			loggedUser: {
+				accessLevel:3,
+				account:'ACCOUNT',
+				company:'COMPANY',
+				token:'TOKEN'
+			}
+		})
+		nock(api + 'companies/'+ data.companyName +'/users')
+      .post('?access_token='+ store.getState().loggedUser.token)
       .reply(200, registrationResult)
 
     const expectedActions = [
       { type: 'waiting', operation:'userRegistration' },
       { type: 'userRegistration', user: registrationResult },
-
     ]
-    const store = mockStore({ DSLI: 0 })
 
     return store.dispatch(actions.userRegistration(data))
       .then(function() {
@@ -104,6 +117,14 @@ describe('The action creator userRegistration:', () => {
 
 
   it('should be able to  create an action of type "error".', () => {
+		const store = mockStore({
+      loggedUser: {
+        accessLevel:3,
+        account:'ACCOUNT',
+        company:'COMPANY',
+        token:'TOKEN'
+      }
+    })
 		nock(api + 'companies/'+ data.companyName +'/users')
       .post('')
       .reply(404, {})
@@ -112,7 +133,6 @@ describe('The action creator userRegistration:', () => {
       { type: 'waiting', operation:'userRegistration' },
       { type: 'error', error:404 }
     ]
-    const store = mockStore({ DSLI: 0 })
 
     return store.dispatch(actions.userRegistration(data))
       .then(function() {

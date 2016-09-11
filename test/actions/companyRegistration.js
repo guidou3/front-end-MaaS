@@ -106,6 +106,14 @@ describe('The action creator companyRegistration:', () => {
     nock.cleanAll()
   })
   it('should be able to  create an action of type "companyRegistration",', () => {
+    const store = mockStore({
+      loggedUser: {
+        accessLevel:3,
+        account:'ACCOUNT',
+        company:'COMPANY',
+        token:'TOKEN'
+      }
+    })
     nock(api +'companies')
       .persist()
       .post('')
@@ -116,7 +124,6 @@ describe('The action creator companyRegistration:', () => {
       { type: 'companyRegistration' },
       {  type: 'waiting', operation:'userRegistration' }
     ]
-    const store = mockStore({ DSLI: 0 })
 
     return store.dispatch(actions.companyRegistration(data))
       .then(function() {
