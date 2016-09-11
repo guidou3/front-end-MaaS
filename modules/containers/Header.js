@@ -25,7 +25,35 @@ class Header extends Component {
     const {store} = this.context
     let list
     if(store.getState().loggedUser != 0){
-      if(store.getState().loggedUser.accessLevel >= 2) {
+      if(store.getState().loggedUser.accessLevel == 9) {
+        list =
+        <Navbar inverse>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <MLink to="/homeDeveloper" className="navbar-brand">
+                <img src="../Immagini/MAAS_white.png" alt="logo MaaS" className="MaaSlogo"/>
+              </MLink>
+            </Navbar.Brand>
+            <Navbar.Toggle/>
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              <LinkContainer to='/homeDeveloper'>
+                <NavItem eventKey={1}>Home</NavItem>
+              </LinkContainer>
+              <NavDropdown eventKey={2} title={store.getState().loggedUser.account} id="basic-nav-dropdown">
+                <LinkContainer to='/profile'>
+                  <MenuItem eventKey={2.1}>Profile</MenuItem>
+                </LinkContainer>
+                <LinkContainer to='/' onClick = {() => { store.dispatch(actions.logout()) }}>
+                  <MenuItem eventKey={2.2}>Logout</MenuItem>
+                </LinkContainer>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      }
+      else if(store.getState().loggedUser.accessLevel >= 2) {
         list =
         <Navbar inverse>
           <Navbar.Header>

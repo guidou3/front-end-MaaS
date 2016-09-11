@@ -63,16 +63,14 @@ class HomeDeveloper extends Component {
     }
 
     return (
-	  <div className="home">
+	  <div className="home developer">
         <h1 className="top title">Welcome Super Admin</h1>
-        <ButtonToolbar>
-          <Button bsStyle="primary" bsSize="large" onClick = {() => {
+          <Button bsStyle="primary" onClick = {() => {
             this.modal = true
             store.dispatch(actions.refresh())
           }}>
-            <Glyphicon glyph="user"/>
+            <img src="../Immagini/Impersonate.png" alt="Impersonate button" className="Impersonate"/>
           </Button>
-        </ButtonToolbar>
 
       {this.warn}
       <Modal isOpen= {this.modal} style={customStyles} transparent={true}>

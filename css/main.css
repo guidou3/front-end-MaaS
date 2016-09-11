@@ -196,7 +196,16 @@ div .top .buttons button {
 
 .btn-lg, .btn-group-lg > .btn {
 border-radius: 0px;
+}
 
+.developer > .btn {
+  margin-left: 35%;
+  margin-top: 5%;
+}
+
+.Impersonate {
+   height: 250px;
+   width: auto;
 }
 /* ===========================================================
    NAVBAR CHANGES
