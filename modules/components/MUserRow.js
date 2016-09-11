@@ -30,13 +30,11 @@ class MUserRow extends Component {
         <option value='2'>{this.props.user.dutyId==2 ? "Admin \u2713" : "Admin"}</option>
        </select>
      </td>
-    let del = "false"
+    let del = false
     if(this.props.user.dutyId > 2) {
         combobox = <td>Owner</td>
+        del = true
       }
-    else {
-      del = "true"
-    }
 
     return (
       <tr>
