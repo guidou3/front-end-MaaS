@@ -52,7 +52,7 @@ class MDSLIRow extends Component {
             {this.props.data.name}
           </MLink>
         </td>
-        <td>{date.toString()}</td>
+        <td>{date.toUTCString()}</td>
         <td>{type}</td>
         <td>{this.props.data.accountId}</td>
         <td>
