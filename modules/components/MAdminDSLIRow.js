@@ -33,7 +33,14 @@ class MAdminDSLIRow extends Component {
   render() {
     const { store } = this.context
     let access = this.props.data.permits
-
+    let send =
+      <td>
+        <Button bsSize="xs" bsStyle="primary" onClick = {() => {
+          store.dispatch(actions.getDSLI(this.props.data.id)).then(() => (store.dispatch(actions.redirect("/editdsli"))))
+        }}>
+          <Glyphicon glyph="envelope"/>
+        </Button>
+      </td>
     let combobox =
                   <td>
                    <div className="form-group">
@@ -47,8 +54,11 @@ class MAdminDSLIRow extends Component {
                 </td>
     if(access == 0)
       combobox = <td><div className="form-group">Private &#10003;</div></td>
-    if(!this.props.showPermits)
+    if(!this.props.showPermits){
       combobox = null
+      send = null
+    }
+
     return (
       <tr>
         <td>{this.props.data.id}</td>
@@ -77,6 +87,7 @@ class MAdminDSLIRow extends Component {
             <Glyphicon glyph="globe"/>
           </Button>
         </td>
+        {send}
         <td>
           <Button bsSize="xs" bsStyle="danger"  onClick = {() => {
             store.dispatch(actions.deleteDSLI(this.props.data.id)).then(() => (store.dispatch(actions.getDSLIList())))

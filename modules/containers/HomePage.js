@@ -16,6 +16,7 @@ import * as actions from '../actions/RootAction'
 import Components from '../components'
 const {MButton, MDSLIRow, MTextBox, MError} = Components
 import Modal from 'react-modal'
+import { Button } from 'react-bootstrap'
 
 const customStyles = {
   overlay : {
@@ -71,12 +72,15 @@ class Dashboard extends Component {
     }
     return (
 	  <div className="home">
+      <div className="home-header">
         <h2>Welcome to Your Home Page</h2>
-        <MButton label = "Create DSLI" className="btn main-btn"
-          onClick = {() => {
-            this.newDSLI = true
-            store.dispatch(actions.refresh())
-        }}/>
+        <Button bsSize="large" bsStyle="primary" onClick = {() => {
+          this.newDSLI = true
+          store.dispatch(actions.refresh())
+        }}>
+          Create DSLI
+        </Button>
+      </div>
         <div className="table-responsive">
           <table id="mytable" className="table table-bordred table-striped">
             <thead>

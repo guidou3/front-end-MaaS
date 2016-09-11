@@ -69,7 +69,7 @@ class MDSLIRow extends Component {
            store.dispatch(actions.getDSLI(this.props.data.id))
            .then(() => (this.clone()))
          }}>
-           <Glyphicon glyph="share"/>
+           <Glyphicon glyph="share-alt"/>
          </Button>
        </td>
         <td>
