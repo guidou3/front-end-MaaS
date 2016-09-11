@@ -64,7 +64,7 @@ class HomeDeveloper extends Component {
 
     return (
 	  <div className="home">
-        <h2>Welcome Super Admin</h2>
+        <h1 className="top title">Welcome Super Admin</h1>
         <ButtonToolbar>
           <Button bsStyle="primary" bsSize="large" onClick = {() => {
             this.modal = true

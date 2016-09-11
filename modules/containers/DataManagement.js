@@ -16,6 +16,7 @@ import * as actions from '../actions/RootAction'
 import Modal from 'react-modal'
 import Components from '../components'
 const {MTextBox, MButton, MDataRow, MError} = Components
+import { Button, DropdownButton, MenuItem } from 'react-bootstrap'
 
 const customStyles = {
   overlay : {
@@ -70,16 +71,22 @@ class MnData extends Component {
     }
     return (
   	  <div className="home">
-        <h2>Database Managment</h2>
-        <MButton label = "Add new database" className="btn main-btn"
-          onClick = {() => {
-            this.dialog = true
-            store.dispatch(actions.refresh())
-        }}/>
-        <MButton label = "Refresh list" className="btn main-btn"
-          onClick = {() => {
-            store.dispatch(actions.getDatabase())
-        }}/>
+        <div className="top">
+          <h1 className="title">Database Managment</h1>
+          <div className="buttons">
+            <Button bsStyle="primary" onClick = {() => {
+              this.dialog = true
+              store.dispatch(actions.refresh())
+            }}>
+              Add database
+            </Button>
+            <Button bsStyle="primary" onClick = {() => {
+              store.dispatch(actions.refresh())
+            }}>
+              Refresh
+            </Button>
+          </div>
+        </div>
         <div className="table-responsive">
           <table id="mytable" className="table table-bordred table-striped">
             <thead>

@@ -165,18 +165,19 @@ class Editor extends Component {
 
     return (
   	  <div className= "Editor">
-        <div className = "DSLITitle">
-          <h2>
+        <div className = "top">
+          <h1 className = "title">
             {dsli.name}
-            <Button bsSize="sm" bsStyle="primary" disabled={save} onClick = {() => {
-              this.dialog = true
-              store.dispatch(actions.refresh())
-            }}>
-              Rename DSLI
-            </Button>
-            {combobox}
-          </h2>
+          </h1>
+          <Button bsClass="buttons btn" bsStyle="primary" disabled={save} onClick = {() => {
+            this.dialog = true
+            store.dispatch(actions.refresh())
+          }}>
+            Rename DSLI
+          </Button>
         </div>
+            {combobox}
+
         <EditorAce data={dsli} bool={save}/>
 
         <div className = "buttons">

@@ -16,6 +16,7 @@ import * as actions from '../actions/RootAction'
 import Modal from 'react-modal'
 import Components from '../components'
 const {MTextBox, MButton, MUserRow, MError} = Components
+import { Button } from 'react-bootstrap'
 
 const customStyles = {
   overlay : {
@@ -69,15 +70,14 @@ class MnUser extends Component {
     }
     return (
   	  <div className="userManagement">
-        <h2>User Managment</h2>
-        <div className="form-group">
-            <label htmlFor="email" className="sr-only">Email</label>
-            <MTextBox boxType="text" name="email" id="email" className="form-control" placeholder="somebody@example.com" onWrite={(event) => {this.user = event.target.value}}/>
-            <MButton label = "Send Invite" className="btn-lg btn main-btn "
-              onClick = {() => {
-                this.dialog = true
-                store.dispatch(actions.userRegistration({ownerMail:this.user, companyName:store.getState().loggedUser.company, dutyId:2})).then(() => (store.dispatch(actions.getUserList())))
-            }}/>
+        <div className="top">
+          <h1 className="title">User Managment</h1>
+          <Button bsClass="buttons btn" bsStyle="primary" onClick = {() => {
+            this.dialog = true
+            store.dispatch(actions.refresh())
+          }}>
+            Send Invite
+          </Button>
         </div>
         <div className="table-responsive">
           <table id="mytable" className="table table-bordred table-striped">
@@ -105,13 +105,23 @@ class MnUser extends Component {
           					<span aria-hidden="true">×</span>
           					<span className="sr-only">Close</span>
           				</button>
-          				<h4 className="modal-title">Invite sent</h4>
+          				<h4 className="modal-title">Invite new user!</h4>
+          			</div>
+          			<div className="modal-body">
+          				<p>Insert the mail of the user to invite</p>
+                  <MTextBox type="email" name="email" id="email" className="form-control" placeholder="example@example.com" onWrite={(event) => {this.user = event.target.value}}/>
           			</div>
           			<div className="modal-footer">
           				<button type="button" className="btn btn-default" data-dismiss="modal" onClick = {() => {
                     this.dialog = false
                     store.dispatch(actions.refresh())
-                  }}>OK</button>
+                  }}>Cancel</button>
+                  <MButton type="button" className="btn btn-custom" label="Send Invite" onClick = {() => {
+                    store.dispatch(actions.userRegistration({ownerMail:this.user, companyName:store.getState().loggedUser.company, dutyId:2}))
+                    .then(() => (store.dispatch(actions.getUserList())))
+                    this.dialog = false
+                    store.dispatch(actions.refresh())
+                  }}/>
           			</div>
           		</div>
           	</div>

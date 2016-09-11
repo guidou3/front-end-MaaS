@@ -72,9 +72,9 @@ class Dashboard extends Component {
     }
     return (
 	  <div className="home">
-      <div className="home-header">
-        <h2>Welcome to Your Home Page</h2>
-        <Button bsSize="large" bsStyle="primary" onClick = {() => {
+      <div className="top">
+        <h1 className="title">Welcome to Your Home Page</h1>
+        <Button bsClass="buttons btn" bsStyle="primary" onClick = {() => {
           this.newDSLI = true
           store.dispatch(actions.refresh())
         }}>

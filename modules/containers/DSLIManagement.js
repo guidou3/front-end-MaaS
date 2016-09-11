@@ -44,13 +44,15 @@ class DSLIManagment extends Component {
     }
     return (
   	  <div>
-        <h2>DSLI Managment</h2>
+        <div className="top">
+          <h1 className="title">DSLI Managment</h1>
+        </div>
         <div className="table-responsive">
           <table id="mytable" className="table table-bordred table-striped">
             <thead>
               <tr>
-                <th>Id</th>
                 <th>Name</th>
+                <th>Id</th>
                 <th>Last Modified</th>
                 <th>Author</th>
                 <th>Access level</th>
