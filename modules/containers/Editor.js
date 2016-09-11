@@ -46,9 +46,7 @@ class EditorAce extends Component {
       dsli.code = newValue
     }
     let dsli = this.props.data;
-    let bool = false;
-    if(dsli.permits < 3 && dsli.permits != 0 && store.getState().loggedUser.accessLevel < 2)
-      bool = true;
+    let bool = this.props.bool;
     return (
       <AceEditor
         mode="javascript"
@@ -78,7 +76,6 @@ class MSelectData extends Component {
   }
 
   render() {
-    const { store } = this.context
     return (
       <option value={this.props.data.tag}>
         {this.props.db == this.props.data.tag ? this.props.data.tag+ "\u2713" : this.props.data.tag}
@@ -148,7 +145,7 @@ class Editor extends Component {
             {combobox}
           </h2>
         </div>
-        <EditorAce data={dsli}/>
+        <EditorAce data={dsli} bool={save}/>
 
         <div className = "buttons">
           <Button bsSize="lg" bsStyle="primary" disabled={save} onClick = {() => {

@@ -70,6 +70,7 @@ class Dashboard extends Component {
               <tr>
                 <th>Name</th>
                 <th>Last Modified</th>
+                <th>Type</th>
                 <th>Author</th>
                 <th>Edit</th>
                 <th>Clone</th>

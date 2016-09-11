@@ -28,6 +28,10 @@ class MDSLIRow extends Component {
       edit = true
     }
     var date = new Date(this.props.data.lastModifiedDate)
+
+    let type =""
+    if(this.props.data.permits != 0) type = "Public"
+    else type = "Private"
     return (
       <tr>
         <td>
@@ -36,6 +40,7 @@ class MDSLIRow extends Component {
           </MLink>
         </td>
         <td>{date.toString()}</td>
+        <td>{type}</td>
         <td>{this.props.data.accountId}</td>
         <td>
           <Button bsSize="xs" bsStyle="primary" disabled={edit} onClick = {() => {
