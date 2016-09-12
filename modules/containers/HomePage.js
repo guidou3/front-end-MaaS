@@ -74,12 +74,20 @@ class Dashboard extends Component {
 	  <div className="home">
       <div className="top">
         <h1 className="title">Welcome to Your Home Page</h1>
-        <Button bsClass="buttons btn" bsStyle="primary" onClick = {() => {
-          this.newDSLI = true
-          store.dispatch(actions.refresh())
-        }}>
-          Create DSLI
-        </Button>
+        <div className="buttons">
+          <Button bsStyle="primary" onClick = {() => {
+            this.newDSLI = true
+            store.dispatch(actions.refresh())
+          }}>
+            Create DSLI
+          </Button>
+          <Button bsStyle="primary" onClick = {() => {
+            store.dispatch(actions.refresh())
+          }}>
+            Refresh
+          </Button>
+        </div>
+
       </div>
         <div className="table-responsive">
           <table id="mytable" className="table table-bordred table-striped">

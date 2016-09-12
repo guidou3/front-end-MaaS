@@ -145,11 +145,11 @@ class DocumentModel {
     }
 
     if(this.err)
-      return <div>Error: {this.err.message.toString()}</div>
+      return <div className="loading error">Error: {this.err.message.toString()}</div>
     else if (this.show)
       return <DocumentVisualize dsli = {store.getState().currentDSLI} JSON = {this.JSON}/>
     else
-      return <div>Eseguendo le query ...</div>
+      return <div className="loading">Eseguendo le query ...</div>
   }
 }
 

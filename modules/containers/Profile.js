@@ -54,7 +54,7 @@ class Profile extends Component {
     if(store.getState().status.result != "error"){
       this.dialog = true
       store.dispatch(actions.refresh())
-    }  
+    }
   }
 
   render() {
@@ -71,6 +71,7 @@ class Profile extends Component {
     if(n==1) role = "Member"
     else if (n==2) role = "Admin"
     else if (n==3) role = "Owner"
+    else if (n==9) role = "Super Admin"
 
     this.image = 'http://i.stack.imgur.com/HQwHI.jpg'
     return (

@@ -18,7 +18,6 @@
 html, body {
     font-family:'Open Sans', sans-serif;
     font-size:14px;
-    background-image:url(../img/sativa.png);
     padding-top: 2%;
 }
 
@@ -196,7 +195,37 @@ div .top .buttons button {
 
 .btn-lg, .btn-group-lg > .btn {
 border-radius: 0px;
+}
 
+.developer > .btn {
+  margin-left: 35%;
+  margin-top: 5%;
+}
+
+.loading {
+  margin-left: 45%;
+  margin-top: 15%;
+  margin-bottom: 15%;
+  font-size:20px;
+}
+
+.error {
+  font-size:30px;
+  color: #FF0000;
+  margin-left: 40%;
+}
+
+.check-error {
+  width: 95%;
+}
+
+.dropdown.btn-group {
+  margin-bottom: 7%;
+}
+
+.Impersonate {
+   height: 250px;
+   width: auto;
 }
 /* ===========================================================
    NAVBAR CHANGES

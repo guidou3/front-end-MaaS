@@ -40,7 +40,7 @@ class Loading extends Component {
       return <div>{build}</div>
     }
     else
-      return <div>Caricando la DSLI ...</div>
+      return <div className="loading">Caricando la DSLI ...</div>
   }
 }
 

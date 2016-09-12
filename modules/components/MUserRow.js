@@ -40,7 +40,6 @@ class MUserRow extends Component {
       <tr>
         <td>{this.props.user.email}</td>
         {combobox}
-        <td>Profilo</td>
         <td>
           <Button bsSize="xs" bsStyle="danger" disabled={del} onClick = {() => {
             store.dispatch(actions.deleteUser(this.props.user.email)).then(() => (store.dispatch(actions.getUserList())))

@@ -94,7 +94,7 @@ class DashboardModel {
       visual[i] = this.dsliRows[i].render(store)
     }
     if(!this.dsliRows)
-      return <div>Eseguendo le query ...</div>
+      return <div className="loading">Eseguendo le query ...</div>
     else{
       console.log(visual);
       return <div>{visual}</div>
