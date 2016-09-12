@@ -48,10 +48,17 @@ const customStyles = {
 
 class HomeDeveloper extends Component {
   constructor(props) {
-      super(props)
-      this.warn = ""
-      this.modal = false
-    }
+    super(props)
+    this.warn = ""
+    this.modal = false
+  }
+
+  goto(){
+    const {store} = this.context
+    if(!store.getState().status.error)
+      store.dispatch(actions.getDSLIList()).then(() => (store.dispatch(actions.redirect('/home'))))
+  }
+
   render() {
     const {store} = this.context
 
@@ -97,6 +104,8 @@ class HomeDeveloper extends Component {
                 }}>Cancel</button>
                 <MButton type="button" className="btn btn-custom" label="Impersonate" onClick = {() => {
                   store.dispatch(actions.embodyUser(this.mail))
+                    .then(() => (this.goto()))
+
                   this.modal = false
                   store.dispatch(actions.refresh())
                 }}/>
