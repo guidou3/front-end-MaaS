@@ -43,7 +43,7 @@ export function newDSLI(data) {
 				code: data.code,
 				lastModifiedDate: Date(),
 				accountId: getState().loggedUser.account,
-				databseId: data.db,
+				databseId: data.databaseId,
 				permits: data.permits
 			})
 			.then(

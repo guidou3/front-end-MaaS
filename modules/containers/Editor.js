@@ -131,6 +131,8 @@ class Editor extends Component {
       save = true;
       del = true;
     }
+    if(!dsli.databaseId)
+      dsli.databaseId = comp[0].id;
     let combobox = ""
     if(save == true) {
       combobox =
