@@ -4,7 +4,7 @@ import * as actions from '../../modules/actions/RootAction'
 import nock from 'nock'
 import expect from 'expect' // You can use any testing library
 
-const api = 'https://mass-demo.herokuapp.com/api/'
+const api = 'https://maas-demo.herokuapp.com/api/'
 
 const middlewares = [ thunk.withExtraArgument(api) ]
 const mockStore = configureMockStore(middlewares)
@@ -24,7 +24,7 @@ describe('The action creator checkCompanyName:', () => {
       .get('') //da mettere l'url, e i dati inseriti
       .reply(200, {body:{"exists": false}}) //non so cosa restituisca loopback
 
-      nock('https://mass-demo.herokuapp.com/api/accounts/'+ data.mail + '/exists')
+      nock('https://maas-demo.herokuapp.com/api/accounts/'+ data.mail + '/exists')
         .get('') //da mettere l'url, e i dati inseriti
         .reply(200, {body:{"exists": false}}) //non so cosa restituisca loopback
 
@@ -65,7 +65,7 @@ describe('The action creator checkCompanyName:', () => {
       .get('')
       .reply(200, {exists: false})
 
-    nock('https://mass-demo.herokuapp.com/api/accounts/'+ data.mail + '/exists')
+    nock('https://maas-demo.herokuapp.com/api/accounts/'+ data.mail + '/exists')
         .persist()
         .get('')
         .reply(200, {exists: true})
@@ -130,7 +130,6 @@ describe('The action creator companyRegistration:', () => {
         return expect(store.getActions()).toEqual(expectedActions)
       })
   })
-
 
   it('should be able to  create an action of type "error".', () => {
     nock(api +'companies')

@@ -80,7 +80,7 @@ export function userRegistration(data, role) {
 			.post(api + 'companies/'+data.companyName+'/users?access_token='+ getState().loggedUser.token)
 			.send({
 				email: data.mail,
-				password: Date().now.toString(),
+				password: Date.now().toString(),
 				dutyId: role,
 				subscribedAt: Date(),
 				emailVerified: false

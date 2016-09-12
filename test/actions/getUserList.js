@@ -4,7 +4,7 @@ import * as actions from '../../modules/actions/RootAction'
 import nock from 'nock'
 import expect from 'expect' // You can use any testing library
 
-const api = 'https://mass-demo.herokuapp.com/api/'
+const api = 'https://maas-demo.herokuapp.com/api/'
 
 const middlewares = [ thunk.withExtraArgument(api) ]
 const mockStore = configureMockStore(middlewares)

@@ -4,7 +4,7 @@ import * as actions from '../../modules/actions/RootAction'
 import nock from 'nock'
 import expect from 'expect' // You can use any testing library
 
-const api = 'https://mass-demo.herokuapp.com/api/'
+const api = 'https://maas-demo.herokuapp.com/api/'
 
 const middlewares = [ thunk.withExtraArgument(api) ]
 const mockStore = configureMockStore(middlewares)
@@ -32,8 +32,8 @@ describe('The action creator getDSLI', () => {
         token:'TOKEN'
       }
     })
-    nock(api + 'dsl/'+ id)
-      .get('?access_token=' + store.getState().loggedUser.token)
+    nock(api + 'dsl/'+ id+ '/getCode')
+      .post('?access_token=' + store.getState().loggedUser.token)
       .reply(200, result)
 
     const expectedActions = [
@@ -56,8 +56,8 @@ describe('The action creator getDSLI', () => {
         token:'TOKEN'
       }
     })
-		nock(api + 'dsl/'+id )
-      .get('?access_token=' + store.getState().loggedUser.token)
+		nock(api + 'dsl/'+id+ '/getCode' )
+      .post('?access_token=' + store.getState().loggedUser.token)
       .reply(404, { })
 
     const expectedActions = [
