@@ -29,7 +29,6 @@ import
 from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'
 import CellVisualize from './CellVisualize'
-import MaasError from '../utils/MaasError'
 import React from 'react'
 
 class CellModel {

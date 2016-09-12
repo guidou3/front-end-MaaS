@@ -34,7 +34,10 @@ export function sendDSLI(id, mail) {
 	return function(dispatch, getState, api){
 		dispatch(requestSendDSLI())
 		return request
-			.post(api + 'accounts/sendDSLI?access_token='+getState().loggedUser.token)
+			.post(api + 'dsl/'+id+'/sendDSLI?access_token='+getState().loggedUser.token)
+			.send({
+				email: mail
+			})
 			.then(
 				function(){
 					dispatch(receiveSendDSLI(true))

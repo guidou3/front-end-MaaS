@@ -41,8 +41,8 @@ import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 import {persistStore, autoRehydrate} from 'redux-persist'
 
-const api = 'https://mass-demo.herokuapp.com/api/'
-//const api = 'http://0.0.0.0:3000/api/'
+//const api = 'https://mass-demo.herokuapp.com/api/'
+const api = 'http://0.0.0.0:3000/api/'
 const goto = routerMiddleware(browserHistory)
 const logger = createLogger()
 const store = createStore(

@@ -25,7 +25,6 @@ import AttributeReader from '../utils/AttributeReader'
 import {executeQuery} from '../utils/DSLICompiler'
 import * as actions from '../actions/RootAction'
 import DocumentVisualize from './DocumentVisualize'
-import MaasError from '../utils/MaasError'
 import React from 'react'
 
 class DocumentModel {

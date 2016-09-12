@@ -49,8 +49,8 @@ var compileDSLI = function(code, errback) {
 
 var executeQuery = function(dsli, data, token, cb) {
 	request
-		.post('https://mass-demo.herokuapp.com/api/dsl/'+dsli.id+'/execute?access_token='+token)
-		.send({query: data.toString()})
+		.post('http://0.0.0.0:3000/api/dsl/'+dsli.id+'/execute')
+		.send({query: data.toString(),token:token})
 		.then(
 			function(result){
 				let res = JSON.parse(result.text)
