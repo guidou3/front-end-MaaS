@@ -49,7 +49,7 @@ var compileDSLI = function(code, errback) {
 
 var executeQuery = function(dsli, data, token, cb) {
 	request
-		.post('http://0.0.0.0:3000/api/dsl/'+dsli.id+'/execute')
+		.post('https://maas-demo.herokuapp.com/api/dsl/'+dsli.id+'/execute')
 		.send({query: data.toString(),token:token})
 		.then(
 			function(result){
