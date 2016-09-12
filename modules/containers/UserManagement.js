@@ -86,7 +86,6 @@ class MnUser extends Component {
               <tr>
                 <th>Mail</th>
                 <th>Access level</th>
-                <th>Profile</th>
                 <th>Delete</th>
               </tr>
             </thead>
